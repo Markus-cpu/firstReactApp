@@ -1,0 +1,16 @@
+.header {
+    grid-area: h;
+    display: flex;
+    align-items: center;
+    background-color: rgb(7, 0, 0);
+  
+  }
+  
+.item {
+  color: rgb(149, 26, 26);
+  font-size: 7.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-left: 150px;
+    
+}

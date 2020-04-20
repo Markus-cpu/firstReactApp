@@ -1,0 +1,12 @@
+.content {
+    grid-area: c;
+    /*background-color: rgb(7, 0, 0);*/
+  }
+  
+  .content-img {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    max-height: 40vh;
+    
+  }

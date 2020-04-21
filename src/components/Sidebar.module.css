@@ -5,16 +5,22 @@
     justify-content: flex-start;
     align-items: center;
     background-color: rgb(7, 0, 0);
+    border-radius: 20px;
     
   }
   
-  .menu-link {
+  .link {
     text-decoration: none;
     color: rgb(149, 26, 26);
     font-weight: 700;
     font-size: 1.5rem;
   }
+
+  .link.active {
+    color: #fff;
+  }
   
   .item {
     text-align: center;
+   
   }

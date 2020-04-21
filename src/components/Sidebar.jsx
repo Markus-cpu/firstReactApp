@@ -1,25 +1,26 @@
 import React from 'react';
-import './Sidebar.module.css';
+import  c from './Sidebar.module.css';
 
+console.log(c);
 
 const Sidebar =()=> {
     return (
-       <div className="sidebar">
-           <nav className="menu">
-               <div className="item">
-                  <a href="#" className="link">Home</a>
+       <div className={c.sidebar}>
+           <nav className={c.menu}>
+               <div className={c.item}>
+                  <a href="#" className={c.link}>Home</a>
                </div>
-               <div className="item">
-                  <a href="#" className="link">About</a>
+               <div className={c.item}>
+                  <a href="#" className={`${c.link} ${c.active}`}>About</a>
                </div>
-               <div className="item">
-                  <a href="#" className="link">Contact</a>
+               <div className={c.item}>
+                  <a href="#" className={c.link}>Contact</a>
                </div>
-               <div className="item">
-                  <a href="#" className="link">Massage</a>
+               <div className={c.item}>
+                  <a href="#" className={c.link}>Massage</a>
                </div>
-               <div className="item">
-                  <a href="#" className="link">Email</a>
+               <div className={c.item}>
+                  <a href="#" className={c.link}>Email</a>
                </div>    
             </nav>
        </div>

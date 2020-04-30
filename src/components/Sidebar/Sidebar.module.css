@@ -1,0 +1,26 @@
+.sidebar {
+    grid-area: s;
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: rgb(7, 0, 0);
+    border-radius: 20px;
+    
+  }
+  
+  .link {
+    text-decoration: none;
+    color: rgb(149, 26, 26);
+    font-weight: 700;
+    font-size: 1.5rem;
+  }
+
+  .link.active {
+    color: #fff;
+  }
+  
+  .item {
+    text-align: center;
+   
+  }

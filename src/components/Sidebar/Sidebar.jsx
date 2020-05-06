@@ -8,19 +8,19 @@ const Sidebar =()=> {
        <div className={c.sidebar}>
            <nav className={c.menu}>
                <div className={c.item}>
-                  <a href="#" className={c.link}>Home</a>
+                  <a href="/home" className={c.link}>Home</a>
                </div>
                <div className={c.item}>
-                  <a href="#" className={`${c.link} ${c.active}`}>About</a>
+                  <a href="/content" className={`${c.link} ${c.active}`}>Content</a>
                </div>
                <div className={c.item}>
-                  <a href="#" className={c.link}>Contact</a>
+                  <a href="/contact" className={c.link}>Contact</a>
                </div>
                <div className={c.item}>
-                  <a href="#" className={c.link}>Massage</a>
+                  <a href="/dialogs" className={c.link}>Dialogs</a>
                </div>
                <div className={c.item}>
-                  <a href="#" className={c.link}>Email</a>
+                  <a href="/email" className={c.link}>Email</a>
                </div>    
             </nav>
        </div>

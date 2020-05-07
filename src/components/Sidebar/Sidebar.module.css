@@ -6,21 +6,26 @@
     align-items: center;
     background-color: rgb(7, 0, 0);
     border-radius: 20px;
-    
-  }
-  
-  .link {
-    text-decoration: none;
-    color: rgb(149, 26, 26);
-    font-weight: 700;
-    font-size: 1.5rem;
-  }
+}
 
-  .link.active {
-    color: #fff;
-  }
+.item a{
+  text-decoration: none;
+  color: rgb(149, 26, 26);
+  font-weight: 700;
+  font-size: 1.5rem;
   
-  .item {
-    text-align: center;
-   
-  }
+}
+
+.item {
+  text-align: center;
+  padding: 10px;
+}
+
+.item a.activeLink{
+  color: #ffffff;
+}
+
+.item a:hover {
+  color: #ffffff;
+}
+

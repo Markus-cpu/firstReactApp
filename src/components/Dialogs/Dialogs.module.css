@@ -1,5 +1,34 @@
-.item {
-    font-size: 1rem;
-    font-weight: 900;
-    color: #e21b1b;
+
+.dialogs {
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+    background-color: #333333;
+    border-radius: 20px;
+    padding: 10px 10px;
+    color: #ffffff;
+    font-size: 1.5rem;
+}
+
+.dialogsItems {
+    border-right: 2px solid rgb(226, 22, 22);
+
+}
+
+.dialog {
+    padding: 10px;
+    margin: 10px;
+}
+
+.massagesItems {
+
+}
+
+.massage {
+    color: #c71818;
+    padding: 10px 10px 10px 20px;
+    max-width: 40%;
+    margin: 10px 10px 10px 30px;
+    border-radius: 10px;
+    background-color: #d1caca;
+
 }

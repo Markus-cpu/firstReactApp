@@ -17,7 +17,7 @@ function App() {
         <Header/>
         <Sidebar/>
         <div className="App-wrapper-content">
-          <Route path="/Dialogs" component={Dialogs}/>
+          <Route exact path="/Dialogs" component={Dialogs}/>
           <Route path="/Content" component={Content}/>
           <Route path="/Home" component={Home}/>
           <Route path="/Contact" component={Contact}/>

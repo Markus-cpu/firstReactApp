@@ -1,5 +1,6 @@
 import React from 'react';
 import  c from './Sidebar.module.css';
+import { NavLink } from 'react-router-dom';
 
 console.log(c);
 
@@ -8,19 +9,19 @@ const Sidebar =()=> {
        <div className={c.sidebar}>
            <nav className={c.menu}>
                <div className={c.item}>
-                  <a href="/home" className={c.link}>Home</a>
+                  <NavLink to="/home" activeClassName={c.activeLink}>Home</NavLink>    
                </div>
                <div className={c.item}>
-                  <a href="/content" className={`${c.link} ${c.active}`}>Content</a>
+                  <NavLink to="/content" activeClassName={c.activeLink}>Content</NavLink>       
                </div>
                <div className={c.item}>
-                  <a href="/contact" className={c.link}>Contact</a>
+                  <NavLink to="/contact" activeClassName={c.activeLink}>Contact</NavLink>            
                </div>
                <div className={c.item}>
-                  <a href="/dialogs" className={c.link}>Dialogs</a>
+                  <NavLink to="/dialogs" activeClassName={c.activeLink}>Dialogs</NavLink>           
                </div>
                <div className={c.item}>
-                  <a href="/email" className={c.link}>Email</a>
+                  <NavLink to="/email" activeClassName={c.activeLink}>Email</NavLink>          
                </div>    
             </nav>
        </div>

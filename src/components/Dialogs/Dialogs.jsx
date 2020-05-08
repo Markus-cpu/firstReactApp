@@ -2,50 +2,48 @@ import React from 'react';
 import c from './Dialogs.module.css';
 import { NavLink } from 'react-router-dom';
 
+
+
+const DialogItem = (props) => {
+
+    let path = '/dialogs/' + props.id;
+    return (
+        <div className={c.dialog}>
+            <NavLink to={path}>{props.name}</NavLink>
+        </div>
+    )
+}
+
+const MassageItem = (props) => {
+    return (
+        <div className={c.massage}>
+            {props.massage}
+        </div>
+    )
+}
+
 const Dialogs = (props) => {
     return (
         <div className={c.dialogs}>
+
             <div className={c.dialogsItems}>
-                <div className={c.dialog}>
-                    <NavLink to="/dialogs/1">Marat</NavLink>
-                </div>
-                <div className={c.dialog}>
-                    <NavLink to="/dialogs/2">Victor</NavLink>
-                </div>
-                <div className={c.dialog}>
-                    <NavLink to="/dialogs/3">Tanya</NavLink>
-                </div>
-                <div className={c.dialog}>
-                    <NavLink to="/dialogs/4">Sveta</NavLink>
-                </div>
-                <div className={c.dialog}>
-                    <NavLink to="/dialogs/5">Mark</NavLink>
-                </div>
-                <div className={c.dialog}>
-                    <NavLink to="/dialogs/6">Leila</NavLink>
-                </div>
+                <DialogItem name="Marat" id="1" />
+                <DialogItem name="Victor" id="2" />
+                <DialogItem name="Tanya" id="3" />
+                <DialogItem name="Sveta" id="4" />
+                <DialogItem name="Mark" id="5" />
+                <DialogItem name="Leila" id="6" />
             </div>
 
             <div className={c.massagesItems}>
-                <div className={c.massage}>
-                    How are you?
-                </div>
-                <div className={c.massage}>
-                    What's up?
-                </div>
-                <div className={c.massage}>
-                    What do you think about me?
-                </div>
-                <div className={c.massage}>
-                   Who Am I?
-                </div>
-                <div className={c.massage}>
-                   You know me, my friend?
-                </div>
-                <div className={c.massage}>
-                   No, I'm not!
-                </div>
+                <MassageItem massage="How are you?"/>
+                <MassageItem massage="What's up?"/>
+                <MassageItem massage="What do you think about me?"/>
+                <MassageItem massage="Who Am I?"/>
+                <MassageItem massage="You know me, my friend?"/>
+                <MassageItem massage="No, I'm not!"/>
             </div>
+            
         </div>
     )
 }

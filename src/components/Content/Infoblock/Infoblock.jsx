@@ -1,30 +1,21 @@
 import React from 'react';
 import c from './Infoblock.module.css';
+import Infoperson from './Infoperson/Infoperson';
+import Myposts from './Myposts/Myposts';
 
 const Infoblock = (props) => {
     return (
         <div>
-            <div className={c.info_block} >
-                <img className={c.avatar} src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/29/2901a6648beaa2944e51565cd2da5a8ba694c02c_full.jpg" alt="" />
-                <div className={c.description}>Mr. Robot</div>
-            </div >
-                <div className={c.info_post}>
-                   My life is impotant!!!
-                <div>
-                    <span className={c.date}>on Google 12.03.1982 Verdana</span>
-                </div>
-                <div className={c.new_post}>
-                    New post
-                </div>
-                <div className={c.items}>
-                    <div className={c.item}>
-                        {props.massage}
-                    </div>
-                    <div className={c.item}>
-                        {props.massage2}
-                    </div>
-                </div>
-            </div>
+            <Infoperson />
+            <Myposts massage="Запоминать группы по номерам не очень удобно. Для простых шаблонов это допустимо, но в сложных регулярных выражениях считать скобки затруднительно. Гораздо лучше – давать скобкам имена.
+
+Это делается добавлением ?<name> непосредственно после открытия скобки.
+
+Например, поищем дату в формате «день-месяц-год»:" massage2="Как вы можете видеть, группы располагаются в свойстве groups результата match.
+
+Чтобы найти не только первую дату, используем флаг g.
+
+Также нам понадобится matchAll, чтобы получить скобочные группы:"/>
         </div>
     )
 }

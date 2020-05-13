@@ -7,7 +7,7 @@
   
   .new_post {
      margin: 20px 0 10px 20px;
-     font-size: 1.5rem;
+     font-size: 1.2rem;
   }
   .item {
     border: 1px solid #333;
@@ -18,6 +18,12 @@
 
   .items {
     max-width: 40%;
+  }
+
+  .avaName {
+    border-radius: 50%;
+    max-width: 50px;
+    min-height: 50px;
   }
   
   

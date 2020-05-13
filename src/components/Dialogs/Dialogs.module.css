@@ -10,17 +10,21 @@
 }
 
 .dialogsItems {
-    border-right: 2px solid rgb(226, 22, 22);
+    border-right: 2px solid rgb(226, 22, 22);  
+}
 
+.dialogsItems a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.dialogsItems a:hover {
+    color: rgb(226, 22, 22);
 }
 
 .dialog {
     padding: 10px;
-    margin: 10px;
-}
-
-.massagesItems {
-
+    margin: 10px; 
 }
 
 .massage {
@@ -30,5 +34,4 @@
     margin: 10px 10px 10px 30px;
     border-radius: 10px;
     background-color: #d1caca;
-
 }

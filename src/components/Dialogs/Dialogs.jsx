@@ -22,28 +22,42 @@ const MassageItem = (props) => {
     )
 }
 
+
+
 const Dialogs = (props) => {
+
+    let dialogsData = [
+        {id: 1, name: 'Marat'},
+        {id: 2, name: 'Victor'},
+        {id: 3, name: 'Tanya'},
+        {id: 4, name: 'Sveta'},
+        {id: 5, name: 'Mark'},
+        {id: 6, name: 'Leila'}
+    ]
+
+    let dialogElements =  dialogsData.map(dialog => <DialogItem name={dialog.name} id={dialog.id} />);
+
+    let messagesData = [
+        {message: 'How are you?'},
+        {message: 'What\'s up?'},
+        {message: 'What do you think about me?'},
+        {message: 'Who Am I?'},
+        {message: 'You know me, my friend?'},
+        {message: 'No, I\'m not!'}
+    ]
+
+    let messageElements = messagesData.map(massage => <MassageItem massage={massage.message}/>) 
     return (
         <div className={c.dialogs}>
 
             <div className={c.dialogsItems}>
-                <DialogItem name="Marat" id="1" />
-                <DialogItem name="Victor" id="2" />
-                <DialogItem name="Tanya" id="3" />
-                <DialogItem name="Sveta" id="4" />
-                <DialogItem name="Mark" id="5" />
-                <DialogItem name="Leila" id="6" />
+                {dialogElements}
             </div>
 
             <div className={c.massagesItems}>
-                <MassageItem massage="How are you?"/>
-                <MassageItem massage="What's up?"/>
-                <MassageItem massage="What do you think about me?"/>
-                <MassageItem massage="Who Am I?"/>
-                <MassageItem massage="You know me, my friend?"/>
-                <MassageItem massage="No, I'm not!"/>
+                {messageElements}
             </div>
-            
+        
         </div>
     )
 }

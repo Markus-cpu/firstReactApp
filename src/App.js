@@ -9,7 +9,7 @@ import Contact from './components/Contact/Contact';
 import Email from './components/Email/Email';
 import {BrowserRouter, Route} from 'react-router-dom';
 
-function App() {
+const  App =(props)=> {
   return (
     <BrowserRouter>
       <div className="App">
@@ -17,13 +17,12 @@ function App() {
         <Header/>
         <Sidebar/>
         <div className="App-wrapper-content">
-          <Route exact path="/Dialogs" component={Dialogs}/>
-          <Route path="/Content" component={Content}/>
-          <Route path="/Home" component={Home}/>
-          <Route path="/Contact" component={Contact}/>
-          <Route path="/Email" component={Email}/>
+          <Route exact path="/Dialogs" render={ () => <Dialogs />} />
+          <Route exact path="/Content" component={Content}/>
+          <Route exact path="/Home" component={Home}/>
+          <Route exact path="/Contact" component={Contact}/>
+          <Route exact path="/Email" component={Email}/>
         </div>
-        
       </div>
     </BrowserRouter>
   )

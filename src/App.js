@@ -10,6 +10,9 @@ import Email from './components/Email/Email';
 import {BrowserRouter, Route} from 'react-router-dom';
 
 const  App =(props)=> {
+
+
+
   return (
     <BrowserRouter>
       <div className="App">
@@ -17,8 +20,8 @@ const  App =(props)=> {
         <Header/>
         <Sidebar/>
         <div className="App-wrapper-content">
-          <Route exact path="/Dialogs" render={ () => <Dialogs />} />
-          <Route exact path="/Content" component={Content}/>
+          <Route exact path="/Dialogs" render={ () => <Dialogs state={props.state.messagesPage} />} />
+          <Route exact path="/Content" render={ () => <Content state={props.state} />}/>
           <Route exact path="/Home" component={Home}/>
           <Route exact path="/Contact" component={Contact}/>
           <Route exact path="/Email" component={Email}/>

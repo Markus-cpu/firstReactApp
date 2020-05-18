@@ -23,6 +23,9 @@ const Sidebar =()=> {
                </div>
                <div className={c.item}>
                   <NavLink to="/email" activeClassName={c.activeLink}>Email</NavLink>          
+               </div>
+               <div className={c.item}>
+                  <NavLink to="/Sidebar/Friends" activeClassName={c.activeLink}>Friends</NavLink>
                </div>    
             </nav>
        </div>

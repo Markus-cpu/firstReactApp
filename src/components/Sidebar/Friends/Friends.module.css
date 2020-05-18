@@ -1,0 +1,4 @@
+.friendsitem {
+    display: flex;
+    flex-flow: row wrap;
+}

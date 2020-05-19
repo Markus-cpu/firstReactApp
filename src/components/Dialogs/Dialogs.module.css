@@ -6,11 +6,11 @@
     border-radius: 20px;
     padding: 10px 10px;
     color: #ffffff;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
 }
 
 .dialogsItems {
-    border-right: 2px solid rgb(226, 22, 22);  
+    border-right: 2px solid rgb(226, 22, 22); 
 }
 
 .dialogsItems a {

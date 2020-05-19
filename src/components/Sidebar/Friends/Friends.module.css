@@ -1,4 +1,14 @@
 .friendsitem {
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: row;
+}
+
+.name {
+    color: #ffffff;
+}
+
+.ava {
+    border-radius: 50%;
+    max-width: 40px;
+    min-height: 40px;
 }

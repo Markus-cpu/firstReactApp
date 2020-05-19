@@ -1,11 +1,14 @@
 import React from 'react';
 import  c from './Sidebar.module.css';
+import Friends from './Friends/Friends';
 import { NavLink } from 'react-router-dom';
 
 console.log(c);
 
-const Sidebar =()=> {
-
+const Sidebar =(props)=> {
+   
+    let friendsElements =  props.state.dialogsData.slice(0, 3).map(dialog  => <Friends name={dialog.name} id={dialog.id} ava={dialog.ava}/>);
+    
     return (
        <div className={c.sidebar}>
            <nav className={c.menu}>
@@ -25,9 +28,10 @@ const Sidebar =()=> {
                   <NavLink to="/email" activeClassName={c.activeLink}>Email</NavLink>          
                </div>
                <div className={c.item}>
-                  <NavLink to="/Sidebar/Friends" activeClassName={c.activeLink}>Friends</NavLink>
-               </div>    
+                  <NavLink to="/Friends" activeClassName={c.activeLink}>Friends</NavLink>          
+               </div>     
             </nav>
+            {friendsElements}
        </div>
     );
 }

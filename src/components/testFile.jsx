@@ -28,8 +28,8 @@ const Content = () => {
                         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Porro harum voluptas quos ullam impedit autem dolorem, alias, 
                         reprehenderit, nisi nam aspernatur! Quidem modi dolor deserunt repellendus. Eos recusandae sequi debitis accusamus, 
                         porro odio eius pariatur laboriosam architecto possimus facilis, ducimus facere dicta eveniet esse perferendis quidem dignissimos. 
-                        Velit, harum! Nostrum cupiditate ut laborum inventore, accusantium placeat a dolores. 
-                        Eveniet omnis distinctio officia quos nemo sunt perspiciatis id aperiam.
+                        Velit, harum! Nostrum cupiditate ut laborum inventore, accusantium placeat a dolores.
+                        <span>Eveniet omnis distinctio officia quos nemo sunt perspiciatis id aperiam.</span>
                     </div>
                 </div>
             </div>
@@ -38,3 +38,5 @@ const Content = () => {
 }
 
 export default Content;
+
+

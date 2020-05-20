@@ -1,0 +1,15 @@
+import React from 'react';
+import c from './MenuLink.module.css';
+import { NavLink } from 'react-router-dom';
+
+const MenuLink =(props)=> {
+
+    let path = '/sidebar/' + props.path;
+    return (
+       <nav className={c.menu}>
+           <NavLink to={path} activeClassName={c.activelink}>{props.link}</NavLink>
+       </nav>
+    )
+}
+
+export default MenuLink;

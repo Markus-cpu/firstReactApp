@@ -22,11 +22,11 @@ export let state = {
     sidebar: {
         menuLink: [
             {link: 'Home', path: '/home'},
-            {link: 'Content'},
-            {link: 'Contact'},
-            {link: 'Dialogs'},
-            {link: 'Email'},
-            {link: 'Friends'}
+            {link: 'Content', path: '/content'},
+            {link: 'Contact', path: '/contact'},
+            {link: 'Dialogs', path: '/dialogs'},
+            {link: 'Email', path: '/email'},
+            {link: 'Friends', path: '/friends'}
         ]
     },
 

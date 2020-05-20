@@ -11,14 +11,13 @@ import {BrowserRouter, Route} from 'react-router-dom';
 
 const  App =(props)=> {
 
-
-
   return (
     <BrowserRouter>
       <div className="App">
     
         <Header/>
-        <Sidebar state={props.state.messagesPage}/>
+        <Sidebar state={props.state} />
+
         <div className="App-wrapper-content">
           <Route exact path="/Dialogs" render={ () => <Dialogs state={props.state.messagesPage} />} />
           <Route exact path="/Content" render={ () => <Content state={props.state} />}/>

@@ -29,3 +29,6 @@
   color: #ffffff;
 }
 
+.blockfriend {
+    display: flex;
+}

@@ -7,7 +7,9 @@ const MenuLink =(props)=> {
     let path = '/sidebar/' + props.path;
     return (
        <nav className={c.menu}>
-           <NavLink to={path} activeClassName={c.activelink}>{props.link}</NavLink>
+           <div className={c.item}>
+              <NavLink to={path} activeClassName={c.activelink}>{props.link}</NavLink>
+           </div>
        </nav>
     )
 }

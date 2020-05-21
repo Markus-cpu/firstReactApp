@@ -1,7 +1,7 @@
 import React from 'react';
 import  c from './Sidebar.module.css';
 import Friends from './Friends/Friends';
-import { NavLink } from 'react-router-dom';
+//import { NavLink } from 'react-router-dom';
 import MenuLink from './MenuLink/MenuLink';
 
 console.log(c);
@@ -14,11 +14,9 @@ const Sidebar =(props)=> {
 
     return (
        <div className={c.sidebar}>
-           <nav className={c.menu}>
-               <div className={c.item}>
-                   {menuElements}
-               </div>
-           </nav>
+
+           {menuElements}
+
 
            {/*<nav className={c.menu}>
                <div className={c.item}>

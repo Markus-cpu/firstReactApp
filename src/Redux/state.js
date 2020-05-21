@@ -21,12 +21,12 @@ export let state = {
 
     sidebar: {
         menuLink: [
-            {link: 'Home', path: '/home'},
-            {link: 'Content', path: '/content'},
-            {link: 'Contact', path: '/contact'},
-            {link: 'Dialogs', path: '/dialogs'},
-            {link: 'Email', path: '/email'},
-            {link: 'Friends', path: '/friends'}
+            {id: 1, link: 'Home', path: '/home'},
+            {id: 2, link: 'Content', path: '/content'},
+            {id: 3, link: 'Contact', path: '/contact'},
+            {id: 4, link: 'Dialogs', path: '/dialogs'},
+            {id: 5, link: 'Email', path: '/email'},
+            {id: 6, link: 'Friends', path: '/friends'}
         ]
     },
 

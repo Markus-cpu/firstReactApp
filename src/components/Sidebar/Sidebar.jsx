@@ -1,8 +1,8 @@
 import React from 'react';
 import  c from './Sidebar.module.css';
 import Friends from './Friends/Friends';
-//import { NavLink } from 'react-router-dom';
-import MenuLink from './MenuLink/MenuLink';
+import { NavLink } from 'react-router-dom';
+//import MenuLink from './MenuLink/MenuLink';
 
 console.log(c);
 
@@ -10,15 +10,15 @@ const Sidebar =(props)=> {
 
 
     let friendsElements =  props.state.messagesPage.dialogsData.slice(0, 3).map(dialog  => <Friends name={dialog.name} id={dialog.id} ava={dialog.ava}/>);
-    let menuElements = props.state.sidebar.menuLink.map(menulink => <MenuLink link={menulink.link} path={menulink.path}/>);
+    //let menuElements = props.state.sidebar.menuLink.map(menulink => <MenuLink link={menulink.link} path={menulink.id}/>);
 
     return (
        <div className={c.sidebar}>
 
-           {menuElements}
+           {/*{menuElements}*/}
 
 
-           {/*<nav className={c.menu}>
+           <nav className={c.menu}>
                <div className={c.item}>
                   <NavLink to="/home" activeClassName={c.activeLink}>Home</NavLink>    
                </div>
@@ -35,9 +35,9 @@ const Sidebar =(props)=> {
                   <NavLink to="/email" activeClassName={c.activeLink}>Email</NavLink>          
                </div>
                <div className={c.item}>
-                  <NavLink to="/Friends" activeClassName={c.activeLink}>Friends</NavLink>          
+                  <NavLink to="/friends" activeClassName={c.activeLink}>Friends</NavLink>
                </div>     
-            </nav>*/}
+            </nav>
             <div className={c.blockfriend}>
                {friendsElements}
             </div>

@@ -35,3 +35,28 @@
     border-radius: 10px;
     background-color: #d1caca;
 }
+
+.addText {
+    padding: 10px 10px 10px 0;
+    max-width: 40%;
+    margin: 10px 10px 10px 30px;
+}
+
+.textarea {
+
+    border: 1px solid #333;
+    padding: 10px;
+    border-radius: 10px;
+    outline: none;
+}
+
+.button {
+
+    padding: 5px 20px;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 10px;
+    cursor: pointer;
+    outline: none;
+    background-color: rgb(226, 19, 19);
+}

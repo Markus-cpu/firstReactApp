@@ -11,13 +11,18 @@ const Infoblock = (props) => {
     
 
     let mypostElement = props.state.mypostData.map(mypost => <Myposts massage={mypost.post} massage2={mypost.post1} />);
+    let newPostElement = React.createRef();
+    let addPost =()=> {
+        let text = newPostElement.current.value;
+        alert(text);
+    }
 
     return (
         <div>
             <Infoperson />
             <div className={c.inputpost}>
-                 <textarea className={c.textarea} rows="10" cols="40" placeholder="Your message here...."></textarea>
-                 <button className={c.button}>Send</button>
+                 <textarea ref={newPostElement} className={c.textarea} rows="10" cols="40" placeholder="Your message here...."></textarea>
+                 <button onClick={ addPost } className={c.button}>Send</button>
             </div>
             {mypostElement}
             

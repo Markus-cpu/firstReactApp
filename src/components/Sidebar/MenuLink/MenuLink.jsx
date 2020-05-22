@@ -2,9 +2,9 @@ import React from 'react';
 import c from './MenuLink.module.css';
 import { NavLink } from 'react-router-dom';
 
-const MenuLink =(props)=> {
+/*const MenuLink =(props)=> {
 
-    let path = '/sidebar/' + props.path;
+    let path = '/sidebar/' + props.id;
     return (
        <nav className={c.menu}>
            <div className={c.item}>
@@ -12,6 +12,6 @@ const MenuLink =(props)=> {
            </div>
        </nav>
     )
-}
+}*/
 
-export default MenuLink;
+//export default MenuLink;

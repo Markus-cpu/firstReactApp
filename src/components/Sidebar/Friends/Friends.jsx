@@ -6,6 +6,7 @@ import { NavLink } from 'react-router-dom';
 const Friends =(props)=> {
     return (
         <div className={c.friendsitem}>
+
             {/*<NavLink to='/friends/' className={c.block}>Friends</NavLink>*/}
             <div className={c.item}>
                 <div className={c.blockinfo}>

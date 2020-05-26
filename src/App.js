@@ -7,26 +7,24 @@ import Dialogs from './components/Dialogs/Dialogs';
 import Home from './components/Home/Home';
 import Contact from './components/Contact/Contact';
 import Email from './components/Email/Email';
-import {BrowserRouter, Route} from 'react-router-dom';
+import {Route} from "react-router-dom";
+
 
 const  App =(props)=> {
 
   return (
-    <BrowserRouter>
+
       <div className="App">
-    
         <Header/>
         <Sidebar state={props.state} />
-
         <div className="App-wrapper-content">
-          <Route exact path="/Dialogs" render={ () => <Dialogs state={props.state.messagesPage} />} />
-          <Route exact path="/Content" render={ () => <Content state={props.state} />}/>
+          <Route exact path="/Dialogs" render={ () => <Dialogs state={props.state.messagesPage} addPost={props.addPost} />} />
+          <Route exact path="/Content" render={ () => <Content state={props.state} addPost={props.addPost} />}/>
           <Route exact path="/Home" component={Home}/>
           <Route exact path="/Contact" component={Contact}/>
           <Route exact path="/Email" component={Email}/>
         </div>
       </div>
-    </BrowserRouter>
   )
 }
 

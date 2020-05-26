@@ -3,18 +3,14 @@ import c from './Infoblock.module.css';
 import Infoperson from './Infoperson/Infoperson';
 import Myposts from './Myposts/Myposts';
 
-
-
-
 const Infoblock = (props) => {
-
-    
 
     let mypostElement = props.state.mypostData.map(mypost => <Myposts massage={mypost.post} massage2={mypost.post1} />);
     let newPostElement = React.createRef();
     let addPost =()=> {
         let text = newPostElement.current.value;
-        alert(text);
+        props.addPost(text);
+        newPostElement.current.value = '';//obnulenie poly
     }
 
     return (

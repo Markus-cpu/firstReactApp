@@ -8,7 +8,6 @@ console.log(c);
 
 const Sidebar =(props)=> {
 
-
     let friendsElements =  props.state.messagesPage.dialogsData.slice(0, 3).map(dialog  => <Friends name={dialog.name} id={dialog.id} ava={dialog.ava}/>);
     //let menuElements = props.state.sidebar.menuLink.map(menulink => <MenuLink link={menulink.link} path={menulink.id}/>);
 

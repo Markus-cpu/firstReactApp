@@ -17,7 +17,7 @@ const Infoblock = (props) => {
         <div>
             <Infoperson />
             <div className={c.inputpost}>
-                 <textarea ref={newPostElement} className={c.textarea} rows="10" cols="40" placeholder="Your message here...."></textarea>
+                 <textarea ref={newPostElement} value={props.state.myNewPost} className={c.textarea} rows="10" cols="40" placeholder="Your message here...."/>
                  <button onClick={ addPost } className={c.button}>Send</button>
             </div>
             {mypostElement}

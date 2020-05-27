@@ -37,22 +37,30 @@ let state = {
            {id: 1, post: 'React изначально был спроектирован так, чтобы его можно было внедрять постепенно. Другими словами, вы можете начать с малого и использовать только ту функциональность React, которая необходима вам в данный момент. Информация в этом разделе будет полезна в любой ситуации: при первом знакомстве с React, при создании простой динамической HTML-страницы и даже при проектировании сложного React-приложения.', post1: 'Для простых шаблонов это допустимо'},
            {id: 2, post: 'Но раньше, в старые времена, прямого доступа к прототипу объекта не было.', post1: 'Надёжно работало только свойство'},
            {id: 3, post: 'I like death metal music!!!', post1: 'Откуда-то мы должны получать эти данные?'},
-           {id: 4, post: 'Но раньше,', post1: 'Надёжно работало'}]
+           {id: 4, post: 'Но раньше,', post1: 'Надёжно работало'}],
+        myNewPost: 'Markus-cpu'
     },
 
 };
-
 export default state;
 
-
-export let addPost = (postMessage) => {
+export let addPost = (myPost) => {
     let newPost = {
         id: 5,
-        post: postMessage
+        post: myPost
     };
     state.contentPage.mypostData.push(newPost);
     rerenderEntireTree(state);
 };
+
+export let addMessage =(userMessage)=> {
+    let newMessage = {
+        id: 5,
+        message: userMessage
+    };
+    state.messagesPage.messagesData.push(newMessage);
+    rerenderEntireTree(state);
+}
 
 
 

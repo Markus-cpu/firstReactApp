@@ -6,7 +6,7 @@ let state = {
 
     messagesPage: {
         dialogsData: [
-           {id: 1, name: 'Marat',  ava: 'https://vrgames.by/sites/default/files/pictures/picture-164663-1516479456.jpg'},
+           {id: 1, name: 'Mr. Frick',  ava: 'https://vrgames.by/sites/default/files/pictures/picture-164663-1516479456.jpg'},
            {id: 2, name: 'Victor', ava: 'https://i.gifer.com/ZA6h.gif'},
            {id: 3, name: 'Tanya',  ava: 'https://www.newkaliningrad.ru/forum/uploads/profile/photo-23603.gif'},
            {id: 4, name: 'Sveta',  ava: 'https://acomics.ru/upload/avatar/id33428-qcu0upxr41.jpg'},
@@ -53,6 +53,11 @@ export let addPost = (myPost) => {
     rerenderEntireTree(state);
 };
 
+export let updateNewPost = (newPost) => {
+    state.contentPage.myNewPost = newPost;
+    rerenderEntireTree(state);
+};
+
 export let addMessage =(userMessage)=> {
     let newMessage = {
         id: 5,
@@ -60,7 +65,7 @@ export let addMessage =(userMessage)=> {
     };
     state.messagesPage.messagesData.push(newMessage);
     rerenderEntireTree(state);
-}
+};
 
 
 

@@ -46,13 +46,14 @@ let state = {
 };
 export default state;
 window.state = state;
+
 export const addPost = () => {
     let newPost = {
         id: 5,
-        post: state.contentPage.mypostData
+        post: state.contentPage.myNewPost
     };
     state.contentPage.mypostData.push(newPost);
-    state.contentPage.mypostData = '';
+    state.contentPage.myNewPost = '';
     rerenderEntireTree(state);
 };
 

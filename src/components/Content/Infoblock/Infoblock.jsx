@@ -9,14 +9,12 @@ const Infoblock = (props) => {
     let newPostElement = React.createRef();
 
     let addPost =()=> {
-        let text = newPostElement.current.value;
-        props.addPost(text);
+        props.addPost();
     };
 
     let onPostChange =()=> {
         let text = newPostElement.current.value;
         props.updateNewPost(text);
-
     };
 
     return (

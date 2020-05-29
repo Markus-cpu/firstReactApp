@@ -12,9 +12,6 @@ const Myposts = (props) => {
                 <div className={c.item}>
                     {props.massage}
                 </div>
-                <div className={c.item}>
-                    {props.massage2}
-                </div>
             </div>
         </div>
     )

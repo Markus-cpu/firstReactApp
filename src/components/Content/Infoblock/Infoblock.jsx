@@ -5,13 +5,12 @@ import Myposts from './Myposts/Myposts';
 
 const Infoblock = (props) => {
 
-    let mypostElement = props.mypostData.map(mypost => <Myposts massage={mypost.post} massage2={mypost.post1} />);
+    let mypostElement = props.mypostData.map(mypost => <Myposts massage={mypost.post} />);
     let newPostElement = React.createRef();
 
     let addPost =()=> {
         let text = newPostElement.current.value;
         props.addPost(text);
-        props.updateNewPost('');//obnulenie poly
     };
 
     let onPostChange =()=> {

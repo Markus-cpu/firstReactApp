@@ -1,6 +1,8 @@
 'use strict';
 
-import {rerenderEntireTree} from "../render";
+let rerenderEntireTree =()=> {
+    console.log('State changed....');
+};
 
 let state = {
 
@@ -34,37 +36,42 @@ let state = {
 
     contentPage: {
         mypostData: [
-           {id: 1, post: 'React изначально был спроектирован так, чтобы его можно было внедрять постепенно. Другими словами, вы можете начать с малого и использовать только ту функциональность React, которая необходима вам в данный момент. Информация в этом разделе будет полезна в любой ситуации: при первом знакомстве с React, при создании простой динамической HTML-страницы и даже при проектировании сложного React-приложения.', post1: 'Для простых шаблонов это допустимо'},
-           {id: 2, post: 'Но раньше, в старые времена, прямого доступа к прототипу объекта не было.', post1: 'Надёжно работало только свойство'},
-           {id: 3, post: 'I like death metal music!!!', post1: 'Откуда-то мы должны получать эти данные?'},
-           {id: 4, post: 'Но раньше,', post1: 'Надёжно работало'}],
+           {id: 1, post: 'React изначально был спроектирован так, чтобы его можно было внедрять постепенно. Другими словами, вы можете начать с малого и использовать только ту функциональность React, которая необходима вам в данный момент. Информация в этом разделе будет полезна в любой ситуации: при первом знакомстве с React, при создании простой динамической HTML-страницы и даже при проектировании сложного React-приложения.'},
+           {id: 2, post: 'Но раньше, в старые времена, прямого доступа к прототипу объекта не было.'},
+           {id: 3, post: 'I like death metal music!!!'},
+           {id: 4, post: 'Но раньше,'}],
         myNewPost: 'Markus-cpu'
     },
 
 };
 export default state;
-
-export let addPost = (myPost) => {
+window.state = state;
+export const addPost = () => {
     let newPost = {
         id: 5,
-        post: myPost
+        post: state.contentPage.mypostData
     };
     state.contentPage.mypostData.push(newPost);
+    state.contentPage.mypostData = '';
     rerenderEntireTree(state);
 };
 
-export let updateNewPost = (newPost) => {
+export const updateNewPost = (newPost) => {
     state.contentPage.myNewPost = newPost;
     rerenderEntireTree(state);
 };
 
-export let addMessage =(userMessage)=> {
+export const addMessage =(userMessage)=> {
     let newMessage = {
         id: 5,
         message: userMessage
     };
     state.messagesPage.messagesData.push(newMessage);
     rerenderEntireTree(state);
+};
+
+export const sibscribe =(observer)=> {
+    rerenderEntireTree = observer; //паттерн наблюдатель(observer)state
 };
 
 

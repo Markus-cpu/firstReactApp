@@ -3,6 +3,10 @@
 let rerenderEntireTree =()=> {
     console.log('State changed....');
 };
+// Создаём ОПП объект store и упакуем сюда state и функции
+export let store = {
+
+};
 
 let state = {
 
@@ -21,6 +25,7 @@ let state = {
            {message: 'Who Am I?'},
            {message: 'You know me, my friend?'},
            {message: 'No, I\'m not!'}],
+        newMessages: 'users Messages>>>'
     },
 
     sidebar: {
@@ -62,13 +67,19 @@ export const updateNewPost = (newPost) => {
     rerenderEntireTree(state);
 };
 
-export const addMessage =(userMessage)=> {
-    let newMessage = {
+export const addMessage =()=> {
+    let newMessage = {//сюда добавляем новое значение (сообщение)
         id: 5,
-        message: userMessage
+        message: state.messagesPage.newMessages
     };
-    state.messagesPage.messagesData.push(newMessage);
-    rerenderEntireTree(state);
+    state.messagesPage.messagesData.push(newMessage);//записываем в ассоциативный массив, новый объект с данными
+    state.messagesPage.newMessages = '';//обнуления поля
+    rerenderEntireTree(state);//перерисовка UI с новыми данными
+};
+
+export const updateNewMessage =(newMessage)=> {//сюда поступает то значение, что вводит user  в поле textarea
+    state.messagesPage.newMessages = newMessage;//записываем это значение  в объект messagesPage и присваеваем это значение свойству newMessage
+    rerenderEntireTree(state);//есть ли здесь смысл в данной функции???
 };
 
 export const sibscribe =(observer)=> {

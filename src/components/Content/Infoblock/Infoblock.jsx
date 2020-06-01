@@ -25,10 +25,8 @@ const Infoblock = (props) => {
                  <button onClick={ addPost } className={c.button}>Send</button>
             </div>
             {mypostElement}
-            
         </div>
-        
     )
-}
+};
 
 export default Infoblock;

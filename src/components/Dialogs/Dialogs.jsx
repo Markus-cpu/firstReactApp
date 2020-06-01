@@ -8,16 +8,19 @@ const Dialogs = (props) => {
     //из файла state.js , через пропсы рендерим данные в компоненту
     //DialogItem, с помощью метода массива map каждому свойству создает отдельный массив,
     //при этом не изменяя основной массив 
-    let dialogElements =  props.state.dialogsData.map(dialog => <DialogItem name={dialog.name} id={dialog.id} ava={dialog.ava}/>);
-    let messageElements = props.state.messagesData.map(massage => <MassageItem massage={massage.message}/>);
+    let dialogElements =  props.messagesPage.dialogsData.map(dialog => <DialogItem name={dialog.name} id={dialog.id} ava={dialog.ava}/>);
+    let messageElements = props.messagesPage.messagesData.map(massage => <MassageItem massage={massage.message}/>);
 
     let newMessageElement = React.createRef();
-    const addMessage =()=> {
 
+    const addMessage =()=> {//обработчик события
+        props.addMessage();
+    };
+
+    let onMessageChange =()=> {//определяем обработчик события
         let text = newMessageElement.current.value;
-        props.addMessage(text);
-        newMessageElement.current.value = '';
-    }
+        props.updateNewMessage(text);//отправляем в state.js то значение, что вводит user в поле textarea
+    };
     //здесь переменные вызываются
     return (
         <div className={c.dialogs}>
@@ -29,13 +32,18 @@ const Dialogs = (props) => {
                 <h2 className={c.title}>Messages</h2>
                 {messageElements}
                 <div className={c.addText}>
-                    <textarea className={c.textarea} ref={newMessageElement} name="message" rows="10" cols="40" placeholder='New message here......' ></textarea>
-                    <button className={c.button} onClick={addMessage} >Send</button>
+                    <textarea onChange={onMessageChange} value={props.messagesPage.newMessages} className={c.textarea}
+                              //значение(value) textarea зависит от того, что сидит в state.js
+                              // onChange срабатывает всякий раз, когда идет попытка изменить поле textarea
+                              ref={newMessageElement} name="message" rows="10" cols="40"
+                              placeholder='New message here......' >
+                    </textarea>
+                    <button className={c.button} onClick={addMessage}>Send</button>
                 </div>
             </div>
         </div>
     )
-}
+};
 
 //экспортируем компоненту
 export default Dialogs;

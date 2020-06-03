@@ -20,7 +20,7 @@ let rerenderEntireTree =(state)=> {
         document.getElementById('root')
     );
 };
-rerenderEntireTree(store.getState());//функция перерисовки всего дерева App
+rerenderEntireTree(store.getState());//функция перерисовки всего дерева App, после того как state изменился
 store.sibscribe(rerenderEntireTree);
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

@@ -2,6 +2,7 @@
 
 //выносим строковое название типа в глобальную константу
 //Для того, чтобы не ошибиться в написание типов, так-как их будет еще больше
+//пишем action name
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST = 'UPDATE-NEW-POST';
 const ADD_MESSAGE = 'ADD-MESSAGE';
@@ -26,7 +27,7 @@ const UPDATE_NEW_MESSAGE = 'UPDATE-NEW-MESSAGE';
                  {message: 'Who Am I?'},
                  {message: 'You know me, my friend?'},
                  {message: 'No, I\'m not!'}],
-             newMessages: 'users Messages>>>'
+             newMessages: 'users Messages>>>'//здесь сохраняем новое сообщение
          },
 
          sidebar: {
@@ -109,8 +110,9 @@ const UPDATE_NEW_MESSAGE = 'UPDATE-NEW-MESSAGE';
              this._state.messagesPage.newMessages = '';//обнуления поля
              this._callSubscriber(this._state);//перерисовка UI с новыми данными
          } else if (action.type === 'UPDATE-NEW-MESSAGE') {
-             this._state.messagesPage.newMessages = action.newMessage;//записываем это значение  в объект messagesPage и присваеваем это значение свойству newMessage
-             this._callSubscriber(this._state);//есть ли здесь смысл в данной функции???
+             this._state.messagesPage.newMessages = action.newMessage;//записываем это значение
+             // в объект messagesPage и присваеваем это значение свойству newMessage, изменяем state
+             this._callSubscriber(this._state);//сообщаем с помощью наблюдателя, что state изменился, передаем изменившийся state
          }
      }
  };

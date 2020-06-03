@@ -15,7 +15,7 @@ const Dialogs = (props) => {
 
     let newMessageElement = React.createRef();
 
-    const addMessage =()=> {//обработчик события
+    let addMessage =()=> {//обработчик события
         let action = addMessageActionCreator();
         props.dispatch(action);
     };
@@ -39,7 +39,7 @@ const Dialogs = (props) => {
                     <textarea onChange={onMessageChange} value={props.messagesPage.newMessages} className={c.textarea}
                               //значение(value) textarea зависит от того, что сидит в state.js
                               // onChange срабатывает всякий раз, когда идет попытка изменить поле textarea
-                              ref={newMessageElement} name="message" rows="10" cols="40"
+                              ref={newMessageElement} //name="message" rows="10" cols="40"
                               placeholder='New message here......' >
                     </textarea>
                     <button className={c.button} onClick={addMessage}>Send</button>

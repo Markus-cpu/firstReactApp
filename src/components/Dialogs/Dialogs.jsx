@@ -14,12 +14,14 @@ const Dialogs = (props) => {
     let newMessageElement = React.createRef();
 
     const addMessage =()=> {//обработчик события
-        props.addMessage();
+        let action = {type: 'ADD-MESSAGE'};
+        props.dispatch(action);
     };
 
     let onMessageChange =()=> {//определяем обработчик события
         let text = newMessageElement.current.value;
-        props.updateNewMessage(text);//отправляем в state.js то значение, что вводит user в поле textarea
+        let action = {type: 'UPDATE-NEW-MESSAGE', newMessage: text};
+        props.dispatch(action);//отправляем в state.js то значение, что вводит user в поле textarea
     };
     //здесь переменные вызываются
     return (

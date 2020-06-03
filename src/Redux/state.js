@@ -46,10 +46,14 @@
      _callSubscriber() {
          console.log('State changed....');
      },//приватный метод, на прямую его нельзя использовать
-     getState() {
+     getState() {//getState вляется интерфейсом взаимодействия во внешнем мире
        return this._state;
      },
-     addPost() {
+     sibscribe(observer) {
+         this._callSubscriber = observer; //паттерн наблюдатель(observer)state
+     },
+
+     /*addPost() {
          let newPost = {
              id: 5,
              post: this._state.contentPage.myNewPost
@@ -74,9 +78,33 @@
      updateNewMessage(newMessage) {//сюда поступает то значение, что вводит user  в поле textarea
          this._state.messagesPage.newMessages = newMessage;//записываем это значение  в объект messagesPage и присваеваем это значение свойству newMessage
          this._callSubscriber(this._state);//есть ли здесь смысл в данной функции???
-     },
-     sibscribe(observer) {
-         this._callSubscriber = observer; //паттерн наблюдатель(observer)state
+     },*/
+     //Заменили все методы по постам и сообщениям, на один метод
+     //dispatch()
+     dispatch(action) {
+         if (action.type === 'ADD-POST') {
+             let newPost = {
+                 id: 5,
+                 post: this._state.contentPage.myNewPost
+             };
+             this._state.contentPage.mypostData.push(newPost);
+             this._state.contentPage.myNewPost = '';
+             this._callSubscriber(this._state);
+         } else if (action.type === 'UPDATE-NEW-POST') {
+             this._state.contentPage.myNewPost = action.newPost;
+             this._callSubscriber(this._state);
+         } else if (action.type === 'ADD-MESSAGE') {
+             let newMessage = {//сюда добавляем новое значение (сообщение)
+                 id: 5,
+                 message: this._state.messagesPage.newMessages
+             };
+             this._state.messagesPage.messagesData.push(newMessage);//записываем в ассоциативный массив, новый объект с данными
+             this._state.messagesPage.newMessages = '';//обнуления поля
+             this._callSubscriber(this._state);//перерисовка UI с новыми данными
+         } else if (action.type === 'UPDATE-NEW-MESSAGE') {
+             this._state.messagesPage.newMessages = action.newMessage;//записываем это значение  в объект messagesPage и присваеваем это значение свойству newMessage
+             this._callSubscriber(this._state);//есть ли здесь смысл в данной функции???
+         }
      }
  };
 

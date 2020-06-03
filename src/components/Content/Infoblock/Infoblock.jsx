@@ -9,20 +9,24 @@ const Infoblock = (props) => {
     let newPostElement = React.createRef();
 
     let addPost =()=> {
-        props.addPost();
+        let action = {type: 'ADD-POST'};
+        props.dispatch(action);
     };
 
     let onPostChange =()=> {
         let text = newPostElement.current.value;
-        props.updateNewPost(text);
+        let action = {type: 'UPDATE-NEW-POST', newPost: text};
+        props.dispatch(action);
     };
 
     return (
         <div>
             <Infoperson />
             <div className={c.inputpost}>
-                 <textarea onChange={onPostChange} ref={newPostElement} value={props.myNewPost} className={c.textarea} rows="10" cols="40" placeholder="Your message here...."/>
+                 <textarea onChange={ onPostChange } ref={newPostElement} value={props.myNewPost}
+                           className={c.textarea} rows="10" cols="40" placeholder="Your message here...."/>
                  <button onClick={ addPost } className={c.button}>Send</button>
+                 {/*Когда происходит клик по кнопке, она вызывает функцию addPost, которую мы определили локально*/}
             </div>
             {mypostElement}
         </div>

@@ -2,6 +2,9 @@ import React from 'react';
 import c from './Infoblock.module.css';
 import Infoperson from './Infoperson/Infoperson';
 import Myposts from './Myposts/Myposts';
+import {addPostActionCreator, updateNewPostActionCreator} from '../../../Redux/state';
+
+
 
 const Infoblock = (props) => {
 
@@ -9,13 +12,13 @@ const Infoblock = (props) => {
     let newPostElement = React.createRef();
 
     let addPost =()=> {
-        let action = {type: 'ADD-POST'};
+        let action = addPostActionCreator();//функция actionCreator(для создания action object
         props.dispatch(action);
     };
 
     let onPostChange =()=> {
         let text = newPostElement.current.value;
-        let action = {type: 'UPDATE-NEW-POST', newPost: text};
+        let action = updateNewPostActionCreator(text);
         props.dispatch(action);
     };
 

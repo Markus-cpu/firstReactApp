@@ -1,5 +1,12 @@
 'use strict';
 
+//выносим строковое название типа в глобальную константу
+//Для того, чтобы не ошибиться в написание типов, так-как их будет еще больше
+const ADD_POST = 'ADD-POST';
+const UPDATE_NEW_POST = 'UPDATE-NEW-POST';
+const ADD_MESSAGE = 'ADD-MESSAGE';
+const UPDATE_NEW_MESSAGE = 'UPDATE-NEW-MESSAGE';
+
 // Создаём ОПП объект store и упакуем сюда объект state и функции(методы)
  let store = {
      _state: {
@@ -107,6 +114,13 @@
          }
      }
  };
+//Создали actionCreator для того, чтобы создавать объект action в них, а не в компоненте
+//Вынесли по ближе в state(Бизнес)
+export const addPostActionCreator =()=> ({type: ADD_POST});
+export const updateNewPostActionCreator =(text)=> ({type: UPDATE_NEW_POST, newPost: text});
+export const addMessageActionCreator =()=> ({type: ADD_MESSAGE});
+//так-как мы передаем объект, ложим его в круглые скобки
+export const updateNewMessageActionCreator =(text)=> ({type: UPDATE_NEW_MESSAGE, newMessage: text});
 
 export default store;
 window.store = store;

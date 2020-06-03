@@ -1,7 +1,9 @@
-import React, {Component, PropTypes} from 'react';
+import React from 'react';
 import c from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import MassageItem from './MassageItem/massageItem';
+import {addMessageActionCreator, updateNewMessageActionCreator} from '../../Redux/state';
+
 
 const Dialogs = (props) => {
     //Здесь обьявляется переменные, которым присваеваем значение
@@ -14,13 +16,13 @@ const Dialogs = (props) => {
     let newMessageElement = React.createRef();
 
     const addMessage =()=> {//обработчик события
-        let action = {type: 'ADD-MESSAGE'};
+        let action = addMessageActionCreator();
         props.dispatch(action);
     };
 
     let onMessageChange =()=> {//определяем обработчик события
         let text = newMessageElement.current.value;
-        let action = {type: 'UPDATE-NEW-MESSAGE', newMessage: text};
+        let action = updateNewMessageActionCreator(text);
         props.dispatch(action);//отправляем в state.js то значение, что вводит user в поле textarea
     };
     //здесь переменные вызываются

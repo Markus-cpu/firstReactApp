@@ -13,15 +13,15 @@ const Dialogs = (props) => {
     let dialogElements =  props.messagesPage.dialogsData.map(dialog => <DialogItem name={dialog.name} id={dialog.id} ava={dialog.ava}/>);
     let messageElements = props.messagesPage.messagesData.map(massage => <MassageItem massage={massage.message}/>);
 
-    let newMessageElement = React.createRef();
+    let newMessageElement = props.messagesPage.newMessages;
 
     let addMessage =()=> {//обработчик события
         let action = addMessageActionCreator();
         props.dispatch(action);
     };
 
-    let onMessageChange =()=> {//определяем обработчик события
-        let text = newMessageElement.current.value;
+    let onMessageChange =(e)=> {//определяем обработчик события
+        let text = e.target.value;
         let action = updateNewMessageActionCreator(text);
         props.dispatch(action);//отправляем в state.js то значение, что вводит user в поле textarea
     };
@@ -36,10 +36,10 @@ const Dialogs = (props) => {
                 <h2 className={c.title}>Messages</h2>
                 {messageElements}
                 <div className={c.addText}>
-                    <textarea onChange={onMessageChange} value={props.messagesPage.newMessages} className={c.textarea}
+                    <textarea onChange={onMessageChange} value={newMessageElement} className={c.textarea}
                               //значение(value) textarea зависит от того, что сидит в state.js
                               // onChange срабатывает всякий раз, когда идет попытка изменить поле textarea
-                              ref={newMessageElement} //name="message" rows="10" cols="40"
+                              //name="message" rows="10" cols="40"
                               placeholder='New message here......' >
                     </textarea>
                     <button className={c.button} onClick={addMessage}>Send</button>

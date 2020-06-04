@@ -9,15 +9,15 @@ import {addPostActionCreator, updateNewPostActionCreator} from '../../../Redux/s
 const Infoblock = (props) => {
 
     let mypostElement = props.mypostData.map(mypost => <Myposts massage={mypost.post} />);
-    let newPostElement = React.createRef();
+    let newPostElement = props.myNewPost;
 
     let addPost =()=> {
         let action = addPostActionCreator();//функция actionCreator(для создания action object
         props.dispatch(action);
     };
 
-    let onPostChange =()=> {
-        let text = newPostElement.current.value;
+    let onPostChange =(e)=> {
+        let text = e.target.value;
         let action = updateNewPostActionCreator(text);
         props.dispatch(action);
     };
@@ -26,8 +26,8 @@ const Infoblock = (props) => {
         <div>
             <Infoperson />
             <div className={c.inputpost}>
-                 <textarea onChange={ onPostChange } ref={newPostElement} value={props.myNewPost}
-                           className={c.textarea} rows="10" cols="40" placeholder="Your message here...."/>
+                 <textarea onChange={ onPostChange }  value={newPostElement}
+                           className={c.textarea}  placeholder="Your message here...."/>
                  <button onClick={ addPost } className={c.button}>Send</button>
                  {/*Когда происходит клик по кнопке, она вызывает функцию addPost, которую мы определили локально*/}
             </div>

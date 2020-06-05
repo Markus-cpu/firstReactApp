@@ -2,12 +2,12 @@ import React from 'react';
 import c from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import MassageItem from './MassageItem/massageItem';
-import {addMessageActionCreator, updateNewMessageActionCreator} from '../../Redux/state';
+import {addMessageActionCreator, updateNewMessageActionCreator} from '../../Redux/messagesPage-reducer';
 
 
 const Dialogs = (props) => {
     //Здесь обьявляется переменные, которым присваеваем значение
-    //из файла state.js , через пропсы рендерим данные в компоненту
+    //из файла store.js , через пропсы рендерим данные в компоненту
     //DialogItem, с помощью метода массива map каждому свойству создает отдельный массив,
     //при этом не изменяя основной массив 
     let dialogElements =  props.messagesPage.dialogsData.map(dialog => <DialogItem name={dialog.name} id={dialog.id} ava={dialog.ava}/>);
@@ -23,8 +23,11 @@ const Dialogs = (props) => {
     let onMessageChange =(e)=> {//определяем обработчик события
         let text = e.target.value;
         let action = updateNewMessageActionCreator(text);
-        props.dispatch(action);//отправляем в state.js то значение, что вводит user в поле textarea
+        props.dispatch(action);//отправляем в store.js то значение, что вводит user в поле textarea
     };
+
+
+
     //здесь переменные вызываются
     return (
         <div className={c.dialogs}>
@@ -37,7 +40,7 @@ const Dialogs = (props) => {
                 {messageElements}
                 <div className={c.addText}>
                     <textarea onChange={onMessageChange} value={newMessageElement} className={c.textarea}
-                              //значение(value) textarea зависит от того, что сидит в state.js
+                              //значение(value) textarea зависит от того, что сидит в store.js
                               // onChange срабатывает всякий раз, когда идет попытка изменить поле textarea
                               //name="message" rows="10" cols="40"
                               placeholder='New message here......' >

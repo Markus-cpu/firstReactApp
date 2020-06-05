@@ -3,15 +3,18 @@
 //выносим строковое название типа в глобальную константу
 //Для того, чтобы не ошибиться в написание типов, так-как их будет еще больше
 //пишем action name
-const ADD_POST = 'ADD-POST';
+import contentPageReducer from "./contentPage-reducer";
+import messagesPageReducer from "./messagesPage-reducer";
+import sidebarReducer from "./sidebar-reducer";
+
+/*const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST = 'UPDATE-NEW-POST';
 const ADD_MESSAGE = 'ADD-MESSAGE';
-const UPDATE_NEW_MESSAGE = 'UPDATE-NEW-MESSAGE';
+const UPDATE_NEW_MESSAGE = 'UPDATE-NEW-MESSAGE';*/
 
 // Создаём ОПП объект store и упакуем сюда объект state и функции(методы)
  let store = {
      _state: {
-
          messagesPage: {
              dialogsData: [
                  {id: 1, name: 'Mr. Frick',  ava: 'https://vrgames.by/sites/default/files/pictures/picture-164663-1516479456.jpg'},
@@ -29,7 +32,6 @@ const UPDATE_NEW_MESSAGE = 'UPDATE-NEW-MESSAGE';
                  {id: 6, message: 'No, I\'m not!'}],
              newMessages: '<<<users Messages>>>'//здесь сохраняем новое сообщение как строку, а не объект
          },
-
          sidebar: {
              menuLink: [
                  {id: 1, link: 'Home', path: '/home'},
@@ -40,7 +42,6 @@ const UPDATE_NEW_MESSAGE = 'UPDATE-NEW-MESSAGE';
                  {id: 6, link: 'Friends', path: '/friends'}
              ]
          },
-
          contentPage: {
              mypostData: [
                  {id: 1, post: 'React изначально был спроектирован так, чтобы его можно было внедрять постепенно. Другими словами, вы можете начать с малого и использовать только ту функциональность React, которая необходима вам в данный момент. Информация в этом разделе будет полезна в любой ситуации: при первом знакомстве с React, при создании простой динамической HTML-страницы и даже при проектировании сложного React-приложения.'},
@@ -49,7 +50,6 @@ const UPDATE_NEW_MESSAGE = 'UPDATE-NEW-MESSAGE';
                  {id: 4, post: 'Но раньше,'}],
              myNewPost: '<<<Markus-cpu>>>'
          },
-
      },//приватный объект
      _callSubscriber() {
          console.log('State changed....');
@@ -61,6 +61,7 @@ const UPDATE_NEW_MESSAGE = 'UPDATE-NEW-MESSAGE';
          this._callSubscriber = observer; //паттерн наблюдатель(observer)state
      },
 
+     //все эти функции, вернее их логику мы засунули в один metod dispatch() обьекта store
      /*addPost() {
          let newPost = {
              id: 5,
@@ -90,7 +91,17 @@ const UPDATE_NEW_MESSAGE = 'UPDATE-NEW-MESSAGE';
      //Заменили все методы по постам и сообщениям, на один метод
      //dispatch()
      dispatch(action) {
-         if (action.type === 'ADD-POST') {
+         //reducer преобразуется в новый state в соответствии со своей частью state, который он получает
+         //и state куда он присваивется, изменяется
+         //далее происходит отрисовка измененного state
+         this._state.contentPage = contentPageReducer(this._state.contentPage, action);
+         this._state.messagesPage = messagesPageReducer(this._state.messagesPage, action);
+         this._state.sidebar = sidebarReducer(this._state.sidebar, action);
+         //далее уведомляем подписчика, это привилегия store
+         this._callSubscriber(this._state);
+
+         //данную логику расскидали по reducer
+         /*if (action.type === 'ADD-POST') {
              let newPost = {
                  id: 5,
                  post: this._state.contentPage.myNewPost
@@ -116,16 +127,16 @@ const UPDATE_NEW_MESSAGE = 'UPDATE-NEW-MESSAGE';
              this._state.messagesPage.newMessages = action.newMessage;//записываем это значение, которое приходит из вне,
              // в объект messagesPage  и присваеваем это значение свойству newMessages, изменяем state
              this._callSubscriber(this._state);//сообщаем с помощью наблюдателя, что state изменился, передаем изменившийся state в UI
-         }
+         }*/
      }
  };
-//Создали actionCreator для того, чтобы создавать объект action в них, а не в компоненте
+/*//Создали actionCreator для того, чтобы создавать объект action в них, а не в компоненте
 //Вынесли по ближе в state(Бизнес)
 export const addPostActionCreator =()=> ({type: ADD_POST});
 export const updateNewPostActionCreator =(text)=> ({type: UPDATE_NEW_POST, newPost: text});
 export const addMessageActionCreator =()=> ({type: ADD_MESSAGE});
 //так-как мы передаем объект, ложим его в круглые скобки
-export const updateNewMessageActionCreator =(text)=> ({type: UPDATE_NEW_MESSAGE, newMessage: text});
+export const updateNewMessageActionCreator =(text)=> ({type: UPDATE_NEW_MESSAGE, newMessage: text});*/
 
 export default store;
 window.store = store;

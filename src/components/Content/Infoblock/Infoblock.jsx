@@ -2,7 +2,7 @@ import React from 'react';
 import c from './Infoblock.module.css';
 import Infoperson from './Infoperson/Infoperson';
 import Myposts from './Myposts/Myposts';
-import {addPostActionCreator, updateNewPostActionCreator} from '../../../Redux/state';
+import {addPostActionCreator, updateNewPostActionCreator} from '../../../Redux/contentPage-reducer';
 
 
 
@@ -24,7 +24,7 @@ const Infoblock = (props) => {
 
     return (
         <div>
-            <Infoperson />
+            <Infoperson dialogsData={props.dialogsData} />
             <div className={c.inputpost}>
                  <textarea onChange={ onPostChange }  value={newPostElement}
                            className={c.textarea}  placeholder="Your message here...."/>

@@ -2,7 +2,8 @@ import React from 'react';
 import c from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import MassageItem from './MassageItem/massageItem';
-import {addMessageActionCreator, updateNewMessageActionCreator} from '../../Redux/messagesPage-reducer';
+
+
 
 
 const Dialogs = (props) => {
@@ -10,23 +11,19 @@ const Dialogs = (props) => {
     //из файла store.js , через пропсы рендерим данные в компоненту
     //DialogItem, с помощью метода массива map каждому свойству создает отдельный массив,
     //при этом не изменяя основной массив 
-    let dialogElements =  props.messagesPage.dialogsData.map(dialog => <DialogItem name={dialog.name} id={dialog.id} ava={dialog.ava}/>);
-    let messageElements = props.messagesPage.messagesData.map(massage => <MassageItem massage={massage.message}/>);
+    let dialogElements =  props.dialogsData.map(dialog => <DialogItem name={dialog.name} id={dialog.id} ava={dialog.ava}/>);
+    let messageElements = props.messagesData.map(massage => <MassageItem massage={massage.message}/>);
 
-    let newMessageElement = props.messagesPage.newMessages;
+    let newMessageElement = props.newMessages;
 
-    let addMessage =()=> {//обработчик события
-        let action = addMessageActionCreator();
-        props.dispatch(action);
+    let onAddMessage =()=> {//обработчик события
+        props.addMessage();
     };
 
     let onMessageChange =(e)=> {//определяем обработчик события
         let text = e.target.value;
-        let action = updateNewMessageActionCreator(text);
-        props.dispatch(action);//отправляем в store.js то значение, что вводит user в поле textarea
+        props.updateNewMessage(text);
     };
-
-
 
     //здесь переменные вызываются
     return (
@@ -45,7 +42,7 @@ const Dialogs = (props) => {
                               //name="message" rows="10" cols="40"
                               placeholder='New message here......' >
                     </textarea>
-                    <button className={c.button} onClick={addMessage}>Send</button>
+                    <button className={c.button} onClick={onAddMessage}>Send</button>
                 </div>
             </div>
         </div>

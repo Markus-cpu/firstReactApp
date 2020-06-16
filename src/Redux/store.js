@@ -139,7 +139,7 @@ export const addMessageActionCreator =()=> ({type: ADD_MESSAGE});
 export const updateNewMessageActionCreator =(text)=> ({type: UPDATE_NEW_MESSAGE, newMessage: text});*/
 
 export default store;
-window.store = store;
+// window.store = store;
 
 
 

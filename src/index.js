@@ -13,7 +13,7 @@ let rerenderEntireTree =(state)=> {
 
     ReactDOM.render(
         <BrowserRouter>
-            <App state={state} dispatch={store.dispatch.bind(store)} />
+            <App store={store} state={state} dispatch={store.dispatch.bind(store)} />
             {/*привязка dispatch к store с помощью метода bind,
             что он именно в контексте него передавался дальше
             здесь мы его не вызываем*/}
@@ -30,4 +30,3 @@ store.subscribe(() => {
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
-

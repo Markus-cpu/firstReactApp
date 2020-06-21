@@ -11,8 +11,8 @@ const Dialogs = (props) => {
     //из файла store.js , через пропсы рендерим данные в компоненту
     //DialogItem, с помощью метода массива map каждому свойству создает отдельный массив,
     //при этом не изменяя основной массив 
-    let dialogElements =  props.dialogsData.map(dialog => <DialogItem name={dialog.name} id={dialog.id} ava={dialog.ava}/>);
-    let messageElements = props.messagesData.map(massage => <MassageItem massage={massage.message}/>);
+    let dialogElements =  props.dialogsData.map(dialog => <DialogItem name={dialog.name} key={dialog.id} id={dialog.id} ava={dialog.ava}/>);
+    let messageElements = props.messagesData.map(massage => <MassageItem massage={massage.message} key={massage.id}/>);
 
     let newMessageElement = props.newMessages;
 
@@ -22,7 +22,7 @@ const Dialogs = (props) => {
 
     let onMessageChange =(e)=> {//определяем обработчик события
         let text = e.target.value;
-        props.updateNewMessage(text);
+        props.updateNewMessage(text);//передается в DialogsContainer
     };
 
     //здесь переменные вызываются

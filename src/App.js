@@ -18,8 +18,8 @@ const  App =(props)=> {
         <Header/>
         <Sidebar store={props.store} />
         <div className="App-wrapper-content">
-          <Route exact path="/Dialogs" render={ () => <DialogsContainer store={props.store} />} />
-          <Route exact path="/Content" render={ () => <Content store={props.store}  />}/>
+          <Route exact path="/Dialogs" render={ () => <DialogsContainer />} />
+          <Route exact path="/Content" render={ () => <Content />}/>
           <Route exact path="/Home" component={Home}/>
           <Route exact path="/Contact" component={Contact}/>
           <Route exact path="/Email" component={Email}/>

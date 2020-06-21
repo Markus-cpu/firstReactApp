@@ -6,7 +6,7 @@ const Content = (props) => {
     return (
         <div>
             <img className={c.img} src="https://www.goldmansachs.com/worldwide/banner-img-1200x200.jpg" alt="" />
-            <InfoblockContainer store={props.store}/>
+            <InfoblockContainer />
         </div>
     );
 };

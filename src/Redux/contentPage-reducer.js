@@ -12,19 +12,35 @@ let inintialState = {
 
 //здесь принимаем тот state, который необходим данному reducer
 const contentPageReducer =(state = inintialState, action) => {
-
     switch (action.type) {
-        case ADD_POST:
+        case ADD_POST: {
             let newPost = {
                 id: 5,
                 post: state.myNewPost
             };
-            state.mypostData.push(newPost);//я обращаюсь к contentPage  по имени параметра
-            state.myNewPost = '';
-            return state;//возвращаем измененный state
-        case UPDATE_NEW_POST:
-            state.myNewPost = action.newPost;
-            return state;//возвращаем измененный state
+            return {//сразу возвращаем данный обьект, и не нужно создавать stateCopy(переменную)
+                ...state,
+                mypostData: [...state.mypostData, newPost],//слева закидываем старый массив с данными
+                //а справа записываем новый элемент
+                myNewPost: ''
+            };//создание копии объекта state поверхностно
+            /*stateCopy.mypostData = [...state.mypostData]; //копируем отдельно массив mypostData
+            stateCopy.mypostData.push(newPost);//
+            stateCopy.myNewPost = '';*/
+            /*state.mypostData.push(newPost);//я обращаюсь к contentPage  по имени параметра
+            state.myNewPost = '';*/
+            //return stateCopy;//возвращаем измененный state
+        }
+        case UPDATE_NEW_POST: {
+            return  {
+                ...state,
+                myNewPost: action.newPost
+            };
+            //stateCopy.mypostData = [...state.mypostData];
+            //stateCopy.myNewPost = action.newPost;
+            // state.myNewPost = action.newPost;
+            //return stateCopy;//возвращаем измененную копию state
+        }
         default:
             return state;
     }

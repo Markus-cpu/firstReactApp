@@ -20,20 +20,38 @@ let inintialState = {
 };
 
 const messagesPageReducer = (state = inintialState, action) => {//принимаем тот state, который необходим данной функции reducer
-
+    //let stateCopy;
     switch (action.type) {
-        case ADD_MESSAGE:
+        case ADD_MESSAGE: {
             let newMessage = {//сюда добавляем новое значение (сообщение)
                 id: 5,
                 message: state.newMessages
             };
-            state.messagesData.push(newMessage);//записываем в ассоциативный массив, новый объект с данными
-            state.newMessages = '';//обнуления поля
-            return state;//возвращаем новый, преобразованный state
-        case UPDATE_NEW_MESSAGE:
-            state.newMessages = action.newMessage;//записываем это значение, которое приходит из вне,
+            return {//сразу возвращаем объект
+                //копируем state
+                ...state,
+                //далее копируем массив, и push'им newMessage в него
+                messagesData: [...state.messagesData, newMessage],
+                //обнуляем поле в textarea
+                newMessages: '',
+            };
+            /*stateCopy.messagesData = [...state.messagesData];
+            stateCopy.messagesData.push(newMessage);
+            stateCopy.newMessages = '';*/
+            /*state.messagesData.push(newMessage);//записываем в ассоциативный массив, новый объект с данными
+            state.newMessages = '';//обнуления поля*/
+            //return stateCopy;//возвращаем новый, преобразованный state
+        }
+        case UPDATE_NEW_MESSAGE: {
+            return {
+                ...state,
+                newMessages: action.newMessage
+            };
+            //stateCopy.messagesData = [...state.messagesData];
+            //stateCopy.newMessages = action.newMessage;//записываем это значение, которое приходит из вне,
             // в объект messagesPage  и присваеваем это значение свойству newMessages, изменяем state
-            return state;//возвращаем новый, преобразованный state
+            //return stateCopy;//возвращаем новый, преобразованный state
+        }
         default:
             return state;
     }

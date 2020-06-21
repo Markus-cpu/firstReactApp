@@ -13,30 +13,30 @@ const Sidebar =(props)=> {
 
     return (
        <div className={c.sidebar}>
-
            {/*{menuElements}*/}
-
-
            <nav className={c.menu}>
                <div className={c.item}>
-                  <NavLink to="/home" activeClassName={c.activeLink}>Home</NavLink>    
+                   <NavLink to="/home" activeClassName={c.activeLink}>Home</NavLink>
                </div>
                <div className={c.item}>
-                  <NavLink to="/content" activeClassName={c.activeLink}>Content</NavLink>       
+                   <NavLink to="/content" activeClassName={c.activeLink}>Content</NavLink>
                </div>
                <div className={c.item}>
-                  <NavLink to="/contact" activeClassName={c.activeLink}>Contact</NavLink>            
+                   <NavLink to="/contact" activeClassName={c.activeLink}>Contact</NavLink>
                </div>
                <div className={c.item}>
-                  <NavLink to="/dialogs" activeClassName={c.activeLink}>Dialogs</NavLink>           
+                   <NavLink to="/dialogs" activeClassName={c.activeLink}>Dialogs</NavLink>
                </div>
                <div className={c.item}>
-                  <NavLink to="/email" activeClassName={c.activeLink}>Email</NavLink>          
+                   <NavLink to="/email" activeClassName={c.activeLink}>Email</NavLink>
                </div>
                <div className={c.item}>
-                  <NavLink to="/friends" activeClassName={c.activeLink}>Friends</NavLink>
-               </div>     
-            </nav>
+                   <NavLink to="/users" activeClassName={c.activeLink}>Users</NavLink>
+               </div>
+               <div className={c.item}>
+                   <NavLink to="/friends" activeClassName={c.activeLink}>Friends</NavLink>
+               </div>
+           </nav>
             <div className={c.blockfriend}>
                {friendsElements}
             </div>

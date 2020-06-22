@@ -6,7 +6,7 @@ import Content from './components/Content/Content';
 import Home from './components/Home/Home';
 import Contact from './components/Contact/Contact';
 import Email from './components/Email/Email';
-import Users from './components/Users/Users';
+import UsersContainer from './components/Users/UsersContainer';
 import {Route} from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
@@ -24,7 +24,7 @@ const App = (props) => {
                 <Route exact path="/Home" component={Home}/>
                 <Route exact path="/Contact" component={Contact}/>
                 <Route exact path="/Email" component={Email}/>
-                <Route exact path="/Users" render={() => <Users/>}/>
+                <Route exact path="/Users" render={() => <UsersContainer/>}/>
             </div>
         </div>
     )

@@ -4,14 +4,14 @@ const SET_USERS = 'SET_USERS';
 
 let inintialState = {
     users: [
-        {id: 1, avatarUrl: 'https://s001.radikal.ru/i196/1401/ba/d9e3d67545fa.jpg',
+        /*{id: 1, avatarUrl: 'https://s001.radikal.ru/i196/1401/ba/d9e3d67545fa.jpg',
             followed: true, fullname: 'Dima S', status: 'I am a big Boy!!!', location: {country: 'Belarus', city: 'Minsk'}},
         {id: 2, avatarUrl: 'https://99px.ru/sstorage/1/2016/05/image_12405162254187087407.gif',
             followed: false, fullname: 'Masha T', status: 'I am a big Girl!!!', location: {country: 'Russian', city: 'Kazan'}},
         {id: 3, avatarUrl: 'https://s00.yaplakal.com/pics/userpic/6/7/5/av-865576.jpg',
             followed: true, fullname: 'Maksim O', status: 'I am a big Boy too!!!', location: {country: 'Russian', city: 'Moscow'}},
         {id: 4, avatarUrl: 'https://s001.radikal.ru/i196/1401/ba/d9e3d67545fa.jpg',
-            followed: false, fullname: 'Vlad E', status: 'I am a boss!!!', location: {country: 'Ukraine', city: 'Kiev'}}
+            followed: false, fullname: 'Vlad E', status: 'I am a boss!!!', location: {country: 'Ukraine', city: 'Kiev'}}*/
     ]
 };
 

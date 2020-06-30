@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import c from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import MassageItem from './MassageItem/massageItem';

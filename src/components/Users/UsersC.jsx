@@ -4,16 +4,32 @@ import * as axios from "axios";
 import usersPhoto from "../../assets/images/users.png";
 
 class UsersC extends React.Component {
-    getUsers =()=> {
-        if (this.props.users.length === 0) {
-            axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-                this.props.setUsers(response.data.items);
-            });
-        }
+    componentDidMount =()=> {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.currentPage}&page=${this.props.pageSize}`)
+            .then(response => {
+            this.props.setUsers(response.data.items);
+        });
     };
+
+    onPageChanged =(pageNumber)=> {
+         this.props.setCurrentPage(pageNumber);
+
+    };
+
     render =()=> {
+        let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize);
+        let pages = [];
+
+        for(let i=1; i <= pagesCount; i++) {
+            pages.push(i);
+        }
         return <div>
-            <button onClick={this.getUsers} >Get Users</button>
+            {pages.map(p => {
+                //анонимная функция вызовется при клике на span
+                //в обработчике события мы вызываем наш метод
+               return <span onClick={(event) => { this.onPageChanged(p) }}
+                            className={ this.props.currentPage === p && c.selectedPage }>{p}</span>
+            })}
             {
                 this.props.users.map( u => <div key={u.id}>
                     <div className={c.blockUsers}>

@@ -1,6 +1,7 @@
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
+const SET_CURRENT_PAGE ='SET_CURRENT_PAGE';
 
 let inintialState = {
     users: [
@@ -12,7 +13,10 @@ let inintialState = {
             followed: true, fullname: 'Maksim O', status: 'I am a big Boy too!!!', location: {country: 'Russian', city: 'Moscow'}},
         {id: 4, avatarUrl: 'https://s001.radikal.ru/i196/1401/ba/d9e3d67545fa.jpg',
             followed: false, fullname: 'Vlad E', status: 'I am a boss!!!', location: {country: 'Ukraine', city: 'Kiev'}}*/
-    ]
+    ],
+    pageSize: 5,
+    totalUsersCount: 20,
+    currentPage: 1
 };
 
 //здесь принимаем тот state, который необходим данному reducer
@@ -49,6 +53,12 @@ const usersPageReducer =(state = inintialState, action) => {
                 users: [...state.users, ...action.users]
             }
         }
+        case SET_CURRENT_PAGE: {
+            return {
+                ...state,
+                currentPage: action.currentPage
+            }
+        }
         default:
             return state;
     }
@@ -59,5 +69,6 @@ export const unfollowAC =(usersId)=> ({type: UNFOLLOW, usersId});
 //С сервера придут к нам данные о users
 //и мы их добавим в state
 export const setUsersAC =(users)=> ({type: SET_USERS, users});
+export const setCurrentPageAC =(currentPage)=> ({type: SET_CURRENT_PAGE, currentPage});
 
 export default  usersPageReducer;

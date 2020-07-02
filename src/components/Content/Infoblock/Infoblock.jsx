@@ -8,7 +8,7 @@ import Myposts from './Myposts/Myposts';
 
 const Infoblock = (props) => {
 
-    let mypostElement = props.mypostData.map(mypost => <Myposts massage={mypost.post} />);
+    let mypostElement = props.mypostData.map(mypost => <Myposts massage={mypost.post} id={mypost.id}/>);
     let newPostElement = props.myNewPost;
 
     let onAddPost =()=> {

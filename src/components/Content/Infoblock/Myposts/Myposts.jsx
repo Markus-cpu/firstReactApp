@@ -9,6 +9,7 @@ const Myposts = (props) => {
                !!!!!!!My post!!!!!!!
                 </div>
             <div className={c.items}>
+                {props.id}
                 <div className={c.item}>
                     {props.massage}
                 </div>

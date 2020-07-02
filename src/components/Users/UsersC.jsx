@@ -13,7 +13,10 @@ class UsersC extends React.Component {
 
     onPageChanged =(pageNumber)=> {
          this.props.setCurrentPage(pageNumber);
-
+         axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${pageNumber}&page=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items);
+            });
     };
 
     render =()=> {

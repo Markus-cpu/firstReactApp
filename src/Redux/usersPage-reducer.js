@@ -2,6 +2,7 @@ const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
 const SET_CURRENT_PAGE ='SET_CURRENT_PAGE';
+const SET_USERS_TOTAL_COUNT = 'SET-USERS-TOTAL-COUNT';
 
 let inintialState = {
     users: [
@@ -15,8 +16,8 @@ let inintialState = {
             followed: false, fullname: 'Vlad E', status: 'I am a boss!!!', location: {country: 'Ukraine', city: 'Kiev'}}*/
     ],
     pageSize: 5,
-    totalUsersCount: 20,
-    currentPage: 1
+    totalUsersCount: 0,
+    currentPage: 2
 };
 
 //здесь принимаем тот state, который необходим данному reducer
@@ -50,14 +51,19 @@ const usersPageReducer =(state = inintialState, action) => {
             return {
                 ...state,
                 //склеиваем два массива, который в state, и тот, что приходит в action
-                users: [...state.users, ...action.users]
-            }
+                users: action.users
+            };
         }
         case SET_CURRENT_PAGE: {
             return {
                 ...state,
                 currentPage: action.currentPage
-            }
+            };
+        }
+        case SET_USERS_TOTAL_COUNT: {
+            return {
+                ...state, totalUsersCount: action.count
+            };
         }
         default:
             return state;
@@ -70,5 +76,6 @@ export const unfollowAC =(usersId)=> ({type: UNFOLLOW, usersId});
 //и мы их добавим в state
 export const setUsersAC =(users)=> ({type: SET_USERS, users});
 export const setCurrentPageAC =(currentPage)=> ({type: SET_CURRENT_PAGE, currentPage});
+export const setUsersTotalCountAC =(totalUsersCount)=> ({type: SET_USERS_TOTAL_COUNT, count: totalUsersCount});
 
 export default  usersPageReducer;

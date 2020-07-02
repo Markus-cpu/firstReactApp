@@ -7,7 +7,8 @@ class UsersC extends React.Component {
     componentDidMount =()=> {
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.currentPage}&page=${this.props.pageSize}`)
             .then(response => {
-            this.props.setUsers(response.data.items);
+                this.props.setUsers(response.data.items);
+                this.props.setUsersTotalCount(response.data.totalCount)
         });
     };
 

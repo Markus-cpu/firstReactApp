@@ -16,8 +16,8 @@ let inintialState = {
             followed: false, fullname: 'Vlad E', status: 'I am a boss!!!', location: {country: 'Ukraine', city: 'Kiev'}}*/
     ],
     pageSize: 5,
-    totalUsersCount: 0,
-    currentPage: 2
+    totalUsersCount: 20,
+    currentPage: 1
 };
 
 //здесь принимаем тот state, который необходим данному reducer
@@ -50,7 +50,6 @@ const usersPageReducer =(state = inintialState, action) => {
         case SET_USERS: {
             return {
                 ...state,
-                //склеиваем два массива, который в state, и тот, что приходит в action
                 users: action.users
             };
         }

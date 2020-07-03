@@ -1,7 +1,29 @@
 import React from "react";
 import {connect} from "react-redux";
-import UsersC from "./UsersC";
 import {followAC, unfollowAC, setUsersAC, setCurrentPageAC, setUsersTotalCountAC} from "../../Redux/usersPage-reducer";
+import * as axios from "axios";
+import Users from "./Users";
+
+class UsersContainer extends React.Component {
+    componentDidMount =()=> {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items);
+                this.props.setUsersTotalCount(response.data.totalCount)
+            });
+    };
+    onPageChanged =(pageNumber)=> {
+        this.props.setCurrentPage(pageNumber);
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items);
+            });
+    };
+
+    render =()=> {
+        return <Users />
+    };
+}
 
 let mapStateToProps =(state)=> {
     return {
@@ -33,6 +55,4 @@ let mapDispatchToProps =(dispatch)=> {
     }
 };
 
-
-const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersC);
-export default UsersContainer;
+export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);

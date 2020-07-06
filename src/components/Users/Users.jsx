@@ -1,6 +1,8 @@
 import React from "react";
 import c from "./Users.module.css";
 import usersPhoto from "../../assets/images/users.png";
+import Preloader from "../Preloader/Preloader";
+
 
 const Users =(props)=> {
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
@@ -16,6 +18,7 @@ const Users =(props)=> {
             return <span onClick={(e) => { props.onPageChanged(p) }}
                          className={ props.currentPage === p && c.selectedPage }>{p}</span>
         })}
+        {props.isFetching ? <Preloader /> : null}
         {
             props.users.map( u => <div key={u.id}>
                 <div className={c.blockUsers}>

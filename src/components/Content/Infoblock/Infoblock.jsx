@@ -22,7 +22,7 @@ const Infoblock = (props) => {
 
     return (
         <div>
-            <Infoperson dialogsData={props.dialogsData} />
+            <Infoperson  profile={props.profile}/>
             <div className={c.inputpost}>
                  <textarea onChange={ onPostChange }  value={newPostElement}
                            className={c.textarea}  placeholder="Your message here...."/>

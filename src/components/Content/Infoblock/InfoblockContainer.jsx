@@ -1,11 +1,8 @@
 import React from 'react';
-import {addPostActionCreator, updateNewPostActionCreator} from '../../../Redux/contentPage-reducer';
-import Infoblock from "./Infoblock";
+import {addPost, setUserProfile, updateNewPost} from '../../../Redux/contentPage-reducer';
 import {connect} from "react-redux";
-
-
-
-
+import * as axios from "axios";
+import Infoblock from "./Infoblock";
 
 //данная контейнерная компонента является оберткой для обычной компоненты (Infoblock)
 //сюда приходят данные и методы из store/state
@@ -28,24 +25,27 @@ import {connect} from "react-redux";
         </div>
     )
 };*/
-
+class InfoblockContainer extends React.Component {
+    componentDidMount() {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/2`)
+            .then(response => {
+                this.props.setUserProfile(response.data);
+            });
+    }
+    render =()=> {
+        return (
+            <div>
+                <Infoblock {...this.props} profile={this.props.profile} />
+            </div>
+        );
+    }
+}
 const mapStateToProps =(state)=> {
     return {
         mypostData: state.contentPage.mypostData,
         myNewPost: state.contentPage.myNewPost,
-        dialogsData: state.messagesPage.dialogsData
+        profile: state.contentPage.profile
     }
 };
-const mapDispatchToProps =(dispatch)=> {
-    return {
-        addPost: ()=> {
-            dispatch(addPostActionCreator());
-        },
-        updateNewPostChange: (text)=> {
-            let action = updateNewPostActionCreator(text);
-            dispatch(action);
-        }
-    }
-};
-const InfoblockContainer = connect(mapStateToProps, mapDispatchToProps)(Infoblock);
-export default InfoblockContainer;
+//контейнерная компонента создается connect
+export default connect(mapStateToProps, {addPost, updateNewPost, setUserProfile})(InfoblockContainer);

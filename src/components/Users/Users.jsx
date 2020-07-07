@@ -2,6 +2,7 @@ import React from "react";
 import c from "./Users.module.css";
 import usersPhoto from "../../assets/images/users.png";
 import Preloader from "../Preloader/Preloader";
+import {NavLink} from "react-router-dom";
 
 
 const Users =(props)=> {
@@ -23,7 +24,9 @@ const Users =(props)=> {
             props.users.map( u => <div key={u.id}>
                 <div className={c.blockUsers}>
                     <div className={c.avaButton}>
-                        <img className={c.photoUser} src={u.photos.small != null ? u.photos.small : usersPhoto}/>
+                        <NavLink to='./content'>
+                            <img className={c.photoUser} src={u.photos.small != null ? u.photos.small : usersPhoto}/>
+                        </NavLink>
                         <div className={c.button}>
                             {
                                 u.followed ? <button onClick={ ()=> { props.unfollow(u.id) } }>unfollow</button>

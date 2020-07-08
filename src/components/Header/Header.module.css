@@ -3,14 +3,14 @@
     display: flex;
     align-items: center;
     background-color: rgb(7, 0, 0);
-    border-radius: 20px;
+    border-radius: 25px;
   }
   
 .item {
   color: rgb(149, 26, 26);
   font-size: 7rem;
   font-weight: 900;
-  text-transform: uppercase;
+    text-transform: uppercase;
   margin-left: 100px;
-    
+
 }

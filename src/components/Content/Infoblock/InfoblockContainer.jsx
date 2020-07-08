@@ -3,6 +3,7 @@ import {addPost, setUserProfile, updateNewPost} from '../../../Redux/contentPage
 import {connect} from "react-redux";
 import * as axios from "axios";
 import Infoblock from "./Infoblock";
+import {withRouter} from "react-router-dom";
 
 //данная контейнерная компонента является оберткой для обычной компоненты (Infoblock)
 //сюда приходят данные и методы из store/state
@@ -27,7 +28,9 @@ import Infoblock from "./Infoblock";
 };*/
 class InfoblockContainer extends React.Component {
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/2`)
+        debugger
+        let userId = this.props.match.params.userId;
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
             .then(response => {
                 this.props.setUserProfile(response.data);
             });
@@ -47,5 +50,8 @@ const mapStateToProps =(state)=> {
         profile: state.contentPage.profile
     }
 };
-//контейнерная компонента создается connect
-export default connect(mapStateToProps, {addPost, updateNewPost, setUserProfile})(InfoblockContainer);
+//получить еще и данные о маршруте, т.е URL
+//и далее эту новую компоненту передать в connect
+let WithUrlDataContainerComponent = withRouter(InfoblockContainer);
+//контейнерная компонента создается connect'ом
+export default connect(mapStateToProps, {addPost, updateNewPost, setUserProfile})(WithUrlDataContainerComponent);

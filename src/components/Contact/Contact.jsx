@@ -1,10 +1,15 @@
 import React from 'react';
 import c from './Contact.module.css';
 
-const Contact =()=> {
+const Contact =(props)=> {
+
     return (
         <div className={c.item}>
-            My contact
+            <div>
+                <div>{props.contact.fullName}</div>
+                <div>{props.contact.phoneNumber}</div>
+                <div>{props.contact.email}</div>
+            </div>
         </div>
     )
 }

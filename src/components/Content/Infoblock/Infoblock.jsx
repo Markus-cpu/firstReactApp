@@ -22,6 +22,7 @@ const Infoblock = (props) => {
 
     return (
         <div>
+            <img className={c.img} src="https://www.goldmansachs.com/worldwide/banner-img-1200x200.jpg" alt="" />
             <Infoperson  profile={props.profile}/>
             <div className={c.inputpost}>
                  <textarea onChange={ onPostChange }  value={newPostElement}

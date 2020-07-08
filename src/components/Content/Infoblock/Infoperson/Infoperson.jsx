@@ -1,17 +1,21 @@
 import React from 'react';
 import c from './Infoperson.module.css';
+import Preloader from "../../../Preloader/Preloader";
 
 const Infoperson = (props) => {
+    if (!props.profile) {
+        return <Preloader />
+    }
 
     return (
         <div>
             <div className={c.info_block} >
-                <img className={c.avatar} src={props.dialogsData} alt="" />
+                <img className={c.avatar} src={props.profile.photos.large} alt="#" />
                 <div className={c.description}>
-                    <div className={c.infoname}>Mr. Frick</div>
+                    <div className={c.infoname}>{props.profile.fullName}</div>
                     <div className={c.info}>
-                        <div className={c.text}>My life is impotant!!!</div>
-                        <span className={c.date}>on Google 12.03.1982 Verdana</span>
+                        <div className={c.text}>{props.profile.aboutMe}</div>
+                        <span className={c.date}>{props.profile.contacts.facebook}</span>
                     </div>
                 </div>
             </div>

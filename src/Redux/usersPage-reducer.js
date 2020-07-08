@@ -1,23 +1,15 @@
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
-const SET_USERS = 'SET_USERS';
-const SET_CURRENT_PAGE ='SET_CURRENT_PAGE';
+const SET_USERS = 'SET-USERS';
+const SET_CURRENT_PAGE ='SET-CURRENT-PAGE';
 const SET_USERS_TOTAL_COUNT = 'SET-USERS-TOTAL-COUNT';
-
+const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING';
 let inintialState = {
-    users: [
-        /*{id: 1, avatarUrl: 'https://s001.radikal.ru/i196/1401/ba/d9e3d67545fa.jpg',
-            followed: true, fullname: 'Dima S', status: 'I am a big Boy!!!', location: {country: 'Belarus', city: 'Minsk'}},
-        {id: 2, avatarUrl: 'https://99px.ru/sstorage/1/2016/05/image_12405162254187087407.gif',
-            followed: false, fullname: 'Masha T', status: 'I am a big Girl!!!', location: {country: 'Russian', city: 'Kazan'}},
-        {id: 3, avatarUrl: 'https://s00.yaplakal.com/pics/userpic/6/7/5/av-865576.jpg',
-            followed: true, fullname: 'Maksim O', status: 'I am a big Boy too!!!', location: {country: 'Russian', city: 'Moscow'}},
-        {id: 4, avatarUrl: 'https://s001.radikal.ru/i196/1401/ba/d9e3d67545fa.jpg',
-            followed: false, fullname: 'Vlad E', status: 'I am a boss!!!', location: {country: 'Ukraine', city: 'Kiev'}}*/
-    ],
+    users: [],
     pageSize: 5,
     totalUsersCount: 20,
-    currentPage: 1
+    currentPage: 1,
+    isFetching: false
 };
 
 //здесь принимаем тот state, который необходим данному reducer
@@ -64,17 +56,23 @@ const usersPageReducer =(state = inintialState, action) => {
                 ...state, totalUsersCount: action.count
             };
         }
+        case TOGGLE_IS_FETCHING: {
+            return {
+                ...state, isFetching: action.isFetching
+            }
+        }
         default:
             return state;
     }
 };
 //ДВЕ чистых функций, которые возвращают action
-export const followAC =(usersId)=> ({type: FOLLOW, usersId});
-export const unfollowAC =(usersId)=> ({type: UNFOLLOW, usersId});
+export const follow =(usersId)=> ({type: FOLLOW, usersId});
+export const unfollow =(usersId)=> ({type: UNFOLLOW, usersId});
 //С сервера придут к нам данные о users
 //и мы их добавим в state
-export const setUsersAC =(users)=> ({type: SET_USERS, users});
-export const setCurrentPageAC =(currentPage)=> ({type: SET_CURRENT_PAGE, currentPage});
-export const setUsersTotalCountAC =(totalUsersCount)=> ({type: SET_USERS_TOTAL_COUNT, count: totalUsersCount});
+export const setUsers =(users)=> ({type: SET_USERS, users});
+export const setCurrentPage =(currentPage)=> ({type: SET_CURRENT_PAGE, currentPage});
+export const setUsersTotalCount =(totalUsersCount)=> ({type: SET_USERS_TOTAL_COUNT, count: totalUsersCount});
+export const toggleIsFetching =(isFetching)=> ({type: TOGGLE_IS_FETCHING, isFetching});
 
 export default  usersPageReducer;

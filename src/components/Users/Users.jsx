@@ -24,7 +24,7 @@ const Users =(props)=> {
             props.users.map( u => <div key={u.id}>
                 <div className={c.blockUsers}>
                     <div className={c.avaButton}>
-                        <NavLink to='./content'>
+                        <NavLink to='./infoblock'>
                             <img className={c.photoUser} src={u.photos.small != null ? u.photos.small : usersPhoto}/>
                         </NavLink>
                         <div className={c.button}>

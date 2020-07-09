@@ -8,7 +8,7 @@ import UsersContainer from './components/Users/UsersContainer';
 import {Route} from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import ContactContainer from "./components/Contact/ContactContainer";
-import InfoblockContainer from "./components/Content/Infoblock/InfoblockContainer";
+import InfoblockContainer from "./components/Infoblock/InfoblockContainer";
 
 
 const App = (props) => {
@@ -19,13 +19,12 @@ const App = (props) => {
             <Header/>
             <Sidebar store={props.store}/>
             <div className="App-wrapper-content">
-                <Route exact path="/Dialogs" render={() => <DialogsContainer/>}/>
-                {/*Сейчас у нас в пути(URL) есть параметр userId*/}
+                <Route  path="/Dialogs" render={() => <DialogsContainer/>}/>
                 <Route  path='/Infoblock/:userId' render={() => <InfoblockContainer />}/>
-                <Route exact path="/Home" render={()=> <Home/>}/>
-                <Route exact path="/Contact" render={()=> <ContactContainer/>}/>
-                <Route exact path="/Email" render={()=> <Email/>}/>
-                <Route exact path="/Users" render={() => <UsersContainer/>}/>
+                <Route  path="/Home" render={()=> <Home/>}/>
+                <Route  path="/Contact" render={()=> <ContactContainer/>}/>
+                <Route  path="/Email" render={()=> <Email/>}/>
+                <Route  path="/Users" render={() => <UsersContainer/>}/>
             </div>
         </div>
     )

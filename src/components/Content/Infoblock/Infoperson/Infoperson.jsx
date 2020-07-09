@@ -3,7 +3,6 @@ import c from './Infoperson.module.css';
 import Preloader from "../../../Preloader/Preloader";
 
 const Infoperson = (props) => {
-
     if (!props.profile) {
         return <Preloader />
     }

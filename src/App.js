@@ -21,8 +21,8 @@ const App = (props) => {
             <div className="App-wrapper-content">
                 <Route exact path="/Dialogs" render={() => <DialogsContainer/>}/>
                 {/*Сейчас у нас в пути(URL) есть параметр userId*/}
-                <Route exact path='/infoblock/:userId' render={() => <InfoblockContainer />}/>
-                <Route exact path='/Home' render={()=> <Home/>}/>
+                <Route  path='/Infoblock/:userId' render={() => <InfoblockContainer />}/>
+                <Route exact path="/Home" render={()=> <Home/>}/>
                 <Route exact path="/Contact" render={()=> <ContactContainer/>}/>
                 <Route exact path="/Email" render={()=> <Email/>}/>
                 <Route exact path="/Users" render={() => <UsersContainer/>}/>

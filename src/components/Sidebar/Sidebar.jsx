@@ -4,8 +4,6 @@ import Friends from './Friends/Friends';
 import { NavLink } from 'react-router-dom';
 //import MenuLink from './MenuLink/MenuLink';
 
-console.log(c);
-
 const Sidebar =(props)=> {
     let state = props.store.getState();
     let friendsElements = state.messagesPage.dialogsData.slice(0, 3).map(dialog  => <Friends name={dialog.name} id={dialog.id} ava={dialog.ava}/>);
@@ -19,7 +17,7 @@ const Sidebar =(props)=> {
                    <NavLink to="/home" activeClassName={c.activeLink}>Home</NavLink>
                </div>
                <div className={c.item}>
-                   <NavLink to="/infoblock/" activeClassName={c.activeLink}>Infoblock</NavLink>
+                   <NavLink to="/Infoblock" activeClassName={c.activeLink}>Profile</NavLink>
                </div>
                <div className={c.item}>
                    <NavLink to="/contact" activeClassName={c.activeLink}>Contact</NavLink>

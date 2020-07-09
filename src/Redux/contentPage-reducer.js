@@ -55,6 +55,6 @@ const contentPageReducer =(state = inintialState, action) => {
 
 export const addPost =()=> ({type: ADD_POST});
 export const updateNewPost =(text)=> ({type: UPDATE_NEW_POST, newPost: text});
-export const setUserProfile =(profile)=> ({type: SET_USER_PROFILE, profile});
+export const setUserProfile =(profile)=> ({type: SET_USER_PROFILE, profile: profile});
 
 export default  contentPageReducer;

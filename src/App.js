@@ -20,7 +20,7 @@ const App = (props) => {
             <Sidebar store={props.store}/>
             <div className="App-wrapper-content">
                 <Route  path="/Dialogs" render={() => <DialogsContainer/>}/>
-                <Route  path='/Infoblock' render={() => <InfoblockContainer />}/>
+                <Route  path='/infoblock/:userId' render={() => <InfoblockContainer />}/>
                 <Route  path="/Home" render={()=> <Home/>}/>
                 <Route  path="/Contact" render={()=> <ContactContainer/>}/>
                 <Route  path="/Email" render={()=> <Email/>}/>

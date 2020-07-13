@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import Header from './components/Header/Header';
 import Sidebar from './components/Sidebar/Sidebar';
 import Home from './components/Home/Home';
 import Email from './components/Email/Email';
@@ -9,6 +8,7 @@ import {Route} from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import ContactContainer from "./components/Contact/ContactContainer";
 import InfoblockContainer from "./components/Infoblock/InfoblockContainer";
+import HeaderContainer from "./components/Header/HeaderContainer";
 
 
 const App = (props) => {
@@ -16,7 +16,7 @@ const App = (props) => {
     return (
 
         <div className="App">
-            <Header/>
+            <HeaderContainer />
             <Sidebar store={props.store}/>
             <div className="App-wrapper-content">
                 <Route  path="/Dialogs" render={() => <DialogsContainer/>}/>

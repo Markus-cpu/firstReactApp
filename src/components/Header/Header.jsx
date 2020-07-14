@@ -11,7 +11,8 @@ const Header =(props)=> {
                out of society
             </div>
             <div className={c.loginBlock}>
-                { props.isAuth ? <div>{props.login}</div> : <NavLink to="/login">Login in</NavLink> }
+                { props.isAuth ? <div className={c.itemBlock}><img src={props.userPhoto}/>
+                    <div>{props.login}</div></div> : <NavLink to="/login">Login in</NavLink> }
             </div>
        </header>
     );

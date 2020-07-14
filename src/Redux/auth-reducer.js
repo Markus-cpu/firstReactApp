@@ -1,10 +1,13 @@
+import userPhoto from '../assets/images/avatar.jpg';
+
 const SET_AUTH_USER_DATA = 'SET_AUTH_USER_DATA';
 
 let inintialState = {
     id: null,
     email: null,
     login: null,
-    isAuth: false
+    isAuth: false,
+    img: userPhoto
 };
 const authReducer =(state = inintialState, action) => {
 

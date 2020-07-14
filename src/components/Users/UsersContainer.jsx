@@ -10,6 +10,8 @@ import {
 } from "../../Redux/usersPage-reducer";
 import * as axios from "axios";
 import Users from "./Users";
+import {usersAPI} from "../../API/api";
+
 
 
 
@@ -17,23 +19,25 @@ class UsersContainer extends React.Component {
     componentDidMount =()=> {
         //Preloader, анимация загрузки
         this.props.toggleIsFetching(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-            .then(response => {
+        //в данной функции происходит get-запрос на сервер
+        //мы ее экспортируем из api.js
+        //она возвращает нам promise(обещание)
+        //затем(then) мы этот ответ(response) диспатчим в store
+        usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
                 //когда данные получены, анимация исчезает
                 //и отображаются данные, полученные с сервера
                 this.props.toggleIsFetching(false);
-                this.props.setUsers(response.data.items);
-                this.props.setUsersTotalCount(response.data.totalCount)
+                this.props.setUsers(data.items);
+                this.props.setUsersTotalCount(data.totalCount)
             });
     };
     onPageChanged =(pageNumber)=> {
         this.props.setCurrentPage(pageNumber);
         this.props.toggleIsFetching(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
-            .then(response => {
-                this.props.toggleIsFetching(false);
-                this.props.setUsers(response.data.items);
-            });
+        usersAPI.getUsers(pageNumber, this.props.pageSize).then(data => {
+            this.props.toggleIsFetching(false);
+            this.props.setUsers(data.items);
+        });
     };
 
     render =()=> {

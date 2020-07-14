@@ -3,6 +3,8 @@ import c from "./Users.module.css";
 import usersPhoto from "../../assets/images/users.png";
 import Preloader from "../Preloader/Preloader";
 import {NavLink} from "react-router-dom";
+import * as axios from "axios";
+
 
 
 const Users =(props)=> {
@@ -27,12 +29,38 @@ const Users =(props)=> {
                         <NavLink to='/infoblock/:userId'>
                             <img className={c.photoUser} src={u.photos.small != null ? u.photos.small : usersPhoto}/>
                         </NavLink>
+
                         <div className={c.button}>
-                            {
-                                u.followed ? <button onClick={ ()=> { props.unfollow(u.id) } }>unfollow</button>
-                                    : <button onClick={ ()=> { props.follow(u.id)} }>follow</button>
+                            {u.followed
+                                ? <button onClick={ ()=> {
+                                    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
+                                        withCredentials: true,
+                                        headers: {
+                                            "API-KEY": "45cebfbe-bcb5-4673-8541-9b0bbc790a1e"
+                                        }
+                                    })
+                                        .then(response => {
+                                            if(response.data.resultCode === 0) {
+                                                props.unfollow(u.id)
+                                            }
+                                        });
+                                 } }>unfollow</button>
+                                : <button onClick={ ()=> {
+                                    axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
+                                        withCredentials: true,
+                                        headers: {
+                                            "API-KEY": "45cebfbe-bcb5-4673-8541-9b0bbc790a1e"
+                                        }
+                                    })
+                                        .then(response => {
+                                            if(response.data.resultCode === 0) {
+                                                props.follow(u.id)
+                                            }
+                                        });
+                                } }>follow</button>
                             }
                         </div>
+
                     </div>
                     <div className={c.infoUsers}>
                         <div>

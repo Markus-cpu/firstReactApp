@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import * as axios from "axios";
 import Infoblock from "./Infoblock";
 import {withRouter} from "react-router-dom";
+import {profileAPI} from "../../API/api";
 
 //данная контейнерная компонента является оберткой для обычной компоненты (Infoblock)
 //сюда приходят данные и методы из store/state
@@ -32,11 +33,9 @@ class InfoblockContainer extends React.Component {
         if(!userId) {
             return userId = 2;
         }
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`, {
-            withCredentials: true
-        })
-            .then(response => {
-                this.props.setUserProfile(response.data);
+        profileAPI.getProfile(userId)
+            .then(data => {
+                this.props.setUserProfile(data);
             });
     }
     render =()=> {

@@ -4,12 +4,14 @@ const SET_USERS = 'SET-USERS';
 const SET_CURRENT_PAGE ='SET-CURRENT-PAGE';
 const SET_USERS_TOTAL_COUNT = 'SET-USERS-TOTAL-COUNT';
 const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING';
+const TOGGLE_IS_FOLLOWING_IN_PROGRESS = 'TOGGLE_IS_FOLLOWING_IN_PROGRESS';
 let inintialState = {
     users: [],
     pageSize: 5,
     totalUsersCount: 20,
     currentPage: 1,
-    isFetching: false
+    isFetching: false,
+    followingInProgress: []
 };
 
 //здесь принимаем тот state, который необходим данному reducer
@@ -61,6 +63,15 @@ const usersPageReducer =(state = inintialState, action) => {
                 ...state, isFetching: action.isFetching
             }
         }
+        case TOGGLE_IS_FOLLOWING_IN_PROGRESS: {
+            return {
+                ...state,
+                followingInProgress: action.isFetching
+                    ? [...state.followingInProgress, action.usersId]
+                    : state.followingInProgress.filter(id => id !== action.usersId)
+            }
+
+        }
         default:
             return state;
     }
@@ -74,5 +85,6 @@ export const setUsers =(users)=> ({type: SET_USERS, users});
 export const setCurrentPage =(currentPage)=> ({type: SET_CURRENT_PAGE, currentPage});
 export const setUsersTotalCount =(totalUsersCount)=> ({type: SET_USERS_TOTAL_COUNT, count: totalUsersCount});
 export const toggleIsFetching =(isFetching)=> ({type: TOGGLE_IS_FETCHING, isFetching});
+export const toggleIsFollowingInProgress =(isFetching, userId)=> ({type: TOGGLE_IS_FOLLOWING_IN_PROGRESS, isFetching, userId});
 
 export default  usersPageReducer;

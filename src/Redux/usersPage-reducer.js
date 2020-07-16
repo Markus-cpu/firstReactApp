@@ -10,7 +10,7 @@ let inintialState = {
     pageSize: 5,
     totalUsersCount: 20,
     currentPage: 1,
-    isFetching: false,
+    isFetching: true,
     followingInProgress: []
 };
 
@@ -67,8 +67,8 @@ const usersPageReducer =(state = inintialState, action) => {
             return {
                 ...state,
                 followingInProgress: action.isFetching
-                    ? [...state.followingInProgress, action.usersId]
-                    : state.followingInProgress.filter(id => id !== action.usersId)
+                    ? [...state.followingInProgress, action.userId]
+                    : state.followingInProgress.filter(id => id !== action.userId)
             }
 
         }
@@ -84,7 +84,13 @@ export const unfollow =(usersId)=> ({type: UNFOLLOW, usersId});
 export const setUsers =(users)=> ({type: SET_USERS, users});
 export const setCurrentPage =(currentPage)=> ({type: SET_CURRENT_PAGE, currentPage});
 export const setUsersTotalCount =(totalUsersCount)=> ({type: SET_USERS_TOTAL_COUNT, count: totalUsersCount});
+//анимация загрузки
 export const toggleIsFetching =(isFetching)=> ({type: TOGGLE_IS_FETCHING, isFetching});
+//отключение кнопки, для того чтобы предотвратить множественный и один и тот же запрос
 export const toggleIsFollowingInProgress =(isFetching, userId)=> ({type: TOGGLE_IS_FOLLOWING_IN_PROGRESS, isFetching, userId});
 
+//Создаем функцию санку(thunk)
+const getUsers =(dispatch)=> {
+
+};
 export default  usersPageReducer;

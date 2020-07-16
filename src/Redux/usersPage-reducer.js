@@ -1,3 +1,5 @@
+import {usersAPI} from "../API/api";
+
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET-USERS';
@@ -90,19 +92,21 @@ export const toggleIsFetching =(isFetching)=> ({type: TOGGLE_IS_FETCHING, isFetc
 export const toggleIsFollowingInProgress =(isFetching, userId)=> ({type: TOGGLE_IS_FOLLOWING_IN_PROGRESS, isFetching, userId});
 
 //Создаем функцию санку(thunk)
-export const getUsersThunk =(dispatch)=> {
-    //Preloader, анимация загрузки
-    dispatch(toggleIsFetching(true));
-    //в данной функции происходит get-запрос на сервер
-    //мы ее экспортируем из api.js
-    //она возвращает нам promise(обещание)
-    //затем(then) мы этот ответ(response) диспатчим в store
-    usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-        //когда данные получены, анимация исчезает
-        //и отображаются данные, полученные с сервера
-        this.props.toggleIsFetching(false);
-        this.props.setUsers(data.items);
-        this.props.setUsersTotalCount(data.totalCount)
-    });
+export const getUsersThunkCreator =(currentPage, pageSize)=> {
+     return (dispatch) => {
+        //Preloader, анимация загрузки
+        dispatch(toggleIsFetching(true));
+        //в данной функции происходит get-запрос на сервер
+        //мы ее экспортируем из api.js
+        //она возвращает нам promise(обещание)
+        //затем(then) мы этот ответ(response) диспатчим в store
+        usersAPI.getUsers(currentPage, pageSize).then(data => {
+            //когда данные получены, анимация исчезает
+            //и отображаются данные, полученные с сервера
+            dispatch(toggleIsFetching(false));
+            dispatch(setUsers(data.items));
+            dispatch(setUsersTotalCount(data.totalCount));
+        });
+    };
 };
 export default  usersPageReducer;

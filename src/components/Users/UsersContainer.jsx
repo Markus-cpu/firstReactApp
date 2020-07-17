@@ -4,13 +4,13 @@ import {
     follow,
     unfollow,
     setCurrentPage,
-    toggleIsFollowingInProgress,
-    getUsersThunkCreator } from "../../Redux/usersPage-reducer";
+    getUsers } from "../../Redux/usersPage-reducer";
 import Users from "./Users";
 
 
 class UsersContainer extends React.Component {
     componentDidMount =()=> {
+        //вынесли запрос на сервер в store-thunk
         this.props.getUsers(this.props.currentPage, this.props.pageSize);
     };
     onPageChanged =(pageNumber)=> {
@@ -22,7 +22,6 @@ class UsersContainer extends React.Component {
             <Users users={this.props.users} totalUsersCount={this.props.totalUsersCount}
         pageSize={this.props.pageSize} onPageChanged={this.onPageChanged} follow={this.props.follow}
         unfollow={this.props.unfollow} currentPage={this.props.currentPage} isFetching={this.props.isFetching}
-                   toggleIsFollowingInProgress={this.props.toggleIsFollowingInProgress}
                    followingInProgress={this.props.followingInProgress}/>
         </>
     };
@@ -66,4 +65,4 @@ let mapStateToProps =(state)=> {
 };*/
 
 export default connect(mapStateToProps, {follow, unfollow, setCurrentPage,
-    toggleIsFollowingInProgress, getUsers: getUsersThunkCreator})(UsersContainer);
+     getUsers})(UsersContainer);

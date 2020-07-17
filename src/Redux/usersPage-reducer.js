@@ -79,8 +79,8 @@ const usersPageReducer =(state = inintialState, action) => {
     }
 };
 //ДВЕ чистых функций, которые возвращают action
-export const follow =(usersId)=> ({type: FOLLOW, usersId});
-export const unfollow =(usersId)=> ({type: UNFOLLOW, usersId});
+const followSuccess =(usersId)=> ({type: FOLLOW, usersId});
+const unfollowSuccess =(usersId)=> ({type: UNFOLLOW, usersId});
 //С сервера придут к нам данные о users
 //и мы их добавим в state
 export const setUsers =(users)=> ({type: SET_USERS, users});
@@ -92,7 +92,7 @@ export const toggleIsFetching =(isFetching)=> ({type: TOGGLE_IS_FETCHING, isFetc
 export const toggleIsFollowingInProgress =(isFetching, userId)=> ({type: TOGGLE_IS_FOLLOWING_IN_PROGRESS, isFetching, userId});
 
 //Создаем функцию санку(thunk)
-export const getUsersThunkCreator =(currentPage, pageSize)=> {
+export const getUsers =(currentPage, pageSize)=> {
      return (dispatch) => {
         //Preloader, анимация загрузки
         dispatch(toggleIsFetching(true));
@@ -107,6 +107,32 @@ export const getUsersThunkCreator =(currentPage, pageSize)=> {
             dispatch(setUsers(data.items));
             dispatch(setUsersTotalCount(data.totalCount));
         });
+    };
+};
+
+export const unfollow =(id)=> {
+    return (dispatch) => {
+        dispatch(toggleIsFollowingInProgress(true, id));
+        usersAPI.unfollow(id)
+            .then(data => {
+                if(data.resultCode === 0) {
+                    dispatch(unfollowSuccess(id))
+                }
+                dispatch(toggleIsFollowingInProgress(false, id));
+            });
+    };
+};
+
+export const follow =(id)=> {
+    return (dispatch) => {
+        dispatch(toggleIsFollowingInProgress(true, id));
+        usersAPI.follow(id)
+            .then(data => {
+                if(data.resultCode === 0) {
+                    dispatch(followSuccess(id))
+                }
+                dispatch(toggleIsFollowingInProgress(false, id));
+            });
     };
 };
 export default  usersPageReducer;

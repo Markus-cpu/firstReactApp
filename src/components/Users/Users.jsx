@@ -3,10 +3,6 @@ import c from "./Users.module.css";
 import usersPhoto from "../../assets/images/users.png";
 import Preloader from "../Preloader/Preloader";
 import {NavLink} from "react-router-dom";
-import {followAPI, unfollowAPI} from "../../API/api";
-import {toggleIsFollowingInProgress} from "../../Redux/usersPage-reducer";
-
-
 
 const Users =(props)=> {
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
@@ -30,32 +26,18 @@ const Users =(props)=> {
                         <NavLink to='/infoblock/:userId'>
                             <img className={c.photoUser} src={u.photos.small != null ? u.photos.small : usersPhoto}/>
                         </NavLink>
-
                         <div className={c.button}>
                             {u.followed
                                 ? <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={ ()=> {
-                                    props.toggleIsFollowingInProgress(true, u.id);
-                                    unfollowAPI.unfollow(u.id)
-                                        .then(data => {
-                                            if(data.resultCode === 0) {
-                                                props.unfollow(u.id)
-                                            }
-                                            props.toggleIsFollowingInProgress(false, u.id);
-                                        });
+                                    props.unfollow(u.id);
                                  } }>unfollow</button>
                                 : <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={ ()=> {
-                                    props.toggleIsFollowingInProgress(true, u.id);
-                                    followAPI.follow(u.id)
-                                        .then(data => {
-                                            if(data.resultCode === 0) {
-                                                props.follow(u.id)
-                                            }
-                                            props.toggleIsFollowingInProgress(false, u.id);
-                                        });
+                                    //в момент клика, вызывается то, что приходит из пропсов
+                                    //функция санки(thunk)
+                                    props.follow(u.id);
                                 } }>follow</button>
                             }
                         </div>
-
                     </div>
                     <div className={c.infoUsers}>
                         <div>
@@ -76,5 +58,4 @@ const Users =(props)=> {
         }
     </div>
 };
-
 export default Users;

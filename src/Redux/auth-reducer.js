@@ -1,4 +1,5 @@
 import userPhoto from '../assets/images/avatar.jpg';
+import {authAPI} from "../API/api";
 
 const SET_AUTH_USER_DATA = 'SET_AUTH_USER_DATA';
 
@@ -23,5 +24,18 @@ const authReducer =(state = inintialState, action) => {
             return state;
     }
 };
-export const setAuthUserData = (id, email, login)=> ({type: SET_AUTH_USER_DATA, data: {id, email, login}});
+const setAuthUserData = (id, email, login)=> ({type: SET_AUTH_USER_DATA, data: {id, email, login}});
+
+export const getAuth =()=> {
+    return (dispatch)=> {
+        authAPI.getAuth()
+            .then(data => {
+                if(data.resultCode === 0) {
+                    let {id, email, login} = data.data;//деструктуризация
+                    dispatch(setAuthUserData(id, email, login));
+                }
+            });
+    }
+};
+
 export default authReducer;

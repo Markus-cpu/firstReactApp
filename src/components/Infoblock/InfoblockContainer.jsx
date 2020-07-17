@@ -1,10 +1,8 @@
 import React from 'react';
-import {addPost, setUserProfile, updateNewPost} from '../../Redux/contentPage-reducer';
+import {addPost, updateNewPost, getProfile} from '../../Redux/contentPage-reducer';
 import {connect} from "react-redux";
-import * as axios from "axios";
 import Infoblock from "./Infoblock";
 import {withRouter} from "react-router-dom";
-import {profileAPI} from "../../API/api";
 
 //данная контейнерная компонента является оберткой для обычной компоненты (Infoblock)
 //сюда приходят данные и методы из store/state
@@ -33,10 +31,7 @@ class InfoblockContainer extends React.Component {
         if(!userId) {
             return userId = 2;
         }
-        profileAPI.getProfile(userId)
-            .then(data => {
-                this.props.setUserProfile(data);
-            });
+        this.props.getProfile(userId);
     }
     render =()=> {
         return (
@@ -57,4 +52,4 @@ const mapStateToProps =(state)=> {
 //и далее эту новую компоненту передать в connect
 
 //контейнерная компонента создается connect'ом
-export default connect(mapStateToProps, {addPost, updateNewPost, setUserProfile})(withRouter(InfoblockContainer));
+export default connect(mapStateToProps, {addPost, updateNewPost, getProfile})(withRouter(InfoblockContainer));

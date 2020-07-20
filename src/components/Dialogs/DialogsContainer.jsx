@@ -1,7 +1,9 @@
 import React from 'react';
 import Dialogs from './Dialogs';
-import {addMessageActionCreator, updateNewMessageActionCreator} from '../../Redux/messagesPage-reducer';
+import {addMessage, updateNewMessage} from '../../Redux/messagesPage-reducer';
 import {connect} from "react-redux";
+import {Redirect} from "react-router-dom";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 //передаем store через контекст, а не через props
 //тем самым перепригиваем
@@ -43,6 +45,7 @@ import {connect} from "react-redux";
 };*/
 //когда у нас в state происходят изменения, запускается
 //данная функция, и формируется новый обьект, и должен сравниться со старым обьектом
+let authRedirectComponent = withAuthRedirect(Dialogs);//HOC
 const mapStateToProps =(state)=> {
     return {
         //какие данные необходимо для нашей компоненты
@@ -52,18 +55,7 @@ const mapStateToProps =(state)=> {
         newMessages: state.messagesPage.newMessages
     }
 };
-const mapDispatchToProps = (dispatch) => {
-    return {
-        addMessage: () => {
-            dispatch(addMessageActionCreator());
-        },
-        updateNewMessage: (text) => {
-            dispatch(updateNewMessageActionCreator(text));
-        }
-    }
-};
 //настраиваем connect, передаем в него две функции
 //в коннекте локально внутри есть subscribe
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
 //экспортируем компоненту
-export default DialogsContainer;
+export default connect(mapStateToProps, {addMessage, updateNewMessage})(authRedirectComponent);

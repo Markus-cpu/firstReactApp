@@ -1,7 +1,8 @@
-import React, {Component} from 'react';
+import React from 'react';
 import c from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import MassageItem from './MassageItem/massageItem';
+
 
 
 
@@ -24,7 +25,6 @@ const Dialogs = (props) => {
         let text = e.target.value;
         props.updateNewMessage(text);//передается в DialogsContainer
     };
-
     //здесь переменные вызываются
     return (
         <div className={c.dialogs}>

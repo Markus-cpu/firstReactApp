@@ -3,6 +3,7 @@ import {addPost, updateNewPost, getProfile} from '../../Redux/contentPage-reduce
 import {connect} from "react-redux";
 import Infoblock from "./Infoblock";
 import {withRouter} from "react-router-dom";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 //данная контейнерная компонента является оберткой для обычной компоненты (Infoblock)
 //сюда приходят данные и методы из store/state
@@ -41,6 +42,8 @@ class InfoblockContainer extends React.Component {
         );
     }
 }
+//HOC
+let authRedirectComponent = withAuthRedirect(InfoblockContainer);
 const mapStateToProps =(state)=> {
     return {
         mypostData: state.contentPage.mypostData,
@@ -52,4 +55,4 @@ const mapStateToProps =(state)=> {
 //и далее эту новую компоненту передать в connect
 
 //контейнерная компонента создается connect'ом
-export default connect(mapStateToProps, {addPost, updateNewPost, getProfile})(withRouter(InfoblockContainer));
+export default connect(mapStateToProps, {addPost, updateNewPost, getProfile})(withRouter(authRedirectComponent));

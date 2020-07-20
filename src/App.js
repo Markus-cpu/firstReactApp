@@ -9,6 +9,8 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import ContactContainer from "./components/Contact/ContactContainer";
 import InfoblockContainer from "./components/Infoblock/InfoblockContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import LoginContainer from "./components/Login/LoginContainer";
+
 
 
 const App = (props) => {
@@ -25,6 +27,7 @@ const App = (props) => {
                 <Route  path="/Contact" render={()=> <ContactContainer/>}/>
                 <Route  path="/Email" render={()=> <Email/>}/>
                 <Route  path="/Users" render={() => <UsersContainer/>}/>
+                <Route  path="/login" render={() => <LoginContainer/>}/>
             </div>
         </div>
     )

@@ -58,8 +58,8 @@ const messagesPageReducer = (state = inintialState, action) => {//принима
 
 };
 
-export const addMessageActionCreator =()=> ({type: ADD_MESSAGE});
+export const addMessage =()=> ({type: ADD_MESSAGE});
 //так-как мы передаем объект, ложим его в круглые скобки
-export const updateNewMessageActionCreator =(text)=> ({type: UPDATE_NEW_MESSAGE, newMessage: text});
+export const updateNewMessage =(text)=> ({type: UPDATE_NEW_MESSAGE, newMessage: text});
 
 export default messagesPageReducer;

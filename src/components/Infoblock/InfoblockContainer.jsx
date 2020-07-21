@@ -56,5 +56,5 @@ const mapStateToProps =(state)=> {
 export default compose(
     connect(mapStateToProps, {addPost, updateNewPost, getProfile}),
     withRouter,
-    withAuthRedirect
+    //withAuthRedirect
 )(InfoblockContainer);

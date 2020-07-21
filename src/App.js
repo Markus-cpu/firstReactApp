@@ -14,9 +14,7 @@ import LoginContainer from "./components/Login/LoginContainer";
 
 
 const App = (props) => {
-
     return (
-
         <div className="App">
             <HeaderContainer />
             <Sidebar store={props.store}/>

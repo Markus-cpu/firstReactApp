@@ -1,6 +1,7 @@
 import React from 'react';
 import c from './Infoperson.module.css';
 import Preloader from "../../Preloader/Preloader";
+import ProfileStatus from "./ProfileStatus/ProfileStatus";
 
 const Infoperson = (props) => {
     if (!props.profile) {
@@ -15,6 +16,7 @@ const Infoperson = (props) => {
                     <div className={c.info}>
                         <div className={c.text}>{props.profile.aboutMe}</div>
                         <span className={c.date}>{props.profile.contacts.facebook}</span>
+                        <ProfileStatus status={"Hello I am a coolBoy!!!"}/>
                     </div>
                 </div>
             </div>

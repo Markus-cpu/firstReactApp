@@ -9,7 +9,7 @@ const instance = axios.create({
 });
 
 export const usersAPI = {
-    getUsers(currentPage, pageSize) {
+    getUsers(currentPage = 1, pageSize = 10) {
         return instance.get(`users?page=${currentPage}&count=${pageSize}`)
             .then(response => {
                 return response.data});//мы возвращаем не то, что нам вернул get-запрос,
@@ -26,14 +26,24 @@ export const usersAPI = {
             .then(response => {
                 return response.data;
             })
-    }
+    },
+    /*getProfile(userId) {
+        console.warn("Obsolute method. Please use profileAPI.getProfile");
+        return profileAPI.getProfile(userId);
+    }*/
 };
 export const profileAPI = {
     getProfile(userId) {
         return instance.get(`profile/${userId}`)
             .then(response => {
                 return response.data});
-    }
+    },
+    getStatus(userId) {
+        return instance.get(`status/${userId}`)
+    },
+    putStatus(userId) {
+        return instance.put(`status/${userId}`)
+    },
 };
 export const authAPI = {
     getAuth() {

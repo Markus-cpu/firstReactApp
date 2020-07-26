@@ -3,6 +3,8 @@ import {profileAPI} from "../API/api";
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST = 'UPDATE-NEW-POST';
 const SET_USER_PROFILE = 'SET-USER-PROFILE';
+const SET_USER_STATUS = 'SET-USER-STATUS';
+const UPDATE_USER_STATUS = 'UPDATE_USER_STATUS';
 
 let inintialState = {
     mypostData: [
@@ -10,7 +12,8 @@ let inintialState = {
         {id: '27 мая в 13:09', post: 'Но раньше, в старые времена, прямого доступа к прототипу объекта не было.'},
     ],
     myNewPost: '<<<Markus-cpu>>>',
-    profile: null
+    profile: null,
+    status: ' '
 };
 
 //здесь принимаем тот state, который необходим данному reducer
@@ -50,12 +53,26 @@ const contentPageReducer =(state = inintialState, action) => {
                 profile: action.profile
             }
         }
+        case SET_USER_STATUS: {
+            return {
+                ...state,
+                status: action.status
+            }
+        }
+        case UPDATE_USER_STATUS: {
+            return {
+                ...state,
+                status: action.status
+            }
+        }
         default:
             return state;
     }
 };
 
 const setUserProfile =(profile)=> ({type: SET_USER_PROFILE, profile: profile});
+const setUserStatus =(status)=> ({type: SET_USER_STATUS, status: status});
+const updateUserStatus =(status)=> ({type: UPDATE_USER_STATUS, status: status});
 export const addPost =()=> ({type: ADD_POST});
 export const updateNewPost =(text)=> ({type: UPDATE_NEW_POST, newPost: text});
 export const getProfile =(userId)=> {
@@ -63,6 +80,24 @@ export const getProfile =(userId)=> {
         profileAPI.getProfile(userId)
             .then(data => {
                 dispatch(setUserProfile(data));
+            });
+    }
+};
+export const getStatus =(userId)=> {
+    return (dispatch)=> {
+        profileAPI.getStatus(userId)
+            .then(data => {
+                dispatch(setUserStatus(data));
+            });
+    }
+};
+export const updateStatus =(status)=> {
+    return (dispatch)=> {
+        profileAPI.updateStatus(status)
+            .then(data => {
+                if(data.resultCode === 0) {
+                    dispatch(updateUserStatus(status));
+                }
             });
     }
 };

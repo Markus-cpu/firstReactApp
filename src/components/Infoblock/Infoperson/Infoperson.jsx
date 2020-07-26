@@ -16,7 +16,7 @@ const Infoperson = (props) => {
                     <div className={c.info}>
                         <div className={c.text}>{props.profile.aboutMe}</div>
                         <span className={c.date}>{props.profile.contacts.facebook}</span>
-                        <ProfileStatus status={"Hello I am a coolBoy!!!"}/>
+                        <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
                     </div>
                 </div>
             </div>

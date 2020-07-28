@@ -32,6 +32,9 @@ const Sidebar =(props)=> {
                    <NavLink to="/users" activeClassName={c.activeLink}>Users</NavLink>
                </div>
                <div className={c.item}>
+                   <NavLink to="/login" activeClassName={c.activeLink}>Login</NavLink>
+               </div>
+               <div className={c.item}>
                    <NavLink to="/friends" activeClassName={c.activeLink}>Friends</NavLink>
                </div>
            </nav>

@@ -28,6 +28,8 @@ import {compose} from "redux";
 };*/
 class InfoblockContainer extends React.Component {
     componentDidMount() {
+        //при первоночальном рендеринге компоненты,
+        //происходит ниже вся логика
         let userId = this.props.match.params.userId;
         if(!userId) {
             return userId = 2;

@@ -1,5 +1,5 @@
 import React from 'react';
-import {addPost, updateNewPost, getProfile, getStatus, updateStatus} from '../../Redux/contentPage-reducer';
+import {addPost, getProfile, getStatus, updateStatus} from '../../Redux/contentPage-reducer';
 import {connect} from "react-redux";
 import Infoblock from "./Infoblock";
 import {withRouter} from "react-router-dom";
@@ -61,7 +61,7 @@ const mapStateToProps =(state)=> {
 //и далее эту новую компоненту передать в connect
 //контейнерная компонента создается connect'ом
 export default compose(
-    connect(mapStateToProps, {addPost, updateNewPost, getProfile, getStatus, updateStatus}),
+    connect(mapStateToProps, {addPost, getProfile, getStatus, updateStatus}),
     withRouter,
     //withAuthRedirect
 )(InfoblockContainer);

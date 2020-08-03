@@ -2,11 +2,9 @@ import React from "react";
 import {Field, reduxForm} from "redux-form";
 
 const LoginForm =(props)=> {
-    const { handleSubmit } = props;
-    debugger;
     return (
         <>
-            <form onSubmit={ handleSubmit }>
+            <form onSubmit={ props.handleSubmit }>
                 <div><Field name={'login'} placeholder={"login"} component={'input'}/></div>
                 <div><Field name={'password'} placeholder={"password"} component={'input'}/></div>
                 <div><Field name={'rememberMe'} type={"checkbox"} component={'input'}/>remember me</div>

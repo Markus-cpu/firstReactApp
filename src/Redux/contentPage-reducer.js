@@ -1,7 +1,6 @@
 import {profileAPI} from "../API/api";
 
 const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST = 'UPDATE-NEW-POST';
 const SET_USER_PROFILE = 'SET-USER-PROFILE';
 const SET_USER_STATUS = 'SET-USER-STATUS';
 const UPDATE_USER_STATUS = 'UPDATE_USER_STATUS';
@@ -11,7 +10,6 @@ let inintialState = {
         {id: '25 мая в 17:47', post: 'React изначально был спроектирован так, чтобы его можно было внедрять постепенно. Другими словами, вы можете начать с малого и использовать только ту функциональность React, которая необходима вам в данный момент. Информация в этом разделе будет полезна в любой ситуации: при первом знакомстве с React, при создании простой динамической HTML-страницы и даже при проектировании сложного React-приложения.'},
         {id: '27 мая в 13:09', post: 'Но раньше, в старые времена, прямого доступа к прототипу объекта не было.'},
     ],
-    myNewPost: '<<<Markus-cpu>>>',
     profile: null,
     status: ' '
 };
@@ -22,13 +20,12 @@ const contentPageReducer =(state = inintialState, action) => {
         case ADD_POST: {
             let newPost = {
                 id: Date.now(),
-                post: state.myNewPost
+                post: action.addNewPostText
             };
             return {//сразу возвращаем данный обьект, и не нужно создавать stateCopy(переменную)
                 ...state,
                 mypostData: [...state.mypostData, newPost],//слева закидываем старый массив с данными
                 //а справа записываем новый элемент
-                myNewPost: ''
             };//создание копии объекта state поверхностно
             /*stateCopy.mypostData = [...state.mypostData]; //копируем отдельно массив mypostData
             stateCopy.mypostData.push(newPost);//
@@ -36,16 +33,6 @@ const contentPageReducer =(state = inintialState, action) => {
             /*state.mypostData.push(newPost);//я обращаюсь к contentPage  по имени параметра
             state.myNewPost = '';*/
             //return stateCopy;//возвращаем измененный state
-        }
-        case UPDATE_NEW_POST: {
-            return  {
-                ...state,
-                myNewPost: action.newPost
-            };
-            //stateCopy.mypostData = [...state.mypostData];
-            //stateCopy.myNewPost = action.newPost;
-            // state.myNewPost = action.newPost;
-            //return stateCopy;//возвращаем измененную копию state
         }
         case SET_USER_PROFILE: {
             return {
@@ -73,8 +60,8 @@ const contentPageReducer =(state = inintialState, action) => {
 const setUserProfile =(profile)=> ({type: SET_USER_PROFILE, profile: profile});
 const setUserStatus =(status)=> ({type: SET_USER_STATUS, status: status});
 const updateUserStatus =(status)=> ({type: UPDATE_USER_STATUS, status: status});
-export const addPost =()=> ({type: ADD_POST});
-export const updateNewPost =(text)=> ({type: UPDATE_NEW_POST, newPost: text});
+export const addPost =(addNewPostText)=> ({type: ADD_POST, addNewPostText});
+//Function Thunk
 export const getProfile =(userId)=> {
     return (dispatch)=> {
         profileAPI.getProfile(userId)

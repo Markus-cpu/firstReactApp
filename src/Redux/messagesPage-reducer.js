@@ -1,5 +1,4 @@
 const ADD_MESSAGE = 'ADD-MESSAGE';
-const UPDATE_NEW_MESSAGE = 'UPDATE-NEW-MESSAGE';
 
 let inintialState = {
         dialogsData: [
@@ -16,7 +15,6 @@ let inintialState = {
         {id: 4, message: 'Who Am I?'},
         {id: 5, message: 'You know me, my friend?'},
         {id: 6, message: 'No, I\'m not!'}],
-    newMessages: '<<<users Messages>>>'//здесь сохраняем новое сообщение как строку, а не объект
 };
 
 const messagesPageReducer = (state = inintialState, action) => {//принимаем тот state, который необходим данной функции reducer
@@ -25,7 +23,7 @@ const messagesPageReducer = (state = inintialState, action) => {//принима
         case ADD_MESSAGE: {
             let newMessage = {//сюда добавляем новое значение (сообщение)
                 id: 5,
-                message: state.newMessages
+                message: action.addNewMessageBody
             };
             return {//сразу возвращаем объект
                 //копируем state
@@ -33,7 +31,6 @@ const messagesPageReducer = (state = inintialState, action) => {//принима
                 //далее копируем массив, и push'им newMessage в него
                 messagesData: [...state.messagesData, newMessage],
                 //обнуляем поле в textarea
-                newMessages: '',
             };
             /*stateCopy.messagesData = [...state.messagesData];
             stateCopy.messagesData.push(newMessage);
@@ -42,24 +39,13 @@ const messagesPageReducer = (state = inintialState, action) => {//принима
             state.newMessages = '';//обнуления поля*/
             //return stateCopy;//возвращаем новый, преобразованный state
         }
-        case UPDATE_NEW_MESSAGE: {
-            return {
-                ...state,
-                newMessages: action.newMessage
-            };
             //stateCopy.messagesData = [...state.messagesData];
             //stateCopy.newMessages = action.newMessage;//записываем это значение, которое приходит из вне,
             // в объект messagesPage  и присваеваем это значение свойству newMessages, изменяем state
             //return stateCopy;//возвращаем новый, преобразованный state
-        }
         default:
             return state;
     }
-
 };
-
-export const addMessage =()=> ({type: ADD_MESSAGE});
-//так-как мы передаем объект, ложим его в круглые скобки
-export const updateNewMessage =(text)=> ({type: UPDATE_NEW_MESSAGE, newMessage: text});
-
+export const addMessage =(addNewMessageBody)=> ({type: ADD_MESSAGE, addNewMessageBody});
 export default messagesPageReducer;

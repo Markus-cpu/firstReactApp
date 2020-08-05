@@ -1,4 +1,4 @@
 
-.error textarea{
+.error textarea, input{
     border: 2px solid #c71818;
 }

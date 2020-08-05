@@ -1,7 +1,8 @@
 import userPhoto from '../assets/images/avatar.jpg';
 import {authAPI} from "../API/api";
 
-const SET_AUTH_USER_DATA = 'SET_AUTH_USER_DATA';
+const SET_AUTH_USER_DATA = 'SET_AUTH_USER_DATA'
+
 
 let inintialState = {
     id: null,
@@ -16,15 +17,14 @@ const authReducer =(state = inintialState, action) => {
         case SET_AUTH_USER_DATA: {
             return {
                 ...state,
-                ...action.data,
-                isAuth: true
+                ...action.payLoad
             }
         }
         default:
             return state;
     }
 };
-const setAuthUserData = (id, email, login)=> ({type: SET_AUTH_USER_DATA, data: {id, email, login}});
+const setAuthUserData = (id, email, login, isAuth)=> ({type: SET_AUTH_USER_DATA, payLoad: {id, email, login, isAuth}});
 
 export const getAuth =()=> {
     return (dispatch)=> {
@@ -32,7 +32,29 @@ export const getAuth =()=> {
             .then(data => {
                 if(data.resultCode === 0) {
                     let {id, email, login} = data.data;//деструктуризация
-                    dispatch(setAuthUserData(id, email, login));
+                    dispatch(setAuthUserData(id, email, login, true));
+                }
+            });
+    }
+};
+
+export const login=(email, password, rememberMe)=> {
+    return (dispatch)=> {
+        authAPI.login(email, password, rememberMe)
+            .then(data => {
+                if(data.resultCode === 0) {
+                    dispatch(setAuthUserData());
+                }
+            });
+    }
+};
+
+export const logout=()=> {
+    return (dispatch)=> {
+        authAPI.logout()
+            .then(data => {
+                if(data.resultCode === 0) {
+                    dispatch(setAuthUserData(null, null, null, false));
                 }
             });
     }

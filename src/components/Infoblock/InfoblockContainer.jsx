@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import Infoblock from "./Infoblock";
 import {withRouter} from "react-router-dom";
 import {compose} from "redux";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 //данная контейнерная компонента является оберткой для обычной компоненты (Infoblock)
 //сюда приходят данные и методы из store/state
@@ -63,5 +64,5 @@ const mapStateToProps =(state)=> {
 export default compose(
     connect(mapStateToProps, {addPost, getProfile, getStatus, updateStatus}),
     withRouter,
-    //withAuthRedirect
+    withAuthRedirect
 )(InfoblockContainer);

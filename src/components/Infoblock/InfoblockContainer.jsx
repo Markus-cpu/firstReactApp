@@ -33,7 +33,7 @@ class InfoblockContainer extends React.Component {
         //происходит ниже вся логика
         let userId = this.props.match.params.userId;
         if(!userId) {
-            return userId = 2;
+            return userId = this.props.authorizedUserId;
         }
         this.props.getProfile(userId);//запрос на сервер
         this.props.getStatus(userId);//запрос на сервер
@@ -55,7 +55,9 @@ const mapStateToProps =(state)=> {
         mypostData: state.contentPage.mypostData,
         myNewPost: state.contentPage.myNewPost,
         profile: state.contentPage.profile,
-        status: state.contentPage.status
+        status: state.contentPage.status,
+        authorizedUserId: state.auth.userId,
+        isAuth: state.auth.isAuth
     }
 };
 //получить еще и данные о маршруте, т.е URL

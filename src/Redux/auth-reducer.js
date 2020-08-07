@@ -6,7 +6,7 @@ const SET_AUTH_USER_DATA = 'SET_AUTH_USER_DATA'
 
 
 let inintialState = {
-    id: null,
+    userId: null,
     email: null,
     login: null,
     isAuth: false,
@@ -25,32 +25,31 @@ const authReducer =(state = inintialState, action) => {
             return state;
     }
 };
-const setAuthUserData = (id, email, login, isAuth)=> ({type: SET_AUTH_USER_DATA, payLoad: {id, email, login, isAuth}});
+const setAuthUserData = (userId, email, login, isAuth)=> ({type: SET_AUTH_USER_DATA, payLoad: {userId, email, login, isAuth}});
 
 export const getAuth =()=> {
     return (dispatch)=> {
         authAPI.getAuth()
             .then(data => {
                 if(data.resultCode === 0) {
-                    let {id, email, login} = data.data;//деструктуризация
-                    dispatch(setAuthUserData(id, email, login, true));
+                    let {userId, email, login} = data.data;//деструктуризация
+                    dispatch(setAuthUserData(userId, email, login, true));
                 }
             });
     }
 };
 
-export const login=(email, password, rememberMe)=> {
-    return (dispatch)=> {
-        authAPI.login(email, password, rememberMe)
-            .then(data => {
-                if(data.resultCode === 0) {
-                    dispatch(setAuthUserData());
-                } else {
-                    let action = stopSubmit()
-                    dispatch(action)
-                }
-            });
-    }
+export const login = (email, password, rememberMe) => (dispatch) => {
+    authAPI.login(email, password, rememberMe)
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(setAuthUserData())
+            } else {
+                let message = data.messages.length > 0 ? data.messages[0] : "Some error"
+                dispatch(stopSubmit("login", {email: message}))
+            }
+        });
+
 };
 
 export const logout=()=> {

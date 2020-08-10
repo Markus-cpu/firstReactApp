@@ -92,15 +92,16 @@ export const toggleIsFetching =(isFetching)=> ({type: TOGGLE_IS_FETCHING, isFetc
 export const toggleIsFollowingInProgress =(isFetching, userId)=> ({type: TOGGLE_IS_FOLLOWING_IN_PROGRESS, isFetching, userId});
 
 //Создаем функцию санку(thunk)
-export const getUsers =(currentPage, pageSize)=> {
+export const requestUsers =(requestPage, pageSize)=> {
      return (dispatch) => {
         //Preloader, анимация загрузки
         dispatch(toggleIsFetching(true));
+        dispatch(setCurrentPage(requestPage));
         //в данной функции происходит get-запрос на сервер
         //мы ее экспортируем из api.js
         //она возвращает нам promise(обещание)
         //затем(then) мы этот ответ(response) диспатчим в store
-        usersAPI.getUsers(currentPage, pageSize).then(data => {
+        usersAPI.getUsers(requestPage, pageSize).then(data => {
             //когда данные получены, анимация исчезает
             //и отображаются данные, полученные с сервера
             dispatch(toggleIsFetching(false));

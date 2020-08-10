@@ -18,7 +18,7 @@ const Users =(props)=> {
             return <span onClick={(e) => { props.onPageChanged(p) }}
                          className={ props.currentPage === p && c.selectedPage }>{p}</span>
         })}
-        {props.isFetching ? <Preloader /> : null}
+        {/*{props.isFetching ? <Preloader /> : null}*/}
         {
             props.users.map( u => <div key={u.id}>
                 <div className={c.blockUsers}>

@@ -34,6 +34,9 @@ class InfoblockContainer extends React.Component {
         let userId = this.props.match.params.userId;
         if(!userId) {
             return userId = this.props.authorizedUserId;
+            if(!userId) {
+                return this.props.history.push("/login")
+            }
         }
         this.props.getProfile(userId);//запрос на сервер
         this.props.getStatus(userId);//запрос на сервер

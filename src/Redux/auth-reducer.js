@@ -27,9 +27,8 @@ const authReducer =(state = inintialState, action) => {
 };
 const setAuthUserData = (userId, email, login, isAuth)=> ({type: SET_AUTH_USER_DATA, payLoad: {userId, email, login, isAuth}});
 
-export const getAuth =()=> {
-    return (dispatch)=> {
-        authAPI.getAuth()
+export const getAuth =()=> (dispatch)=> {
+        return authAPI.getAuthMe()
             .then(data => {
                 if(data.resultCode === 0) {
                     let {userId, email, login} = data.data;//деструктуризация
@@ -37,7 +36,7 @@ export const getAuth =()=> {
                 }
             });
     }
-};
+
 
 export const login = (email, password, rememberMe) => (dispatch) => {
     authAPI.login(email, password, rememberMe)

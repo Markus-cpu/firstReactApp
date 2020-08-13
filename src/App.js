@@ -4,16 +4,17 @@ import Sidebar from './components/Sidebar/Sidebar';
 import Home from './components/Home/Home';
 import Email from './components/Email/Email';
 import UsersContainer from './components/Users/UsersContainer';
-import {Route, withRouter} from "react-router-dom";
+import {BrowserRouter, Route, withRouter} from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import ContactContainer from "./components/Contact/ContactContainer";
 import InfoblockContainer from "./components/Infoblock/InfoblockContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
 import {compose} from "redux";
-import {connect} from "react-redux";
+import {connect, Provider} from "react-redux";
 import {initializeApp} from "./Redux/app-reducer";
 import Preloader from "./components/Preloader/Preloader";
+import store from "./Redux/redux-store";
 
 
 class App extends Component {
@@ -25,6 +26,8 @@ class App extends Component {
             return <Preloader />
         }
         return (
+            <BrowserRouter>
+                <Provider store={store}>
             <div className="App">
                 <HeaderContainer/>
                 <Sidebar store={this.props.store}/>
@@ -38,6 +41,9 @@ class App extends Component {
                     <Route path="/login" render={() => <Login/>}/>
                 </div>
             </div>
+
+                </Provider>
+            </BrowserRouter>
         )
     }
 }

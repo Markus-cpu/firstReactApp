@@ -16,7 +16,7 @@ const LoginForm =(props)=> {
                 <div><Field name={'password'} type={"password"} placeholder={"password"} component={Input} validate={[required, maxLength]}/></div>
                 <div><Field name={'rememberMe'} type={"checkbox"} component={Input}/>remember me</div>
                 {
-                    props.errors && <div style={'color: red'}>
+                    props.errors && <div>
                         {props.errors}
                     </div>
                 }

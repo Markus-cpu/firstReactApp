@@ -4,7 +4,7 @@ import c from './Home.module.css';
 
 const Home =()=> {
     return (
-        <div classname={c.item}>
+        <div className={c.item}>
             My home
         </div>
     )

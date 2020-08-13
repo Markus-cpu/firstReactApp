@@ -1,7 +1,6 @@
 import React from "react";
 import c from "./Users.module.css";
 import usersPhoto from "../../assets/images/users.png";
-import Preloader from "../Preloader/Preloader";
 import {NavLink} from "react-router-dom";
 
 const Users =(props)=> {
@@ -11,20 +10,19 @@ const Users =(props)=> {
     for(let i=1; i <= pagesCount; i++) {
         pages.push(i);
     }
-    return  <div>
+    return  <div className={c.blockUsers}>
         {pages.map(p => {
             //анонимная функция вызовется при клике на span
             //в обработчике события мы вызываем наш метод
-            return <span onClick={(e) => { props.onPageChanged(p) }}
-                         className={ props.currentPage === p && c.selectedPage }>{p}</span>
+            return <span onClick={() => { props.onPageChanged(p) }}
+                         className={ props.currentPage === p && c.selectedPage } key={p.id}>{p}</span>
         })}
-        {/*{props.isFetching ? <Preloader /> : null}*/}
         {
             props.users.map( u => <div key={u.id}>
                 <div className={c.blockUsers}>
                     <div className={c.avaButton}>
                         <NavLink to='/infoblock/:userId'>
-                            <img className={c.photoUser} src={u.photos.small != null ? u.photos.small : usersPhoto}/>
+                            <img alt={'#'} className={c.photoUser} src={u.photos.small != null ? u.photos.small : usersPhoto}/>
                         </NavLink>
                         <div className={c.button}>
                             {u.followed

@@ -1,7 +1,6 @@
 import React from 'react';
 import c from './Infoperson.module.css';
 import Preloader from "../../Preloader/Preloader";
-//import ProfileStatus from "./ProfileStatus/ProfileStatus";
 import ProfileStatusWithHooks from "./ProfileStatus/ProfileStatusWithHooks";
 
 const Infoperson = (props) => {

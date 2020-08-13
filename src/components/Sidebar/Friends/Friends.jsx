@@ -10,7 +10,7 @@ const Friends =(props)=> {
             {/*<NavLink to='/friends/' className={c.block}>Friends</NavLink>*/}
             <div className={c.item}>
                 <div className={c.blockinfo}>
-                    <img className={c.ava} src={props.ava} />
+                    <img alt={'#'} className={c.ava} src={props.ava} />
                     <div className={c.name}>{props.name}</div>
                 </div>
             </div> 

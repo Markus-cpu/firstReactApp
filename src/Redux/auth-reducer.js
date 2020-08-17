@@ -27,15 +27,13 @@ const authReducer =(state = inintialState, action) => {
 };
 const setAuthUserData = (userId, email, login, isAuth)=> ({type: SET_AUTH_USER_DATA, payLoad: {userId, email, login, isAuth}});
 
-export const getAuth =()=> (dispatch)=> {
-        return authAPI.getAuthMe()
-            .then(data => {
-                if(data.resultCode === 0) {
-                    let {userId, email, login} = data.data;//деструктуризация
-                    dispatch(setAuthUserData(userId, email, login, true));
-                }
-            });
+export const getAuth = ()=> async (dispatch)=> {
+    let data = await authAPI.getAuthMe()
+    if(data.resultCode === 0) {
+        let {userId, email, login} = data.data;//деструктуризация
+        dispatch(setAuthUserData(userId, email, login, true));
     }
+}
 
 
 export const login = (email, password, rememberMe) => (dispatch) => {

@@ -4,11 +4,12 @@ const ADD_POST = 'ADD-POST';
 const SET_USER_PROFILE = 'SET-USER-PROFILE';
 const SET_USER_STATUS = 'SET-USER-STATUS';
 const UPDATE_USER_STATUS = 'UPDATE_USER_STATUS';
+const DELETE_POST = 'DELETE_POST';
 
 let inintialState = {
     mypostData: [
-        {id: '25 мая в 17:47', post: 'React изначально был спроектирован так, чтобы его можно было внедрять постепенно. Другими словами, вы можете начать с малого и использовать только ту функциональность React, которая необходима вам в данный момент. Информация в этом разделе будет полезна в любой ситуации: при первом знакомстве с React, при создании простой динамической HTML-страницы и даже при проектировании сложного React-приложения.'},
-        {id: '27 мая в 13:09', post: 'Но раньше, в старые времена, прямого доступа к прототипу объекта не было.'},
+        {id: 1, post: 'React изначально был спроектирован так, чтобы его можно было внедрять постепенно. Другими словами, вы можете начать с малого и использовать только ту функциональность React, которая необходима вам в данный момент. Информация в этом разделе будет полезна в любой ситуации: при первом знакомстве с React, при создании простой динамической HTML-страницы и даже при проектировании сложного React-приложения.'},
+        {id: 2, post: 'Но раньше, в старые времена, прямого доступа к прототипу объекта не было.'},
     ],
     profile: null,
     status: ' '
@@ -52,6 +53,12 @@ const contentPageReducer =(state = inintialState, action) => {
                 status: action.status
             }
         }
+        case DELETE_POST: {
+            return {
+                ...state,
+                post: state.mypostData.filter(p => p.id !== action.postId)
+            }
+        }
         default:
             return state;
     }
@@ -61,6 +68,7 @@ const setUserProfile =(profile)=> ({type: SET_USER_PROFILE, profile: profile});
 const setUserStatus =(status)=> ({type: SET_USER_STATUS, status: status});
 const updateUserStatus =(status)=> ({type: UPDATE_USER_STATUS, status: status});
 export const addPost =(addNewPostText)=> ({type: ADD_POST, addNewPostText});
+export const deletePost =(postId)=> ({type: DELETE_POST, postId});
 //Function Thunk
 export const getProfile =(userId)=> {
     return (dispatch)=> {

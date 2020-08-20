@@ -9,11 +9,6 @@
 .button button{
     cursor: pointer;
 }
-.selectedPage {
-    font-weight: bold;
-    color: #e21313;
-    cursor: pointer;
-}
 
 .avaButton {
     color: #0cebee;

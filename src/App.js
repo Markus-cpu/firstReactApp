@@ -17,7 +17,7 @@ import Preloader from "./components/Preloader/Preloader";
 
 class App extends Component {
     componentDidMount = () => {
-        this.props.initializeApp();
+        this.props.initializeApp();//инициализация приложения
     };
     render() {
         if(this.props.initialized === true) {

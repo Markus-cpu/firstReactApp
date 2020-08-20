@@ -20,15 +20,18 @@ import Preloader from "../Preloader/Preloader";
 class UsersContainer extends React.Component {
     componentDidMount =()=> {
         //вынесли запрос на сервер в store-thunk
-        this.props.getUsers(this.props.currentPage, this.props.pageSize);
+        const {currentPage, pageSize} = this.props
+        this.props.getUsers(currentPage, pageSize);
     };
     onPageChanged =(pageNumber)=> {
-        this.props.getUsers(pageNumber, this.props.pageSize)
+        const {getUsers, pageSize} = this.props
+        getUsers(pageNumber, pageSize)
     };
     render =()=> {
 
         return <>
             { this.props.isFetching ? <Preloader/> : null }
+            {}
             <Users users={this.props.users} totalUsersCount={this.props.totalUsersCount}
         pageSize={this.props.pageSize} onPageChanged={this.onPageChanged} follow={this.props.follow}
         unfollow={this.props.unfollow} currentPage={this.props.currentPage} isFetching={this.props.isFetching}

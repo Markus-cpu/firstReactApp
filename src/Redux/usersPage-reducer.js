@@ -1,4 +1,5 @@
 import {usersAPI} from "../API/api";
+import {updateObjInArray} from "../utils/obj-helpers";
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -22,25 +23,28 @@ const usersPageReducer =(state = inintialState, action) => {
         case FOLLOW: {
             return {//сразу возвращаем данный обьект, и не нужно создавать stateCopy(переменную)
                 ...state,
-                users: state.users.map( u => {
+                //вспомогательная функция, помогающая нам иммьютабельно изменить объект в массиве
+                users: updateObjInArray(state.users, action.usersId, ["id"], {followed: true})
+                /*state.users.map( u => {
                     if(u.id === action.usersId) {
                         return {...u, followed: true}
                     } else {
                         return u;
                     }
-                })
+                })*/
             };
         }
         case UNFOLLOW: {
             return  {
                 ...state,
-                users: state.users.map( u => {
+                users: updateObjInArray(state.users, action.usersId, ["id"], {followed: false})
+                /*state.users.map( u => {
                     if(u.id === action.usersId) {
                         return {...u, followed: false}
                     } else {
                         return u;
                     }
-                })
+                })*/
             };
         }
         case SET_USERS: {
@@ -111,29 +115,22 @@ export const requestUsers =(requestPage, pageSize)=> {
     };
 };
 
+const onUnSubscription = async(dispatch, id, apiMethod, actionCreator)=> {
+    dispatch(toggleIsFollowingInProgress(true, id));
+    let data = await apiMethod(id)
+    if(data.resultCode === 0) {
+        dispatch(actionCreator(id))
+    }
+    dispatch(toggleIsFollowingInProgress(false, id));
+}
 export const unfollow =(id)=> {
-    return (dispatch) => {
-        dispatch(toggleIsFollowingInProgress(true, id));
-        usersAPI.unfollow(id)
-            .then(data => {
-                if(data.resultCode === 0) {
-                    dispatch(unfollowSuccess(id))
-                }
-                dispatch(toggleIsFollowingInProgress(false, id));
-            });
+    return async (dispatch) => {
+        await onUnSubscription(dispatch, id, usersAPI.unfollow.bind(usersAPI), unfollowSuccess);
     };
 };
-
 export const follow =(id)=> {
-    return (dispatch) => {
-        dispatch(toggleIsFollowingInProgress(true, id));
-        usersAPI.follow(id)
-            .then(data => {
-                if(data.resultCode === 0) {
-                    dispatch(followSuccess(id))
-                }
-                dispatch(toggleIsFollowingInProgress(false, id));
-            });
+    return async (dispatch) => {
+        await onUnSubscription(dispatch, id, usersAPI.follow.bind(usersAPI), followSuccess);
     };
 };
 export default  usersPageReducer;

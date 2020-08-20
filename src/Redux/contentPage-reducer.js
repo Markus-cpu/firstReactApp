@@ -20,7 +20,7 @@ const contentPageReducer =(state = inintialState, action) => {
     switch (action.type) {
         case ADD_POST: {
             let newPost = {
-                id: Date.now(),
+                id: Date.now().toString(),
                 post: action.addNewPostText
             };
             return {//сразу возвращаем данный обьект, и не нужно создавать stateCopy(переменную)

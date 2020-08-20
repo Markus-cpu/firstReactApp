@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom'
 import { render } from '@testing-library/react';
 import App from './App';
 import {Provider} from "react-redux";
@@ -14,3 +15,9 @@ test('renders learn react link', () => {
   const linkElement = getByText(/learn react/i);
   expect(linkElement).toBeInTheDocument();
 });
+
+test('render app without crashing', ()=> {
+  const div = document.createElement('div')
+  ReactDOM.render(<App/>, div)
+  ReactDOM.unmountComponentAtNode(div)//очищаем тег, после того что отрисовывалось там при тесте
+})

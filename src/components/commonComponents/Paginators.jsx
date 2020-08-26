@@ -24,7 +24,7 @@ const Paginator =({currentPage, onPageChanged, totalItemsCount, pageSize, portio
                     onPageChanged(p)
                     }}>{p}</span>
                 })}
-            {portionCount > portionSize &&
+            {portionCount > portionNumber &&
                 <button onClick={()=> {setPortionNumber(portionNumber + 1)}}>next</button>
             }
         </div>

@@ -1,8 +1,7 @@
 import React from 'react';
 import  c from './Sidebar.module.css';
-import Friends from './Friends/Friends';
+import Friends from './Friends/Friends'
 import { NavLink } from 'react-router-dom';
-//import MenuLink from './MenuLink/MenuLink';
 
 const Sidebar =(props)=> {
     let state = props.store.getState();

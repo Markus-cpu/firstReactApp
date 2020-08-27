@@ -1,6 +1,6 @@
 import React from "react";
 import c from "./Users.module.css";
-import Paginator from "../commonComponents/Paginators";
+import Paginator from "../commonComponents/PaginationExample";
 import User from "./User";
 
 const Users =({currentPage, onPageChanged, totalUsersCount, pageSize, ...props})=> {

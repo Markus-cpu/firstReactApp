@@ -2,7 +2,7 @@ import React, {Component, Suspense, lazy} from 'react';
 import './App.css';
 import Sidebar from './components/Sidebar/Sidebar';
 import Home from './components/Home/Home';
-import {BrowserRouter, Route, Switch, withRouter} from "react-router-dom";
+import {HashRouter, Route, Switch, withRouter} from "react-router-dom";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import {compose} from "redux";
 import {connect, Provider} from "react-redux";
@@ -54,17 +54,17 @@ const mapStateToProps = (state)=> ({
     initialized: state.app.initialized
 })
 
-const AppContainer =  compose(
+const AppContainer = compose(
     withRouter,
     connect(mapStateToProps, {initializeApp}))(App);
 
 const MarkusCpuApp =(props)=> {
     return (
-        <BrowserRouter>
+        <HashRouter basename={process.env.PUBLIC_URL}>
             <Provider store={store}>
                <AppContainer store={store}/>
             </Provider>
-        </BrowserRouter>
+        </HashRouter>
     )
 }
 

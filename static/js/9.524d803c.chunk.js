@@ -1,0 +1,2 @@
+(this["webpackJsonpmy-app"]=this["webpackJsonpmy-app"]||[]).push([[9],{304:function(a,t,e){a.exports={item:"Email_item__1wyNZ"}},306:function(a,t,e){"use strict";e.r(t);var i=e(0),m=e.n(i),n=e(304),s=e.n(n);t.default=function(){return m.a.createElement("div",{className:s.a.item},"My Email markbass82@gmail.com")}}}]);
+//# sourceMappingURL=9.524d803c.chunk.js.map

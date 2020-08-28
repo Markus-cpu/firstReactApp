@@ -1,0 +1,1 @@
+{"version":3,"sources":["FormsControls.module.css"],"names":[],"mappings":"AACA,2CACI,wBACJ","file":"7.ed328f4f.chunk.css","sourcesContent":["\r\n.error textarea, input{\r\n    border: 2px solid #c71818;\r\n}"]}

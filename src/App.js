@@ -41,8 +41,8 @@ class App extends Component {
                                      <Route path="/Email" render={() => <Email/>}/>
                                      <ErrorBoundary>
                                           <Route path="/Users" render={() => <UsersContainer/>}/>
+                                          <Route path="/login" render={() => <Login/>}/>
                                      </ErrorBoundary>
-                                     <Route path="/login" render={() => <Login/>}/>
                                 </Switch>
                            </Suspense>
                        </div>

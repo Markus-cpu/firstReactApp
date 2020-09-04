@@ -2,21 +2,28 @@ import React from 'react';
 import c from './Infoperson.module.css';
 import Preloader from "../../Preloader/Preloader";
 import ProfileStatusWithHooks from "./ProfileStatus/ProfileStatusWithHooks";
+import usersPhoto from "../../../assets/images/users.png";
 
-const Infoperson = (props) => {
-    if (!props.profile) {
+const Infoperson = ({profile, status, updateStatus, isOwner, savePhoto}) => {
+    if (!profile) {
         return <Preloader />;
+    }
+    const onMainPhotoSelected =(e)=> {
+        if(e.target.files.length) {
+            savePhoto(e.target.files[0])
+        }
     }
     return (
         <div>
             <div className={c.info_block} >
-                <img className={c.avatar} src={props.profile.photos.large} alt="#" />
+                <img className={c.avatar} src={profile.photos.large || usersPhoto} alt="#" />
+                {isOwner && <input type={"file"} onChange={ onMainPhotoSelected }/> }
                 <div className={c.description}>
-                    <div className={c.infoname}>{props.profile.fullName}</div>
+                    <div className={c.infoname}>{profile.fullName}</div>
                     <div className={c.info}>
-                        <div className={c.text}>{props.profile.aboutMe}</div>
-                        <span className={c.date}>{props.profile.contacts.facebook}</span>
-                        <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus}/>
+                        <div className={c.text}>{profile.aboutMe}</div>
+                        <span className={c.date}>{profile.contacts.facebook}</span>
+                        <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
                     </div>
                 </div>
             </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import {addPost, getProfile, getStatus, updateStatus} from '../../Redux/contentPage-reducer';
+import {addPost, getProfile, getStatus, savePhoto, updateStatus} from '../../Redux/contentPage-reducer';
 import {connect} from "react-redux";
 import Infoblock from "./Infoblock";
 import {withRouter} from "react-router-dom";
@@ -28,7 +28,7 @@ import {withAuthRedirect} from "../../hoc/withAuthRedirect";
     )
 };*/
 class InfoblockContainer extends React.Component {
-    componentDidMount() {
+    refreshProfile() {
         //при первоночальном рендеринге компоненты,
         //происходит ниже вся логика
         let userId = this.props.match.params.userId;
@@ -41,13 +41,25 @@ class InfoblockContainer extends React.Component {
         this.props.getProfile(userId);//запрос на сервер
         this.props.getStatus(userId);//запрос на сервер
     }
+    componentDidMount() {
+        this.refreshProfile()
+    }
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        //здесь мы сравниваем userId c предыдущим userId
+        if(this.props.match.params.userId !== prevProps.match.params.userId) {
+            this.refreshProfile()
+        }
+    }
+
     render =()=> {
         return (
             <>
                 <Infoblock {...this.props}
+                           isOwner={!!this.props.match.params.userId}
                            profile={this.props.profile}
                            status={this.props.status || "-------"}
                            updateStatus={this.props.updateStatus}
+                           savePhoto={this.props.savePhoto}
                 />
             </>
         );
@@ -67,7 +79,7 @@ const mapStateToProps =(state)=> {
 //и далее эту новую компоненту передать в connect
 //контейнерная компонента создается connect'ом
 export default compose(
-    connect(mapStateToProps, {addPost, getProfile, getStatus, updateStatus}),
+    connect(mapStateToProps, {addPost, getProfile, getStatus, updateStatus, savePhoto}),
     withRouter,
     withAuthRedirect
 )(InfoblockContainer);

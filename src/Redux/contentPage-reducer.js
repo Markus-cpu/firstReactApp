@@ -5,6 +5,7 @@ const SET_USER_PROFILE = 'SET-USER-PROFILE';
 const SET_USER_STATUS = 'SET-USER-STATUS';
 const UPDATE_USER_STATUS = 'UPDATE_USER_STATUS';
 const DELETE_POST = 'DELETE_POST';
+const SAVE_PHOTO_SUCCESS = 'SAVE_PHOTO_SUCCESS';
 
 let inintialState = {
     mypostData: [
@@ -59,6 +60,14 @@ const contentPageReducer =(state = inintialState, action) => {
                 post: state.mypostData.filter(p => p.id !== action.postId)
             }
         }
+        case SAVE_PHOTO_SUCCESS: {
+            debugger
+            return {
+                ...state,
+                profile: { ...state.profile, photos: action.photos}
+
+            }
+        }
         default:
             return state;
     }
@@ -69,6 +78,7 @@ const setUserStatus =(status)=> ({type: SET_USER_STATUS, status: status});
 const updateUserStatus =(status)=> ({type: UPDATE_USER_STATUS, status: status});
 export const addPost =(addNewPostText)=> ({type: ADD_POST, addNewPostText});
 export const deletePost =(postId)=> ({type: DELETE_POST, postId});
+export const savePhotoSuccess =(photos)=> ({type: SAVE_PHOTO_SUCCESS, photos});
 //Function Thunk
 export const getProfile =(userId)=> {
     return (dispatch)=> {
@@ -78,6 +88,7 @@ export const getProfile =(userId)=> {
             });
     }
 };
+//санка для получения статуса
 export const getStatus =(userId)=> {
     return (dispatch)=> {
         profileAPI.getStatus(userId)
@@ -86,14 +97,30 @@ export const getStatus =(userId)=> {
             });
     }
 };
-export const updateStatus =(status)=> {
-    return (dispatch)=> {
-        profileAPI.updateStatus(status)
-            .then(data => {
-                if(data.resultCode === 0) {
-                    dispatch(updateUserStatus(status));
-                }
-            });
+//перезагрузка статуса
+export const updateStatus =(status)=> async(dispatch)=> {
+    try {
+        let data = await profileAPI.updateStatus(status)
+        if(data.resultCode === 0) {
+            dispatch(updateUserStatus(data.data.status));
+        }
+    } catch(e) {
+        console.error(e.message);
     }
-};
+}
+//санка для отправки фото пользователя
+export const savePhoto =(file)=> async(dispatch)=> {
+    debugger
+    try {
+        let response = await profileAPI.savePhoto(file)
+        if(response.data.resultCode === 0) {
+            dispatch(savePhotoSuccess(response.data.photos));
+        }
+    } catch(e) {
+        console.error(e.message);
+    }
+}
+
+
+
 export default  contentPageReducer;

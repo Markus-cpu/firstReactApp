@@ -8,7 +8,6 @@ import {Textarea} from "../forms/FormsControls";
 
 const maxLength =  maxLengthCreator(30)
 const PostForm =React.memo(props=> {
-    console.log('render')
     return (
         <>
             <form onSubmit={props.handleSubmit}>
@@ -39,7 +38,7 @@ const Infoblock =React.memo(props => {
     return (
         <div>
             <img className={c.img} src="https://www.goldmansachs.com/worldwide/banner-img-1200x200.jpg" alt="" />
-            <Infoperson  profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>
+            <Infoperson savePhoto={props.savePhoto} isOwner={props.isOwner}  profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>
             <div className={c.inputpost}>
                 <PostReduxForm onSubmit={addNewPost}/>
                 {/*<textarea onChange={ onPostChange }  value={newPostElement}

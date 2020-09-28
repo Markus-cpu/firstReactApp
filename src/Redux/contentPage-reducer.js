@@ -73,19 +73,20 @@ const contentPageReducer =(state = inintialState, action) => {
     }
 };
 
-const setUserProfile =(profile)=> ({type: SET_USER_PROFILE, profile: profile});
-const setUserStatus =(status)=> ({type: SET_USER_STATUS, status: status});
-const updateUserStatus =(status)=> ({type: UPDATE_USER_STATUS, status: status});
+const setUserProfile =(profile)=> ({type: SET_USER_PROFILE, profile});
+const setUserStatus =(status)=> ({type: SET_USER_STATUS, status});
+const updateUserStatus =(status)=> ({type: UPDATE_USER_STATUS, status});
 export const addPost =(addNewPostText)=> ({type: ADD_POST, addNewPostText});
 export const deletePost =(postId)=> ({type: DELETE_POST, postId});
 export const savePhotoSuccess =(photos)=> ({type: SAVE_PHOTO_SUCCESS, photos});
+
 //Function Thunk
-export const getProfile =(userId)=> {
-    return (dispatch)=> {
-        profileAPI.getProfile(userId)
-            .then(data => {
-                dispatch(setUserProfile(data));
-            });
+export const getProfile =(userId)=> async(dispatch)=> {
+    try {
+        const data = await profileAPI.getProfile(userId)
+        dispatch(setUserProfile(data));
+    } catch(e) {
+        console.error(e.message)
     }
 };
 //санка для получения статуса
@@ -110,7 +111,6 @@ export const updateStatus =(status)=> async(dispatch)=> {
 }
 //санка для отправки фото пользователя
 export const savePhoto =(file)=> async(dispatch)=> {
-    debugger
     try {
         let response = await profileAPI.savePhoto(file)
         if(response.data.resultCode === 0) {

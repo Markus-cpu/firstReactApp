@@ -5,10 +5,7 @@ import './index.css';
 import MarkusCpuApp from "./App";
 
 
-ReactDOM.render(
-        <MarkusCpuApp />,
-    document.getElementById('root')
-)
+ReactDOM.render(<MarkusCpuApp />, document.getElementById('root'))
 
 /*rerenderEntireTree(store.getState());//функция перерисовки всего дерева App, после того как state изменился
 store.subscribe(() => {

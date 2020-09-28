@@ -10,14 +10,14 @@ const Infoperson = ({profile, status, updateStatus, isOwner, savePhoto}) => {
     }
     const onMainPhotoSelected =(e)=> {
         if(e.target.files.length) {
-            savePhoto(e.target.files[0])
+            savePhoto(e.target.files[1])
         }
     }
     return (
         <div>
             <div className={c.info_block} >
                 <img className={c.avatar} src={profile.photos.large || usersPhoto} alt="#" />
-                {isOwner && <input type={"file"} onChange={ onMainPhotoSelected }/> }
+                {!isOwner && <input type={"file"} onChange={ onMainPhotoSelected }/> }
                 <div className={c.description}>
                     <div className={c.infoname}>{profile.fullName}</div>
                     <div className={c.info}>

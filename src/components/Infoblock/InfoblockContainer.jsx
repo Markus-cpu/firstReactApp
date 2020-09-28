@@ -33,9 +33,9 @@ class InfoblockContainer extends React.Component {
         //происходит ниже вся логика
         let userId = this.props.match.params.userId;
         if(!userId) {
-            return userId = this.props.authorizedUserId;
+            userId = this.props.authorizedUserId;
             if(!userId) {
-                return this.props.history.push("/login")
+                this.props.history.push("/login")
             }
         }
         this.props.getProfile(userId);//запрос на сервер
@@ -55,7 +55,7 @@ class InfoblockContainer extends React.Component {
         return (
             <>
                 <Infoblock {...this.props}
-                           isOwner={!!this.props.match.params.userId}
+                           isOwner={!this.props.match.params.userId}
                            profile={this.props.profile}
                            status={this.props.status || "-------"}
                            updateStatus={this.props.updateStatus}

@@ -1,4 +1,4 @@
-# react-demo
+# pathSamuraiApp
 social-network
 
 

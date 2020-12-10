@@ -1,24 +1,28 @@
 import {usersAPI} from "../API/api";
 import {updateObjInArray} from "../utils/obj-helpers";
+import { UsersType } from "../types/types";
 
-const FOLLOW = 'FOLLOW';
-const UNFOLLOW = 'UNFOLLOW';
-const SET_USERS = 'SET-USERS';
-const SET_CURRENT_PAGE ='SET-CURRENT-PAGE';
-const SET_USERS_TOTAL_COUNT = 'SET-USERS-TOTAL-COUNT';
-const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING';
-const TOGGLE_IS_FOLLOWING_IN_PROGRESS = 'TOGGLE_IS_FOLLOWING_IN_PROGRESS';
-let inintialState = {
-    users: [],
+const FOLLOW = 'FOLLOW'
+const UNFOLLOW = 'UNFOLLOW'
+const SET_USERS = 'SET-USERS'
+const SET_CURRENT_PAGE ='SET-CURRENT-PAGE'
+const SET_USERS_TOTAL_COUNT = 'SET-USERS-TOTAL-COUNT'
+const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING'
+const TOGGLE_IS_FOLLOWING_IN_PROGRESS = 'TOGGLE_IS_FOLLOWING_IN_PROGRESS'
+
+let initialState = {
+    users: [] as Array<UsersType>,
     pageSize: 10,
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: true,
-    followingInProgress: []
+    followingInProgress: [] as Array<number> // array of users id
 };
 
+export type InitialStateType = typeof initialState
+
 //здесь принимаем тот state, который необходим данному reducer
-const usersPageReducer =(state = inintialState, action) => {
+const usersPageReducer =(state = initialState, action: any): InitialStateType => {
     switch (action.type) {
         case FOLLOW: {
             return {//сразу возвращаем данный обьект, и не нужно создавать stateCopy(переменную)

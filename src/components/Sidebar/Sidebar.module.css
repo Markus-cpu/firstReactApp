@@ -23,6 +23,7 @@
 
 .item a.activeLink{
   color: #ffffff;
+  border-bottom: 2px solid white;
 }
 
 .item a:hover {

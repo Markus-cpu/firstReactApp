@@ -86,18 +86,50 @@ const usersPageReducer =(state = initialState, action: any): InitialStateType =>
             return state;
     }
 };
+
+// Типизация action creators
+type FollowSuccessActionType = {
+    type: typeof FOLLOW
+    usersId: number
+}
+type UnfollowSuccessActionType = {
+    type: typeof UNFOLLOW
+    usersId: number
+}
+type SetUsersActionType = {
+    type: typeof SET_USERS
+    users: UsersType
+}
+type SetCurrentPageActionType = {
+    type: typeof SET_CURRENT_PAGE
+    currentPage: number
+}
+type SetUsersTotalCountActionType ={
+    type: typeof SET_USERS_TOTAL_COUNT
+    count: number
+}
+type ToggleIsFetchingActionType = {
+    type: typeof TOGGLE_IS_FETCHING
+    isFetching: boolean
+}
+type ToggleIsFollowingInProgressActionType = {
+    type: typeof TOGGLE_IS_FOLLOWING_IN_PROGRESS
+    isFetching: boolean
+    userId: number | string
+}
+
 //ДВЕ чистых функций, которые возвращают action
-const followSuccess =(usersId)=> ({type: FOLLOW, usersId});
-const unfollowSuccess =(usersId)=> ({type: UNFOLLOW, usersId});
+const followSuccess =(usersId: number): FollowSuccessActionType => ({type: FOLLOW, usersId});
+const unfollowSuccess =(usersId: number): UnfollowSuccessActionType => ({type: UNFOLLOW, usersId});
 //С сервера придут к нам данные о users
 //и мы их добавим в state
-export const setUsers =(users)=> ({type: SET_USERS, users});
-export const setCurrentPage =(currentPage)=> ({type: SET_CURRENT_PAGE, currentPage});
-export const setUsersTotalCount =(totalUsersCount)=> ({type: SET_USERS_TOTAL_COUNT, count: totalUsersCount});
+export const setUsers =(users: UsersType): SetUsersActionType => ({type: SET_USERS, users});
+export const setCurrentPage =(currentPage: number): SetCurrentPageActionType => ({type: SET_CURRENT_PAGE, currentPage});
+export const setUsersTotalCount =(totalUsersCount: number): SetUsersTotalCountActionType => ({type: SET_USERS_TOTAL_COUNT, count: totalUsersCount});
 //анимация загрузки
-export const toggleIsFetching =(isFetching)=> ({type: TOGGLE_IS_FETCHING, isFetching});
+export const toggleIsFetching =(isFetching: boolean): ToggleIsFetchingActionType => ({type: TOGGLE_IS_FETCHING, isFetching});
 //отключение кнопки, для того чтобы предотвратить множественный и один и тот же запрос
-export const toggleIsFollowingInProgress =(isFetching, userId)=> ({type: TOGGLE_IS_FOLLOWING_IN_PROGRESS, isFetching, userId});
+export const toggleIsFollowingInProgress =(isFetching: boolean, userId: number | string): ToggleIsFollowingInProgressActionType => ({type: TOGGLE_IS_FOLLOWING_IN_PROGRESS, isFetching, userId});
 
 //Создаем функцию санку(thunk)
 export const requestUsers =(requestPage, pageSize)=> {

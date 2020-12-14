@@ -17,29 +17,52 @@ import {
 } from "../../Redux/users-selectors";
 import Preloader from "../Preloader/Preloader";
 
-class UsersContainer extends React.Component {
+// Types
+import {UsersType} from "../../types/types";
+import {AppStateType} from "../../Redux/redux-store";
+
+type PropsType = {
+    currentPage: number
+    pageSize: number
+    isFetching: boolean
+    totalUsersCount: number
+    users: Array<UsersType>
+    followingInProgress: Array<number>
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
+    getUsers: (currentPage: number, pageSize: number) => void
+}
+
+class UsersContainer extends React.Component<PropsType> {
+
     componentDidMount =()=> {
         //вынесли запрос на сервер в store-thunk
         const {currentPage, pageSize} = this.props
         this.props.getUsers(currentPage, pageSize);
     };
-    onPageChanged =(pageNumber)=> {
+
+    onPageChanged =(pageNumber: number)=> {
         const {getUsers, pageSize} = this.props
         getUsers(pageNumber, pageSize)
     };
-    render =()=> {
 
+    render =()=> {
         return <>
             { this.props.isFetching ? <Preloader/> : null }
             {}
-            <Users users={this.props.users} totalUsersCount={this.props.totalUsersCount}
-        pageSize={this.props.pageSize} onPageChanged={this.onPageChanged} follow={this.props.follow}
-        unfollow={this.props.unfollow} currentPage={this.props.currentPage} isFetching={this.props.isFetching}
-                   followingInProgress={this.props.followingInProgress}/>
+            <Users users={this.props.users}
+                   totalUsersCount={this.props.totalUsersCount}
+                   pageSize={this.props.pageSize}
+                   onPageChanged={this.onPageChanged}
+                   follow={this.props.follow}
+                   unfollow={this.props.unfollow}
+                   currentPage={this.props.currentPage}
+                   followingInProgress={this.props.followingInProgress}
+            />
         </>
     };
 }
-let mapStateToProps =(state)=> {
+let mapStateToProps =(state: AppStateType)=> {
     return {
         users: getUser(state),
         totalUsersCount: getTotalUsersCount(state),

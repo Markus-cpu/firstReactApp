@@ -35,13 +35,21 @@ export type SetAuthUserDataActionType = {
     type: typeof SET_AUTH_USER_DATA
     payload: {
         userId: string | number | null
-        email: string
-        login: string
-        isAuth: boolean
+        email: string | null
+        login: string | null
+        isAuth: boolean | null
     }
 }
 
-const setAuthUserData = (userId: string | number | null, email: string | null, login: string | null, isAuth: boolean | null): SetAuthUserDataActionType => ({type: SET_AUTH_USER_DATA, payload: {userId, email, login, isAuth}});
+const setAuthUserData = (
+    userId: string | number | null,
+    email: string | null,
+    login: string | null,
+    isAuth: boolean | null
+): SetAuthUserDataActionType => ({
+        type: SET_AUTH_USER_DATA,
+        payload: {userId, email, login, isAuth}
+    });
 
 export const getAuth = ()=> async (dispatch)=> {
     let data = await authAPI.getAuthMe()
@@ -51,7 +59,7 @@ export const getAuth = ()=> async (dispatch)=> {
     }
 }
 
-export const login = (email, password, rememberMe) => async (dispatch: any) => {
+export const login = (email: string | null, password: string | null, rememberMe: any) => async (dispatch: any) => {
     let data = await authAPI.login(email, password, rememberMe)
     if (data.resultCode === 0) {
         dispatch(setAuthUserData(email, password, rememberMe, false))

@@ -1,5 +1,5 @@
 import {profileAPI} from "../API/api";
-import { PhotosType } from '../types/types'
+import {PhotosType, PostType, ProfileType} from '../types/types'
 
 const ADD_POST = 'ADD-POST';
 const SET_USER_PROFILE = 'SET-USER-PROFILE';
@@ -8,35 +8,12 @@ const UPDATE_USER_STATUS = 'UPDATE_USER_STATUS';
 const DELETE_POST = 'DELETE_POST';
 const SAVE_PHOTO_SUCCESS = 'SAVE_PHOTO_SUCCESS';
 
-type PostType = {
-    id: Date
-    post: string
-}
 
-type ContactsType = {
-    github: string
-    vk: string
-    facebook: string
-    instagram: string
-    twitter: string
-    website: string
-    youtube: string
-    mainLink: string
-}
-
-type ProfileType = {
-    userId: number
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    contacts: ContactsType
-    photos: PhotosType
-}
 
 let initialState = {
     posts: [
-        {id: new Date(), post: 'React изначально был спроектирован так, чтобы его можно было внедрять постепенно. Другими словами, вы можете начать с малого и использовать только ту функциональность React, которая необходима вам в данный момент. Информация в этом разделе будет полезна в любой ситуации: при первом знакомстве с React, при создании простой динамической HTML-страницы и даже при проектировании сложного React-приложения.'},
-        {id: new Date(), post: 'Но раньше, в старые времена, прямого доступа к прототипу объекта не было.'},
+        {id: 1, post: 'React изначально был спроектирован так, чтобы его можно было внедрять постепенно. Другими словами, вы можете начать с малого и использовать только ту функциональность React, которая необходима вам в данный момент. Информация в этом разделе будет полезна в любой ситуации: при первом знакомстве с React, при создании простой динамической HTML-страницы и даже при проектировании сложного React-приложения.'},
+        {id: 2, post: 'Но раньше, в старые времена, прямого доступа к прототипу объекта не было.'},
     ] as Array<PostType>,
     profile: null as ProfileType | null,
     status: ' ',
@@ -50,7 +27,7 @@ const contentPageReducer =(state = initialState, action: any): InitialStateType 
     switch (action.type) {
         case ADD_POST: {
             let newPost = {
-                id: new Date(),
+                id: action.postId,
                 post: action.addNewPostText
             };
             return {//сразу возвращаем данный обьект, и не нужно создавать stateCopy(переменную)
@@ -95,7 +72,7 @@ const contentPageReducer =(state = initialState, action: any): InitialStateType 
             debugger
             return {
                 ...state,
-                profile: { ...state.profile, photos: action.photos}
+                profile: { ...state.profile, photos: action.photos} as ProfileType | null
             }
         }
         default:
@@ -105,22 +82,38 @@ const contentPageReducer =(state = initialState, action: any): InitialStateType 
 
 type SetUserProfileActionType = {
     type: typeof SET_USER_PROFILE
-    profile: ProfileType
+    profile: ProfileType | null
 }
 type SetUserStatusActionType = {
     type: typeof SET_USER_STATUS
     status: string
 }
+type UpdateUserStatusAT = {
+    type: typeof UPDATE_USER_STATUS
+    status: string
+}
+type AddPostAT = {
+    type: typeof ADD_POST
+    addNewPostText: string
+}
+type DeletePostAT = {
+    type: typeof DELETE_POST
+    postId: number
+}
+type SavePhotoSuccessAT = {
+    type: typeof SAVE_PHOTO_SUCCESS
+    photos: PhotosType | null
+}
 
-const setUserProfile = (profile: ProfileType): SetUserProfileActionType => ({type: SET_USER_PROFILE, profile});
+const setUserProfile = (profile: ProfileType | null): SetUserProfileActionType => ({type: SET_USER_PROFILE, profile});
 const setUserStatus = (status: string): SetUserStatusActionType => ({type: SET_USER_STATUS, status});
-const updateUserStatus = (status) => ({type: UPDATE_USER_STATUS, status});
-export const addPost = (addNewPostText) => ({type: ADD_POST, addNewPostText});
-export const deletePost = (postId) => ({type: DELETE_POST, postId});
-export const savePhotoSuccess = (photos) => ({type: SAVE_PHOTO_SUCCESS, photos});
+const updateUserStatus = (status: string): UpdateUserStatusAT => ({type: UPDATE_USER_STATUS, status});
+export const addPost = (addNewPostText: string): AddPostAT => ({type: ADD_POST, addNewPostText});
+export const deletePost = (postId: number): DeletePostAT => ({type: DELETE_POST, postId});
+export const savePhotoSuccess = (photos: PhotosType | null): SavePhotoSuccessAT => ({type: SAVE_PHOTO_SUCCESS, photos});
 
 //Function Thunk
-export const getProfile =(userId)=> async(dispatch)=> {
+export const getProfile =(userId: number)=> async(dispatch: any)=> {
     try {
         const data = await profileAPI.getProfile(userId)
         dispatch(setUserProfile(data));
@@ -129,7 +122,7 @@ export const getProfile =(userId)=> async(dispatch)=> {
     }
 };
 //санка для получения статуса
-export const getStatus =(userId)=> {
+export const getStatus =(userId: number)=> {
     return (dispatch)=> {
         profileAPI.getStatus(userId)
             .then(data => {
@@ -149,7 +142,7 @@ export const updateStatus =(status)=> async(dispatch)=> {
     }
 }
 //санка для отправки фото пользователя
-export const savePhoto =(file)=> async(dispatch)=> {
+export const savePhoto =(file: string)=> async(dispatch)=> {
     try {
         let response = await profileAPI.savePhoto(file)
         if(response.data.resultCode === 0) {

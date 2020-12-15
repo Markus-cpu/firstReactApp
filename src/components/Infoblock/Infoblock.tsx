@@ -1,6 +1,6 @@
 import React from 'react';
 import c from './Infoblock.module.css';
-import Infoperson from './Infoperson/Infoperson';
+import {Infoperson} from './Infoperson/Infoperson';
 import Myposts from './Myposts/Myposts';
 import {Field, reduxForm} from "redux-form";
 import {maxLengthCreator, required} from "../../utils/validators/validators";

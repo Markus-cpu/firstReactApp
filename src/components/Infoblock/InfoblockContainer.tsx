@@ -5,6 +5,8 @@ import Infoblock from "./Infoblock";
 import {withRouter} from "react-router-dom";
 import {compose} from "redux";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {ProfileType} from "../../types/types";
+import {AppStateType} from "../../Redux/redux-store";
 
 //данная контейнерная компонента является оберткой для обычной компоненты (Infoblock)
 //сюда приходят данные и методы из store/state
@@ -27,7 +29,34 @@ import {withAuthRedirect} from "../../hoc/withAuthRedirect";
         </div>
     )
 };*/
-class InfoblockContainer extends React.Component {
+
+type MapStatePropsType =  {
+    match: any
+    history: any
+    isOwner: boolean
+    mypostData: string
+    myNewPost: string
+    profile: ProfileType
+    status: string
+    authorizedUserId: any
+    isAuth: boolean
+}
+
+type MapDispatchPropsType = {
+    getProfile: (userId: number) => void
+    getStatus: (userId: number) => void
+    updateStatus: () => void
+    savePhoto: () => void
+    addPost: () => void
+}
+
+type StateType = {
+    match: any
+}
+
+type TProps = MapStatePropsType & MapDispatchPropsType
+
+class InfoblockContainer extends React.Component<TProps> {
     refreshProfile() {
         //при первоночальном рендеринге компоненты,
         //происходит ниже вся логика
@@ -44,7 +73,7 @@ class InfoblockContainer extends React.Component {
     componentDidMount() {
         this.refreshProfile()
     }
-    componentDidUpdate(prevProps, prevState, snapshot) {
+    componentDidUpdate(prevProps: MapStatePropsType, prevState: StateType) {
         //здесь мы сравниваем userId c предыдущим userId
         if(this.props.match.params.userId !== prevProps.match.params.userId) {
             this.refreshProfile()
@@ -65,7 +94,7 @@ class InfoblockContainer extends React.Component {
         );
     }
 }
-const mapStateToProps =(state)=> {
+const mapStateToProps =(state: AppStateType): MapStatePropsType => {
     return {
         mypostData: state.contentPage.mypostData,
         myNewPost: state.contentPage.myNewPost,

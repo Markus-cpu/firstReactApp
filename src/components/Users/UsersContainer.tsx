@@ -21,17 +21,22 @@ import Preloader from "../Preloader/Preloader";
 import {UsersType} from "../../types/types";
 import {AppStateType} from "../../Redux/redux-store";
 
-type PropsType = {
+type MapStatePropsType = {
     currentPage: number
     pageSize: number
     isFetching: boolean
     totalUsersCount: number
     users: Array<UsersType>
     followingInProgress: Array<number>
+}
+
+type MapDispatchPropsType = {
     follow: (userId: number) => void
     unfollow: (userId: number) => void
     getUsers: (currentPage: number, pageSize: number) => void
 }
+
+type PropsType = MapStatePropsType & MapDispatchPropsType
 
 class UsersContainer extends React.Component<PropsType> {
 
@@ -62,7 +67,7 @@ class UsersContainer extends React.Component<PropsType> {
         </>
     };
 }
-let mapStateToProps =(state: AppStateType)=> {
+let mapStateToProps =(state: AppStateType): MapStatePropsType => {
     return {
         users: getUser(state),
         totalUsersCount: getTotalUsersCount(state),
@@ -99,5 +104,5 @@ let mapStateToProps =(state: AppStateType)=> {
     }
 };*/
 export default compose(
-    connect(mapStateToProps, {follow, unfollow, setCurrentPage, getUsers: requestUsers}),
+    connect(mapStateToProps, {follow, unfollow, getUsers: requestUsers}),
 )(UsersContainer);

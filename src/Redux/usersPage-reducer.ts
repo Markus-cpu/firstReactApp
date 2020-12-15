@@ -21,8 +21,43 @@ let initialState = {
 
 export type InitialStateType = typeof initialState
 
+
+// Типизация action creators
+type FollowSuccessActionType = {
+    type: typeof FOLLOW
+    usersId: number
+}
+type UnfollowSuccessActionType = {
+    type: typeof UNFOLLOW
+    usersId: number
+}
+type SetUsersActionType = {
+    type: typeof SET_USERS
+    users: UsersType
+}
+type SetCurrentPageActionType = {
+    type: typeof SET_CURRENT_PAGE
+    currentPage: number
+}
+type SetUsersTotalCountActionType ={
+    type: typeof SET_USERS_TOTAL_COUNT
+    count: number
+}
+type ToggleIsFetchingActionType = {
+    type: typeof TOGGLE_IS_FETCHING
+    isFetching: boolean
+}
+type ToggleIsFollowingInProgressActionType = {
+    type: typeof TOGGLE_IS_FOLLOWING_IN_PROGRESS
+    isFetching: boolean
+    userId: number
+}
+
+type ActionsTypes = FollowSuccessActionType | UnfollowSuccessActionType | SetUsersActionType |
+    SetCurrentPageActionType | SetUsersTotalCountActionType | ToggleIsFetchingActionType | ToggleIsFollowingInProgressActionType
+
 //здесь принимаем тот state, который необходим данному reducer
-const usersPageReducer =(state = initialState, action: any): InitialStateType => {
+const usersPageReducer =(state = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
         case FOLLOW: {
             return {//сразу возвращаем данный обьект, и не нужно создавать stateCopy(переменную)
@@ -54,7 +89,7 @@ const usersPageReducer =(state = initialState, action: any): InitialStateType =>
         case SET_USERS: {
             return {
                 ...state,
-                users: action.users
+                users: [action.users]
             };
         }
         case SET_CURRENT_PAGE: {
@@ -87,37 +122,6 @@ const usersPageReducer =(state = initialState, action: any): InitialStateType =>
     }
 };
 
-// Типизация action creators
-type FollowSuccessActionType = {
-    type: typeof FOLLOW
-    usersId: number
-}
-type UnfollowSuccessActionType = {
-    type: typeof UNFOLLOW
-    usersId: number
-}
-type SetUsersActionType = {
-    type: typeof SET_USERS
-    users: UsersType
-}
-type SetCurrentPageActionType = {
-    type: typeof SET_CURRENT_PAGE
-    currentPage: number
-}
-type SetUsersTotalCountActionType ={
-    type: typeof SET_USERS_TOTAL_COUNT
-    count: number
-}
-type ToggleIsFetchingActionType = {
-    type: typeof TOGGLE_IS_FETCHING
-    isFetching: boolean
-}
-type ToggleIsFollowingInProgressActionType = {
-    type: typeof TOGGLE_IS_FOLLOWING_IN_PROGRESS
-    isFetching: boolean
-    userId: number | string
-}
-
 //ДВЕ чистых функций, которые возвращают action
 const followSuccess =(usersId: number): FollowSuccessActionType => ({type: FOLLOW, usersId});
 const unfollowSuccess =(usersId: number): UnfollowSuccessActionType => ({type: UNFOLLOW, usersId});
@@ -129,7 +133,7 @@ export const setUsersTotalCount =(totalUsersCount: number): SetUsersTotalCountAc
 //анимация загрузки
 export const toggleIsFetching =(isFetching: boolean): ToggleIsFetchingActionType => ({type: TOGGLE_IS_FETCHING, isFetching});
 //отключение кнопки, для того чтобы предотвратить множественный и один и тот же запрос
-export const toggleIsFollowingInProgress =(isFetching: boolean, userId: number | string): ToggleIsFollowingInProgressActionType => ({type: TOGGLE_IS_FOLLOWING_IN_PROGRESS, isFetching, userId});
+export const toggleIsFollowingInProgress =(isFetching: boolean, userId: number): ToggleIsFollowingInProgressActionType => ({type: TOGGLE_IS_FOLLOWING_IN_PROGRESS, isFetching, userId});
 
 //Создаем функцию санку(thunk)
 export const requestUsers =(requestPage, pageSize)=> {

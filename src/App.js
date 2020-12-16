@@ -40,7 +40,7 @@ class App extends Component {
                                      <Route path="/Contact" render={() => <ContactContainer/>}/>
                                      <Route path="/Email" render={() => <Email/>}/>
                                      <ErrorBoundary>
-                                          <Route path="/Users" render={() => <UsersContainer/>}/>
+                                          <Route path="/Users" render={() => <UsersContainer pageTitle={"Black Metal"}/>}/>
                                           <Route path="/login" render={() => <Login/>}/>
                                      </ErrorBoundary>
                                 </Switch>

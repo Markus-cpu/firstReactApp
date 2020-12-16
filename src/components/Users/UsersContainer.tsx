@@ -1,12 +1,12 @@
-import React from "react";
-import {connect} from "react-redux";
+import React from 'react'
+import {connect} from 'react-redux'
 import {
     follow,
     unfollow,
     setCurrentPage,
-    requestUsers } from "../../Redux/usersPage-reducer";
-import Users from "./Users";
-import {compose} from "redux";
+    requestUsers } from '../../Redux/usersPage-reducer'
+import Users from './Users'
+import {compose} from 'redux'
 import {
     getCurrentPage,
     getFollowingInProgress,
@@ -14,12 +14,12 @@ import {
     getPageSize,
     getTotalUsersCount,
     getUser
-} from "../../Redux/users-selectors";
-import Preloader from "../Preloader/Preloader";
+} from '../../Redux/users-selectors'
+import Preloader from '../Preloader/Preloader'
 
 // Types
-import {UsersType} from "../../types/types";
-import {AppStateType} from "../../Redux/redux-store";
+import {UsersType} from '../../types/types'
+import {AppStateType} from '../../Redux/redux-store'
 
 type MapStatePropsType = {
     currentPage: number
@@ -36,23 +36,28 @@ type MapDispatchPropsType = {
     getUsers: (currentPage: number, pageSize: number) => void
 }
 
-type PropsType = MapStatePropsType & MapDispatchPropsType
+type AttributePropsType = {
+    pageTitle: string
+}
+
+type PropsType = MapStatePropsType & MapDispatchPropsType & AttributePropsType
 
 class UsersContainer extends React.Component<PropsType> {
 
     componentDidMount =()=> {
         //вынесли запрос на сервер в store-thunk
         const {currentPage, pageSize} = this.props
-        this.props.getUsers(currentPage, pageSize);
-    };
+        this.props.getUsers(currentPage, pageSize)
+    }
 
     onPageChanged =(pageNumber: number)=> {
         const {getUsers, pageSize} = this.props
         getUsers(pageNumber, pageSize)
-    };
+    }
 
     render =()=> {
         return <>
+            <h2>{this.props.pageTitle}</h2>
             { this.props.isFetching ? <Preloader/> : null }
             {}
             <Users users={this.props.users}
@@ -65,7 +70,7 @@ class UsersContainer extends React.Component<PropsType> {
                    followingInProgress={this.props.followingInProgress}
             />
         </>
-    };
+    }
 }
 let mapStateToProps =(state: AppStateType): MapStatePropsType => {
     return {
@@ -76,7 +81,7 @@ let mapStateToProps =(state: AppStateType): MapStatePropsType => {
         isFetching: getIsFetching(state),
         followingInProgress: getFollowingInProgress(state)
     }
-};
+}
 //рефакторинг функции mapDispatchToProps
 //она нам больше не нужна, так-как мы можем
 //передавать объект вторым параметром в connect
@@ -104,5 +109,5 @@ let mapStateToProps =(state: AppStateType): MapStatePropsType => {
     }
 };*/
 export default compose(
-    connect(mapStateToProps, {follow, unfollow, getUsers: requestUsers}),
-)(UsersContainer);
+    connect<MapStatePropsType, MapDispatchPropsType, AttributePropsType, AppStateType>(mapStateToProps, {follow, unfollow, getUsers: requestUsers}),
+)(UsersContainer)

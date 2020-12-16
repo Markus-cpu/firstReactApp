@@ -1,6 +1,9 @@
-import {usersAPI} from "../API/api";
-import {updateObjInArray} from "../utils/obj-helpers";
-import { UsersType } from "../types/types";
+import {usersAPI} from '../API/api'
+import {updateObjInArray} from '../utils/obj-helpers'
+import { UsersType } from '../types/types'
+import {AppStateType} from './redux-store'
+import {ThunkAction} from 'redux-thunk'
+import {Dispatch} from "redux";
 
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
@@ -17,10 +20,9 @@ let initialState = {
     currentPage: 1,
     isFetching: true,
     followingInProgress: [] as Array<number> // array of users id
-};
+}
 
 export type InitialStateType = typeof initialState
-
 
 // Типизация action creators
 type FollowSuccessActionType = {
@@ -118,26 +120,33 @@ const usersPageReducer =(state = initialState, action: ActionsTypes): InitialSta
 
         }
         default:
-            return state;
+            return state
     }
-};
+}
 
 //ДВЕ чистых функций, которые возвращают action
-const followSuccess =(usersId: number): FollowSuccessActionType => ({type: FOLLOW, usersId});
-const unfollowSuccess =(usersId: number): UnfollowSuccessActionType => ({type: UNFOLLOW, usersId});
+const followSuccess =(usersId: number): FollowSuccessActionType => ({type: FOLLOW, usersId})
+const unfollowSuccess =(usersId: number): UnfollowSuccessActionType => ({type: UNFOLLOW, usersId})
+
 //С сервера придут к нам данные о users
 //и мы их добавим в state
-export const setUsers =(users: UsersType): SetUsersActionType => ({type: SET_USERS, users});
-export const setCurrentPage =(currentPage: number): SetCurrentPageActionType => ({type: SET_CURRENT_PAGE, currentPage});
-export const setUsersTotalCount =(totalUsersCount: number): SetUsersTotalCountActionType => ({type: SET_USERS_TOTAL_COUNT, count: totalUsersCount});
+export const setUsers =(users: UsersType): SetUsersActionType => ({type: SET_USERS, users})
+export const setCurrentPage =(currentPage: number): SetCurrentPageActionType => ({type: SET_CURRENT_PAGE, currentPage})
+export const setUsersTotalCount =(totalUsersCount: number): SetUsersTotalCountActionType => ({type: SET_USERS_TOTAL_COUNT, count: totalUsersCount})
+
 //анимация загрузки
-export const toggleIsFetching =(isFetching: boolean): ToggleIsFetchingActionType => ({type: TOGGLE_IS_FETCHING, isFetching});
+export const toggleIsFetching =(isFetching: boolean): ToggleIsFetchingActionType => ({type: TOGGLE_IS_FETCHING, isFetching})
+
 //отключение кнопки, для того чтобы предотвратить множественный и один и тот же запрос
-export const toggleIsFollowingInProgress =(isFetching: boolean, userId: number): ToggleIsFollowingInProgressActionType => ({type: TOGGLE_IS_FOLLOWING_IN_PROGRESS, isFetching, userId});
+export const toggleIsFollowingInProgress =(isFetching: boolean, userId: number): ToggleIsFollowingInProgressActionType => ({type: TOGGLE_IS_FOLLOWING_IN_PROGRESS, isFetching, userId})
+
+type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
+type DispatchAction = Dispatch<ActionsTypes>
+type ActionCreatorType = FollowSuccessActionType | UnfollowSuccessActionType
 
 //Создаем функцию санку(thunk)
-export const requestUsers =(requestPage, pageSize)=> {
-     return (dispatch) => {
+export const requestUsers = (requestPage: number, pageSize: number): ThunkType => {
+     return async (dispatch) => {
         //Preloader, анимация загрузки
         dispatch(toggleIsFetching(true));
         dispatch(setCurrentPage(requestPage));
@@ -145,32 +154,38 @@ export const requestUsers =(requestPage, pageSize)=> {
         //мы ее экспортируем из api.js
         //она возвращает нам promise(обещание)
         //затем(then) мы этот ответ(response) диспатчим в store
-        usersAPI.getUsers(requestPage, pageSize).then(data => {
-            //когда данные получены, анимация исчезает
-            //и отображаются данные, полученные с сервера
-            dispatch(toggleIsFetching(false));
-            dispatch(setUsers(data.items));
-            dispatch(setUsersTotalCount(data.totalCount));
-        });
-    };
-};
+        let data = await usersAPI.getUsers(requestPage, pageSize)
+         //когда данные получены, анимация исчезает
+         //и отображаются данные, полученные с сервера
+        dispatch(toggleIsFetching(false));
+        dispatch(setUsers(data.items));
+        dispatch(setUsersTotalCount(data.totalCount));
+    }
+}
 
-const onUnSubscription = async(dispatch, id, apiMethod, actionCreator)=> {
-    dispatch(toggleIsFollowingInProgress(true, id));
+const _onUnSubscription = async (
+        dispatch: DispatchAction,
+        id: number,
+        apiMethod: any,
+        actionCreator: (id: number) => ActionCreatorType
+    ) => {
+    dispatch(toggleIsFollowingInProgress(true, id))
     let data = await apiMethod(id)
     if(data.resultCode === 0) {
         dispatch(actionCreator(id))
     }
-    dispatch(toggleIsFollowingInProgress(false, id));
+    dispatch(toggleIsFollowingInProgress(false, id))
 }
-export const unfollow =(id)=> {
+
+export const unfollow = (id: number): ThunkType => {
     return async (dispatch) => {
-        await onUnSubscription(dispatch, id, usersAPI.unfollow.bind(usersAPI), unfollowSuccess);
-    };
-};
-export const follow =(id)=> {
+        await _onUnSubscription(dispatch, id, usersAPI.unfollow.bind(usersAPI), unfollowSuccess)
+    }
+}
+export const follow = (id: number): ThunkType => {
     return async (dispatch) => {
-        await onUnSubscription(dispatch, id, usersAPI.follow.bind(usersAPI), followSuccess);
-    };
-};
-export default  usersPageReducer;
+        await _onUnSubscription(dispatch, id, usersAPI.follow.bind(usersAPI), followSuccess);
+    }
+}
+
+export default  usersPageReducer

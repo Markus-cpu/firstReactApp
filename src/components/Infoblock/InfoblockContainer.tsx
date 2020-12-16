@@ -5,7 +5,7 @@ import Infoblock from "./Infoblock";
 import {withRouter} from "react-router-dom";
 import {compose} from "redux";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
-import {ProfileType} from "../../types/types";
+import {PostType, ProfileType} from "../../types/types";
 import {AppStateType} from "../../Redux/redux-store";
 
 //данная контейнерная компонента является оберткой для обычной компоненты (Infoblock)
@@ -31,12 +31,11 @@ import {AppStateType} from "../../Redux/redux-store";
 };*/
 
 type MapStatePropsType =  {
-    match: any
-    history: any
-    isOwner: boolean
-    mypostData: string
-    myNewPost: string
-    profile: ProfileType
+    match?: any
+    history?: any
+    posts: Array<PostType>
+    addNewPostText: string
+    profile: ProfileType | null
     status: string
     authorizedUserId: any
     isAuth: boolean
@@ -45,12 +44,12 @@ type MapStatePropsType =  {
 type MapDispatchPropsType = {
     getProfile: (userId: number) => void
     getStatus: (userId: number) => void
-    updateStatus: () => void
-    savePhoto: () => void
-    addPost: () => void
+    updateStatus: (status: string) => void
+    savePhoto: (file: string) => void
+    addPost: (addNewPostText: string, postId: number) => void
 }
 
-type StateType = {
+type TState = {
     match: any
 }
 
@@ -73,7 +72,7 @@ class InfoblockContainer extends React.Component<TProps> {
     componentDidMount() {
         this.refreshProfile()
     }
-    componentDidUpdate(prevProps: MapStatePropsType, prevState: StateType) {
+    componentDidUpdate(prevProps: MapStatePropsType, prevState: TState) {
         //здесь мы сравниваем userId c предыдущим userId
         if(this.props.match.params.userId !== prevProps.match.params.userId) {
             this.refreshProfile()
@@ -96,8 +95,8 @@ class InfoblockContainer extends React.Component<TProps> {
 }
 const mapStateToProps =(state: AppStateType): MapStatePropsType => {
     return {
-        mypostData: state.contentPage.mypostData,
-        myNewPost: state.contentPage.myNewPost,
+        posts: state.contentPage.posts,
+        addNewPostText: state.contentPage.addNewPostText,
         profile: state.contentPage.profile,
         status: state.contentPage.status,
         authorizedUserId: state.auth.userId,

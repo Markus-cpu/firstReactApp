@@ -1,16 +1,23 @@
-import React from 'react';
-import c from './Infoblock.module.css';
-import {Infoperson} from './Infoperson/Infoperson';
-import Myposts from './Myposts/Myposts';
-import {Field, reduxForm} from "redux-form";
-import {maxLengthCreator, required} from "../../utils/validators/validators";
-import {Textarea} from "../forms/FormsControls";
+import React from 'react'
+import c from './Infoblock.module.css'
+import {Infoperson} from './Infoperson/Infoperson'
+import Myposts from './Myposts/Myposts'
+import {Field, reduxForm} from 'redux-form'
+import {maxLengthCreator, required} from '../../utils/validators/validators'
+import {Textarea} from '../forms/FormsControls'
+import {PostType} from "../../types/types";
 
-const maxLength =  maxLengthCreator(30)
-const PostForm =React.memo(props=> {
+type TProps = {
+    handleSubmit: () => void
+    posts: Array<PostType>
+    isOwner: boolean
+}
+
+const maxLength: (maxlength: number) => void =  maxLengthCreator(30)
+const PostForm: React.FC<TProps> = React.memo(({handleSubmit, posts, isOwner}) => {
     return (
         <>
-            <form onSubmit={props.handleSubmit}>
+            <form onSubmit={handleSubmit}>
                 <div>
                     <Field className={c.textarea}
                             placeholder="Your message here...."
@@ -28,7 +35,7 @@ const PostForm =React.memo(props=> {
 const PostReduxForm = reduxForm({form: 'postText',})(PostForm)
 
 const Infoblock =React.memo(props => {
-    let mypostElement = props.mypostData.map(mypost => <Myposts massage={mypost.post}
+    let mypostElement = posts.map(mypost => <Myposts massage={mypost.post}
                                                                 id={mypost.id}
                                                                 key={mypost.id}/>
     );
@@ -38,7 +45,7 @@ const Infoblock =React.memo(props => {
     return (
         <div>
             <img className={c.img} src="https://www.goldmansachs.com/worldwide/banner-img-1200x200.jpg" alt="" />
-            <Infoperson savePhoto={props.savePhoto} isOwner={props.isOwner}  profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>
+            <Infoperson savePhoto={props.savePhoto} isOwner={isOwner}  profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>
             <div className={c.inputpost}>
                 <PostReduxForm onSubmit={addNewPost}/>
                 {/*<textarea onChange={ onPostChange }  value={newPostElement}

@@ -32,7 +32,12 @@ let initialState = {
 
 export type InitialStateType = typeof initialState
 
-const messagesPageReducer = (state = initialState, action: any): InitialStateType => {//принимаем тот state, который необходим данной функции reducer
+export type AddMessageActionType = {
+    type: typeof ADD_MESSAGE
+    addNewMessageBody: string
+}
+
+const messagesPageReducer = (state = initialState, action: AddMessageActionType): InitialStateType => {//принимаем тот state, который необходим данной функции reducer
     //let stateCopy;
     switch (action.type) {
         case ADD_MESSAGE: {
@@ -62,11 +67,6 @@ const messagesPageReducer = (state = initialState, action: any): InitialStateTyp
             return state;
     }
 };
-
-export type AddMessageActionType = {
-    type: typeof ADD_MESSAGE
-    addNewMessageBody: string
-}
 
 export const addMessage =(addNewMessageBody: string): AddMessageActionType => ({type: ADD_MESSAGE, addNewMessageBody});
 export default messagesPageReducer;

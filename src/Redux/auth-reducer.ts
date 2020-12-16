@@ -1,77 +1,83 @@
 // import userPhoto from '../assets/images/avatar.jpg';
-import {authAPI} from "../API/api";
-import {stopSubmit} from "redux-form";
+import {authAPI} from '../API/api'
+import {stopSubmit} from 'redux-form'
+import {ThunkAction} from "redux-thunk";
+import {AppStateType} from "./redux-store";
 
 const SET_AUTH_USER_DATA = 'SET_AUTH_USER_DATA'
 
-
-
 let inintialState = {
-    userId: null as string | null,
+    userId: null as number | null,
     email: null as string | null,
     login: null as string | null,
-    isAuth: false,
+    isAuth: false
 }
 
 export type InitialStateType = typeof inintialState
 let initialState: InitialStateType
 
+export type SetAuthUserDataActionType = {
+    type: typeof SET_AUTH_USER_DATA
+    payload: {
+        userId: number | null
+        email: string | null
+        login: string | null
+        isAuth: boolean
+    }
+}
 
-const authReducer =(state = initialState, action: any): InitialStateType => {
+const authReducer =(state = initialState, action: SetAuthUserDataActionType): InitialStateType => {
     switch (action.type) {
         case SET_AUTH_USER_DATA: {
             return {
                 userId: 123,
                 ...state,
-                ...action.payLoad
+                ...action.payload
             }
         }
         default:
-            return state;
-    }
-};
-
-export type SetAuthUserDataActionType = {
-    type: typeof SET_AUTH_USER_DATA
-    payload: {
-        userId: string | number | null
-        email: string | null
-        login: string | null
-        isAuth: boolean | null
+            return state
     }
 }
 
 const setAuthUserData = (
-    userId: string | number | null,
+    userId:  number | null,
     email: string | null,
     login: string | null,
-    isAuth: boolean | null
+    isAuth: boolean
 ): SetAuthUserDataActionType => ({
         type: SET_AUTH_USER_DATA,
         payload: {userId, email, login, isAuth}
-    });
+    })
 
-export const getAuth = ()=> async (dispatch)=> {
-    let data = await authAPI.getAuthMe()
-    if(data.resultCode === 0) {
-        let {userId, email, login} = data.data;//деструктуризация
-        dispatch(setAuthUserData(userId, email, login, true));
+type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, SetAuthUserDataActionType>
+
+export const getAuth = (): ThunkType => async (dispatch)=> {
+    try {
+        let data = await authAPI.getAuthMe()
+        if(data.resultCode === 0) {
+            let {userId, email, login} = data.data;//деструктуризация
+            dispatch(setAuthUserData(userId, email, login, true))
+        }
+    } catch (e) {
+        console.error(e.message)
     }
 }
 
-export const login = (email: string | null, password: string | null, rememberMe: any) => async (dispatch: any) => {
+export const login = (email: string | null, password: string | null, rememberMe: any): ThunkType => async (dispatch) => {
     let data = await authAPI.login(email, password, rememberMe)
     if (data.resultCode === 0) {
         dispatch(setAuthUserData(email, password, rememberMe, false))
     } else {
-        let message = data.messages.length > 0 ? data.messages[0] : "Some error"
-        dispatch(stopSubmit("login", {email: message}))
+        let message = data.messages.length > 0 ? data.messages[0] : 'Some error'
+        dispatch(stopSubmit('login', {email: message}))
     }
-};
-export const logout =()=> async (dispatch) => {
+}
+
+export const logout = (): ThunkType => async (dispatch) => {
     let data = await authAPI.logout()
     if(data.resultCode === 0) {
-        dispatch(setAuthUserData(null, null, null, false));
+        dispatch(setAuthUserData(null, null, null, false))
     }
 }
 

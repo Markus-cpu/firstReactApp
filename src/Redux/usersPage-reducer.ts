@@ -151,7 +151,7 @@ export const requestUsers = (requestPage: number, pageSize: number): ThunkType =
         dispatch(toggleIsFetching(true));
         dispatch(setCurrentPage(requestPage));
         //в данной функции происходит get-запрос на сервер
-        //мы ее экспортируем из api.js
+        //мы ее экспортируем из api.ts
         //она возвращает нам promise(обещание)
         //затем(then) мы этот ответ(response) диспатчим в store
         let data = await usersAPI.getUsers(requestPage, pageSize)

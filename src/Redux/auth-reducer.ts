@@ -4,17 +4,18 @@ import {stopSubmit} from 'redux-form'
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "./redux-store";
 
+// Action type
 const SET_AUTH_USER_DATA = 'SET_AUTH_USER_DATA'
 
-let inintialState = {
+// State
+let initialState = {
     userId: null as number | null,
     email: null as string | null,
     login: null as string | null,
     isAuth: false
 }
 
-export type InitialStateType = typeof inintialState
-let initialState: InitialStateType
+export type InitialStateType = typeof initialState
 
 export type SetAuthUserDataActionType = {
     type: typeof SET_AUTH_USER_DATA
@@ -56,20 +57,23 @@ export const getAuth = (): ThunkType => async (dispatch)=> {
     try {
         let data = await authAPI.getAuthMe()
         if(data.resultCode === 0) {
-            let {userId, email, login} = data.data;//деструктуризация
-            dispatch(setAuthUserData(userId, email, login, true))
+            let {id, email, login} = data.data;//деструктуризация
+            dispatch(setAuthUserData(id, email, login, true))
         }
     } catch (e) {
         console.error(e.message)
     }
 }
 
-export const login = (email: string | null, password: string | null, rememberMe: any): ThunkType => async (dispatch) => {
+export const login = (email: string | null, password: string | null, rememberMe: boolean): ThunkType => async (dispatch) => {
     let data = await authAPI.login(email, password, rememberMe)
     if (data.resultCode === 0) {
+        let { email, password, rememberMe } = data.data
+
         dispatch(setAuthUserData(email, password, rememberMe, false))
     } else {
         let message = data.messages.length > 0 ? data.messages[0] : 'Some error'
+        //@ts-ignore
         dispatch(stopSubmit('login', {email: message}))
     }
 }

@@ -1,15 +1,15 @@
-import React, {Component, Suspense, lazy} from 'react';
-import './App.css';
-import Sidebar from './components/Sidebar/Sidebar';
-import Home from './components/Home/Home';
-import {HashRouter, Route, Switch, withRouter} from "react-router-dom";
-import HeaderContainer from "./components/Header/HeaderContainer";
-import {compose} from "redux";
-import {connect, Provider} from "react-redux";
-import {initializeApp} from "./Redux/app-reducer";
-import Preloader from "./components/Preloader/Preloader";
-import store from "./Redux/redux-store";
-import ErrorBoundary from "./components/commonComponents/ErrorBoundary";
+import React, {Component, Suspense, lazy} from 'react'
+import './App.css'
+import Sidebar from './components/Sidebar/Sidebar'
+import Home from './components/Home/Home'
+import {HashRouter, Route, Switch, withRouter} from 'react-router-dom'
+import HeaderContainer from './components/Header/HeaderContainer'
+import {compose} from 'redux'
+import {connect, Provider} from 'react-redux'
+import {initializeApp} from './Redux/app-reducer'
+import Preloader from './components/Preloader/Preloader'
+import store from './Redux/redux-store'
+import ErrorBoundary from './components/commonComponents/ErrorBoundary'
 
 //Ленивая загрузка компонент
 const DialogsContainer = lazy(()=> import('./components/Dialogs/DialogsContainer'))
@@ -22,7 +22,7 @@ const Email = lazy(()=> import('./components/Email/Email'))
 class App extends Component {
     componentDidMount = () => {
         this.props.initializeApp();//инициализация приложения
-    };
+    }
     render() {
         if(this.props.initialized === true) {
             return <Preloader />

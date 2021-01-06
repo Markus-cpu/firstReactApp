@@ -16,7 +16,7 @@
     "@types/react-router-dom": "^5.1.6",
     "@types/redux-form": "^8.3.1",
     "@typescript-eslint/parser": "^4.9.1",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "bootstrap": "^4.5.2",
     "bootstrap-less": "^3.3.8",
     "flux": "^3.1.3",
